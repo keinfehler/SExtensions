@@ -77,8 +77,14 @@ namespace SExtensions
 
                     if (!Directory.Exists(OutputDirectory))
                         Directory.CreateDirectory(OutputDirectory);
-                    
-                    File.Copy(key.FullName, OutputDirectory);
+
+                    var copyName  = System.IO.Path.Combine(OutputDirectory, key.Name);
+
+                    if (File.Exists(copyName))
+                        File.Delete(copyName);
+
+                    File.Copy(key.FullName, copyName);
+
                     //string draftFileName1 = CSAHelpers.GetDraftFileName(key.FullName);
                     //string draftFileName2 = CSAHelpers.GetDraftFileName(nameInUserFolder);
                     //if (key.Type == SolidEdgeFramework.DocumentTypeConstants.igAssemblyDocument)

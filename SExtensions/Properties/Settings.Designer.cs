@@ -25,7 +25,7 @@ namespace SExtensions.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\WorkingSE\\SExtensions\\SExtensions\\SExtensions\\bin\\Debug\\Output")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\WorkingGIT\\keinfehler\\Ocurrencias\\PRUEBA\\SALIDA")]
         public string DirectorioSalida {
             get {
                 return ((string)(this["DirectorioSalida"]));

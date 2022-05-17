@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="DirectorioSalida" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\WorkingSE\SExtensions\SExtensions\SExtensions\bin\Debug\Output</Value>
+      <Value Profile="(Default)">C:\WorkingGIT\keinfehler\Ocurrencias\PRUEBA\SALIDA</Value>
     </Setting>
   </Settings>
 </SettingsFile>
