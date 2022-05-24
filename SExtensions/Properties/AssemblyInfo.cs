@@ -1,9 +1,9 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using SolidEdgeCommunity.AddIn;
+using System.Reflection;
 using System.Runtime.InteropServices;
-using SolidEdgeCommunity.AddIn;
 
 [assembly: NativeResource(1, @"res\Boxes_32.png")]
+[assembly: NativeResource(2, @"res\excel.png")]
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.

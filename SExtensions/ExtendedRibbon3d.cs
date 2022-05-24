@@ -24,6 +24,9 @@ namespace SExtensions
                 case 0:
                     ExtendedCommands.AddCopyPlus(_ribbonRadioButton.Checked);
                     break;
+                case 2:
+                    Helpers.FindOccurrencesAndExport();
+                    break;
                 default:
                     break;
             }
