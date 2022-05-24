@@ -14,7 +14,7 @@ namespace SExtensions
 {
     public static class Helpers
     {
-        public static Dictionary<string, Tuple<Occurrence, int>> InternalUniqueOcurrences { get; set; } =  new Dictionary<string, Tuple<Occurrence, int>>();
+        public static Dictionary<string, Tuple<Occurrence, int, string>> InternalUniqueOcurrences { get; set; } =  new Dictionary<string, Tuple<Occurrence, int, string>>();
         public static void FindOccurrencesAndExport()
         {
             var start = DateTime.Now;
@@ -48,6 +48,10 @@ namespace SExtensions
 
                 //    MessageBox.Show(ex.Message);
                 //}
+                if (OutputPath == null)
+                {
+                    return;
+                }
                 Process.Start(OutputPath);
                 End();
 
@@ -69,13 +73,40 @@ namespace SExtensions
                 var ws = wbook.Worksheet("1");
                 var columnNames = new string[] { "Tipo Pieza", "Cantidad", "Código", "RV", "Nº Articulo", "Descripción", "Material", "Ref Comercial", "Nombre Archivo" };
 
-                var data = InternalUniqueOcurrences
-                            .Where(o => !o.Value.Item1.FileMissing())
-                            .Where(o => o.Value.Item1 is Occurrence)
-                            .Select(o => new { FileName = System.IO.Path.GetFileName(o.Value.Item1.OccurrenceFileName), D = o.Value.Item1.OccurrenceDocument as SolidEdgeDocument, O = ((SolidEdgeDocument)o.Value.Item1.OccurrenceDocument).SummaryInfo as SummaryInfo, Qty = o.Value.Item2 })
-                            .Select(o => new[] { o.O.Category, o.Qty.ToString(), o.O.DocumentNumber, o.O.RevisionNumber, o.O.Keywords, o.O.Title, GetMaterial(o.D), o.O.Comments.Trim(), o.FileName })
-                            .ToArray();
+                var filteredData = InternalUniqueOcurrences.Where(o => !o.Value.Item1.FileMissing())
+                                                           .Where(o => o.Value.Item1 is Occurrence).ToList();
 
+                string[][] data = null;
+
+                var test = filteredData.Select(o => new
+                {
+                    FileName = System.IO.Path.GetFileName(o.Value.Item1.OccurrenceFileName),
+                    Material = o.Value.Item3,
+                    O = (SummaryInfo)((SolidEdgeDocument)o.Value.Item1.OccurrenceDocument).SummaryInfo,
+                    Qty = o.Value.Item2
+
+                }).ToList();
+
+                data = test.Select(o => new[]
+                                { 
+                                    o.O.Category,
+                                    o.Qty.ToString(),
+                                    o.O.DocumentNumber, 
+                                    o.O.RevisionNumber,
+                                    o.O.Keywords, 
+                                    o.O.Title, 
+                                    o.Material,
+                                    o.O.Comments.Trim(), 
+                                    o.FileName 
+
+                                }).ToArray();
+
+
+                if (data == null)
+                {
+                    return;
+                }
+                
                 int col = 1;
                 foreach (var item in columnNames)
                 {
@@ -148,40 +179,64 @@ namespace SExtensions
 
                 // If the dictionary does not already contain the occurrence, add it.
                 if (!InternalUniqueOcurrences.ContainsKey(lowerFileName))
-                    InternalUniqueOcurrences.Add(lowerFileName, Tuple.Create(occurrence, 1));
+                    InternalUniqueOcurrences.Add(lowerFileName, Tuple.Create(occurrence, 1, GetMaterial(occurrence.OccurrenceDocument)));
                 else
-                    InternalUniqueOcurrences[lowerFileName] = Tuple.Create(InternalUniqueOcurrences[lowerFileName].Item1, InternalUniqueOcurrences[lowerFileName].Item2 + 1);
+                    InternalUniqueOcurrences[lowerFileName] = Tuple.Create(InternalUniqueOcurrences[lowerFileName].Item1, InternalUniqueOcurrences[lowerFileName].Item2 + 1, InternalUniqueOcurrences[lowerFileName].Item3); 
 
+                
                 if (occurrence.Subassembly)
                     FillOccurrence(occurrence.OccurrenceDocument as AssemblyDocument);
             }
         }
 
-        static string GetMaterial(SolidEdgeDocument document)
+        static string GetMaterial(object obj)
         {
-            PropertySets pps = null;
 
-            pps = document.Properties as SolidEdgeFramework.PropertySets;
+            SolidEdgeDocument document = null;
 
-            if (pps != null)
+            if (obj is SolidEdgeDocument)
             {
-                SolidEdgeFramework.Properties mproperties = null;
+                document = obj as SolidEdgeDocument;
+            }
 
-                mproperties = pps.Item(7);
+            if (document == null)
+            {
+                return string.Empty;
+            }
 
-                if (mproperties != null)
+            try
+            {
+                PropertySets pps = null;
+
+                pps = document.Properties as PropertySets;
+
+                if (pps != null)
                 {
-                    Property p = null;
-                    p = mproperties.Item(1);
+                    SolidEdgeFramework.Properties mproperties = null;
 
+                    mproperties = pps.Item(7);
 
-                    if (p != null)
+                    if (mproperties != null)
                     {
-                        var m = p.get_Value();
-                        return m?.ToString();
+                        Property p = null;
+                        p = mproperties.Item(1);
+
+
+                        if (p != null)
+                        {
+                            var m = p?.get_Value();
+                            return m?.ToString();
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                return string.Empty;
+                //MessageBox.Show(ex.Message);
+            }
+
+           
             return string.Empty;
         }
     }
