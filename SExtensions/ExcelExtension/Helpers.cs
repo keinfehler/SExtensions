@@ -3,6 +3,7 @@ using SolidEdgeAssembly;
 using SolidEdgeCommunity.AddIn;
 using SolidEdgeCommunity.Extensions; // https://github.com/SolidEdgeCommunity/SolidEdge.Community/wiki/Using-Extension-Methods
 using SolidEdgeFramework;
+using SolidEdgePart;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +15,7 @@ namespace SExtensions
 {
     public static class Helpers
     {
-        public static Dictionary<string, Tuple<Occurrence, int, string>> InternalUniqueOcurrences { get; set; } =  new Dictionary<string, Tuple<Occurrence, int, string>>();
+        public static Dictionary<string, Tuple<SolidEdgeDocument, int, string>> InternalUniqueOcurrences { get; set; } =  new Dictionary<string, Tuple<SolidEdgeDocument, int, string>>();
         public static void FindOccurrencesAndExport()
         {
             var start = DateTime.Now;
@@ -26,37 +27,16 @@ namespace SExtensions
 
             if (assemblyDocument != null)
             {
-                //get occurrences and fill into a dictionary with a counter
+               
                 FillOccurrence(assemblyDocument);
 
-                //get occurrences from dictionary and write in a excel file
                 ExportOccurrences(System.IO.Path.GetFileNameWithoutExtension(assemblyDocument.FullName));
 
-                var end = DateTime.Now;
-
-                //MessageBox.Show("Fin" + end.Subtract(start).ToString());
-
-                //try
-                //{
-                //    ProcessStartInfo startInfo = new ProcessStartInfo();
-                //    startInfo.FileName = "EXCEL.EXE";
-                //    startInfo.Arguments = OutputPath;
-                //    Process.Start(startInfo);
-                //}
-                //catch (Exception ex)
-                //{
-
-                //    MessageBox.Show(ex.Message);
-                //}
                 if (OutputPath == null)
-                {
                     return;
-                }
+
                 Process.Start(OutputPath);
                 End();
-
-                //Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
-                //Microsoft.Office.Interop.Excel.Workbook wb = excel.Workbooks.Open(OutputPath);
             }
                 
             else
@@ -73,16 +53,15 @@ namespace SExtensions
                 var ws = wbook.Worksheet("1");
                 var columnNames = new string[] { "Tipo Pieza", "Cantidad", "Código", "RV", "Nº Articulo", "Descripción", "Material", "Ref Comercial", "Nombre Archivo" };
 
-                var filteredData = InternalUniqueOcurrences.Where(o => !o.Value.Item1.FileMissing())
-                                                           .Where(o => o.Value.Item1 is Occurrence).ToList();
+                var filteredData = InternalUniqueOcurrences.ToList();
 
                 string[][] data = null;
 
                 var test = filteredData.Select(o => new
                 {
-                    FileName = System.IO.Path.GetFileName(o.Value.Item1.OccurrenceFileName),
+                    FileName = System.IO.Path.GetFileName(o.Value.Item1.FullName),
                     Material = o.Value.Item3,
-                    O = (SummaryInfo)((SolidEdgeDocument)o.Value.Item1.OccurrenceDocument).SummaryInfo,
+                    O = o.Value.Item1.SummaryInfo as SummaryInfo,
                     Qty = o.Value.Item2
 
                 }).ToList();
@@ -159,7 +138,16 @@ namespace SExtensions
             InternalUniqueOcurrences.Clear();
             OutputPath = null;
         }
-       
+
+        
+        static void UpdateDictionary(string lowerFileName, SolidEdgeDocument solidEdgeDocument)
+        {
+            lowerFileName = lowerFileName.ToLower();
+            if (!InternalUniqueOcurrences.ContainsKey(lowerFileName))
+                InternalUniqueOcurrences.Add(lowerFileName, Tuple.Create(solidEdgeDocument, 1, GetMaterial(solidEdgeDocument)));
+            else
+                InternalUniqueOcurrences[lowerFileName] = Tuple.Create(InternalUniqueOcurrences[lowerFileName].Item1, InternalUniqueOcurrences[lowerFileName].Item2 + 1, InternalUniqueOcurrences[lowerFileName].Item3);
+        }
 
         static void FillOccurrence(AssemblyDocument assemblyDocument)
         {
@@ -167,26 +155,76 @@ namespace SExtensions
                 return;
 
 
-            foreach (Occurrence occurrence in assemblyDocument.Occurrences)
+            foreach (var occ in assemblyDocument.Occurrences)
             {
+                Occurrence occurrence = null;
+
+                if (occ is Occurrence)
+                {
+                    occurrence = occ as Occurrence;
+                }
+
+                if (occ == null) { continue; }
+
+                if (occurrence.FileMissing()) { continue; }
                 // Filter out certain occurrences.
                 if (!occurrence.IncludeInBom) { continue; }
                 if (occurrence.IsPatternItem) { continue; }
                 if (occurrence.OccurrenceDocument == null) { continue; }
 
-                // To make sure nothing silly happens with our dictionary key, force the file path to lowercase.
-                var lowerFileName = occurrence.OccurrenceFileName.ToLower();
+                var doc = occurrence.OccurrenceDocument;
+                if (doc is SolidEdgeDocument)
+                {
+                    // To make sure nothing silly happens with our dictionary key, force the file path to lowercase.
+                    var solidEdgeDocument = doc as SolidEdgeDocument;
+                    UpdateDictionary(occurrence.OccurrenceFileName, solidEdgeDocument);
 
-                // If the dictionary does not already contain the occurrence, add it.
-                if (!InternalUniqueOcurrences.ContainsKey(lowerFileName))
-                    InternalUniqueOcurrences.Add(lowerFileName, Tuple.Create(occurrence, 1, GetMaterial(occurrence.OccurrenceDocument)));
-                else
-                    InternalUniqueOcurrences[lowerFileName] = Tuple.Create(InternalUniqueOcurrences[lowerFileName].Item1, InternalUniqueOcurrences[lowerFileName].Item2 + 1, InternalUniqueOcurrences[lowerFileName].Item3); 
 
-                
+                }
+                else if(doc is WeldmentDocument)
+                {
+                    var wdoc = doc as WeldmentDocument;
+                    var vmodels = wdoc.WeldmentModels as WeldmentModels;
+                    if (vmodels != null)
+                    {
+                        var i = vmodels.Item(1);
+                        if (i != null)
+                        {
+                            var parts = i.PartModels;
+
+                            foreach (WeldPartModel part in parts)
+                            {
+                                var path = part.FileName;
+                                UpdateDictionary(path, GetDocument(path));
+                            }
+                        }
+                    }
+                }
+
+
                 if (occurrence.Subassembly)
                     FillOccurrence(occurrence.OccurrenceDocument as AssemblyDocument);
+                
             }
+        }
+
+        static SolidEdgeDocument GetDocument(string path)
+        {
+            SolidEdgeDocument d = null;
+            try
+            {
+                var app = SolidEdgeAddIn.Instance.Application;
+                d = app.Documents.Open(path) as SolidEdgeDocument;
+
+                
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+          
+            return d;
         }
 
         static string GetMaterial(object obj)
