@@ -173,15 +173,15 @@ namespace SExtensions
                 if (occurrence.OccurrenceDocument == null) { continue; }
 
                 var doc = occurrence.OccurrenceDocument;
+
                 if (doc is SolidEdgeDocument)
                 {
                     // To make sure nothing silly happens with our dictionary key, force the file path to lowercase.
                     var solidEdgeDocument = doc as SolidEdgeDocument;
                     UpdateDictionary(occurrence.OccurrenceFileName, solidEdgeDocument);
-
-
                 }
-                else if(doc is WeldmentDocument)
+
+                if (doc is WeldmentDocument)
                 {
                     var wdoc = doc as WeldmentDocument;
                     var vmodels = wdoc.WeldmentModels as WeldmentModels;
@@ -200,8 +200,7 @@ namespace SExtensions
                         }
                     }
                 }
-
-
+                
                 if (occurrence.Subassembly)
                     FillOccurrence(occurrence.OccurrenceDocument as AssemblyDocument);
                 
@@ -214,7 +213,7 @@ namespace SExtensions
             try
             {
                 var app = SolidEdgeAddIn.Instance.Application;
-                d = app.Documents.Open(path) as SolidEdgeDocument;
+                d = app.Documents.OpenInBackground<SolidEdgeDocument>(path);
 
                 
             }
