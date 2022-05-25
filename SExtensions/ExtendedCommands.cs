@@ -103,27 +103,27 @@ namespace SExtensions
                     //{
                     //    int num2 = (int)MessageBox.Show("Nuevos ficheros:" + System.Environment.NewLine + "Nuevo fichero: '" + nameInUserFolder + "'" + System.Environment.NewLine + "Nuevo fichero Plano: '" + draftFileName2 + "'" + System.Environment.NewLine, "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     //}
-            //        string empty2 = string.Empty;
-            //        switch (key.Type)
-            //        {
-            //            case SolidEdgeFramework.DocumentTypeConstants.igPartDocument:
-            //                ((PartDocument)key).GetInContextAssemblyNameForInterpartLinks(ref empty2);
-            //                break;
-            //            case SolidEdgeFramework.DocumentTypeConstants.igAssemblyDocument:
-            //                ((AssemblyDocument)key).GetInContextAssemblyNameForInterpartLinks(ref empty2);
-            //                break;
-            //            case SolidEdgeFramework.DocumentTypeConstants.igSheetMetalDocument:
-            //                ((SheetMetalDocument)key).GetInContextAssemblyNameForInterpartLinks(ref empty2);
-            //                break;
-            //        }
-            //        if (!string.IsNullOrEmpty(empty2))
-            //            CSACustomCommands.RedefineLinks(nameInUserFolder, CSAHelpers.GetUNCPath(empty2), CSAHelpers.GetUNCPath(((SolidEdgeDocument)SolidEdgeAddIn.Instance.Application.ActiveDocument).FullName));
-            //        foreach (Occurrence occurrence in (IEnumerable<Occurrence>)selectedOccurrence)
-            //            processOccurrenceWithNewModel(occurrence, nameInUserFolder);
-             }
-              catch (Exception ex)
+                    //        string empty2 = string.Empty;
+                    //        switch (key.Type)
+                    //        {
+                    //            case SolidEdgeFramework.DocumentTypeConstants.igPartDocument:
+                    //                ((PartDocument)key).GetInContextAssemblyNameForInterpartLinks(ref empty2);
+                    //                break;
+                    //            case SolidEdgeFramework.DocumentTypeConstants.igAssemblyDocument:
+                    //                ((AssemblyDocument)key).GetInContextAssemblyNameForInterpartLinks(ref empty2);
+                    //                break;
+                    //            case SolidEdgeFramework.DocumentTypeConstants.igSheetMetalDocument:
+                    //                ((SheetMetalDocument)key).GetInContextAssemblyNameForInterpartLinks(ref empty2);
+                    //                break;
+                    //        }
+                    //        if (!string.IsNullOrEmpty(empty2))
+                    //            CSACustomCommands.RedefineLinks(nameInUserFolder, CSAHelpers.GetUNCPath(empty2), CSAHelpers.GetUNCPath(((SolidEdgeDocument)SolidEdgeAddIn.Instance.Application.ActiveDocument).FullName));
+                    //        foreach (Occurrence occurrence in (IEnumerable<Occurrence>)selectedOccurrence)
+                    //            processOccurrenceWithNewModel(occurrence, nameInUserFolder);
+                }
+                catch (Exception ex)
                 {
-                //        int num = (int)MessageBox.Show(ex.Message + System.Environment.NewLine + System.Environment.NewLine + ex.StackTrace);
+                    //        int num = (int)MessageBox.Show(ex.Message + System.Environment.NewLine + System.Environment.NewLine + ex.StackTrace);
                 }
             }
             //if (CSACustomCommands.dmApp == null)

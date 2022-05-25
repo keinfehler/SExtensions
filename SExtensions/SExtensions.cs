@@ -1,12 +1,7 @@
-﻿using SolidEdgeCommunity.Extensions;
-using SolidEdgeFramework;
+﻿using SolidEdgeFramework;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SExtensions
@@ -110,12 +105,12 @@ namespace SExtensions
         public override void OnCreateRibbon(SolidEdgeCommunity.AddIn.RibbonController controller, Guid environmentCategory, bool firstTime)
         {
             // Depending on environment, you may or may not want to load different ribbons.
-            
-           
+
+
             ///if (environmentCategory.Equals(SolidEdgeSDK.EnvironmentCategories.Assembly))
             //{
-                // Assembly Environment
-                controller.Add<ExtendedRibbon3d>(environmentCategory, firstTime);
+            // Assembly Environment
+            controller.Add<ExtendedRibbon3d>(environmentCategory, firstTime);
             //}
             //else if (environmentCategory.Equals(SolidEdgeSDK.EnvironmentCategories.Draft))
             //{

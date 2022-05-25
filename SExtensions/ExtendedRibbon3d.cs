@@ -33,6 +33,6 @@ namespace SExtensions
             base.OnControlClick(control);
         }
 
-            
+
     }
 }

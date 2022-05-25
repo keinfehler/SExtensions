@@ -56,6 +56,9 @@
     <Reference Include="SolidEdge.Community.AddIn, Version=219.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SolidEdge.Community.AddIn.219.0.0\lib\net40\SolidEdge.Community.AddIn.dll</HintPath>
     </Reference>
+    <Reference Include="SolidEdge.Community.Reader, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SolidEdge.Community.Reader.2.0.0\lib\net40\SolidEdge.Community.Reader.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -67,7 +70,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExcelExtension\BomItem.cs" />
     <Compile Include="ExtendedCommands.cs" />
     <Compile Include="ExtendedRibbon3d.cs" />
     <Compile Include="ExcelExtension\Helpers.cs" />

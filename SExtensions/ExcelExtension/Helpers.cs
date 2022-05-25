@@ -2,6 +2,7 @@
 using SolidEdgeAssembly;
 using SolidEdgeCommunity.AddIn;
 using SolidEdgeCommunity.Extensions; // https://github.com/SolidEdgeCommunity/SolidEdge.Community/wiki/Using-Extension-Methods
+
 using SolidEdgeFramework;
 using SolidEdgePart;
 using System;
@@ -15,7 +16,7 @@ namespace SExtensions
 {
     public static class Helpers
     {
-        public static Dictionary<string, Tuple<SolidEdgeDocument, int, string>> InternalUniqueOcurrences { get; set; } =  new Dictionary<string, Tuple<SolidEdgeDocument, int, string>>();
+        public static Dictionary<string, Tuple<SolidEdgeDocument, int, string>> InternalUniqueOcurrences { get; set; } = new Dictionary<string, Tuple<SolidEdgeDocument, int, string>>();
         public static void FindOccurrencesAndExport()
         {
             var start = DateTime.Now;
@@ -27,7 +28,7 @@ namespace SExtensions
 
             if (assemblyDocument != null)
             {
-               
+
                 FillOccurrence(assemblyDocument);
 
                 ExportOccurrences(System.IO.Path.GetFileNameWithoutExtension(assemblyDocument.FullName));
@@ -38,7 +39,7 @@ namespace SExtensions
                 Process.Start(OutputPath);
                 End();
             }
-                
+
             else
                 MessageBox.Show("Not a assembly document opened");
         }
@@ -67,16 +68,16 @@ namespace SExtensions
                 }).ToList();
 
                 data = test.Select(o => new[]
-                                { 
+                                {
                                     o.O.Category,
                                     o.Qty.ToString(),
-                                    o.O.DocumentNumber, 
+                                    o.O.DocumentNumber,
                                     o.O.RevisionNumber,
-                                    o.O.Keywords, 
-                                    o.O.Title, 
+                                    o.O.Keywords,
+                                    o.O.Title,
                                     o.Material,
-                                    o.O.Comments.Trim(), 
-                                    o.FileName 
+                                    o.O.Comments.Trim(),
+                                    o.FileName
 
                                 }).ToArray();
 
@@ -85,7 +86,7 @@ namespace SExtensions
                 {
                     return;
                 }
-                
+
                 int col = 1;
                 foreach (var item in columnNames)
                 {
@@ -114,9 +115,10 @@ namespace SExtensions
                         MessageBox.Show(ex.Message);
                         End();
 
-                    }finally
+                    }
+                    finally
                     {
-                        
+
                     }
                 }
 
@@ -130,7 +132,7 @@ namespace SExtensions
             }
             finally
             {
-                
+
             }
         }
         static void End()
@@ -139,7 +141,7 @@ namespace SExtensions
             OutputPath = null;
         }
 
-        
+
         static void UpdateDictionary(string lowerFileName, SolidEdgeDocument solidEdgeDocument)
         {
             lowerFileName = lowerFileName.ToLower();
@@ -164,19 +166,34 @@ namespace SExtensions
                     occurrence = occ as Occurrence;
                 }
 
-                if (occ == null) { continue; }
+                if (occ == null) 
+                {
+                    continue; 
+                }
 
-                if (occurrence.FileMissing()) { continue; }
+
+                if (occurrence.FileMissing())
+                {
+                    continue;
+                }
                 // Filter out certain occurrences.
-                if (!occurrence.IncludeInBom) { continue; }
-                if (occurrence.IsPatternItem) { continue; }
-                if (occurrence.OccurrenceDocument == null) { continue; }
+                if (!occurrence.IncludeInBom)
+                {
+                    continue;
+                }
+                if (occurrence.IsPatternItem)
+                {
+                    continue;
+                }
+                if (occurrence.OccurrenceDocument == null)
+                {
+                    continue;
+                }
 
                 var doc = occurrence.OccurrenceDocument;
 
                 if (doc is SolidEdgeDocument)
                 {
-                    // To make sure nothing silly happens with our dictionary key, force the file path to lowercase.
                     var solidEdgeDocument = doc as SolidEdgeDocument;
                     UpdateDictionary(occurrence.OccurrenceFileName, solidEdgeDocument);
                 }
@@ -195,34 +212,42 @@ namespace SExtensions
                             foreach (WeldPartModel part in parts)
                             {
                                 var path = part.FileName;
-                                UpdateDictionary(path, GetDocument(path));
+                                var wd = GetDocument(path, assemblyDocument);
+                                if (wd == null)
+                                {
+                                    continue;
+                                }
+                                UpdateDictionary(path, wd);
                             }
+
+
                         }
                     }
                 }
-                
+
                 if (occurrence.Subassembly)
                     FillOccurrence(occurrence.OccurrenceDocument as AssemblyDocument);
-                
+
             }
         }
 
-        static SolidEdgeDocument GetDocument(string path)
+        static SolidEdgeDocument GetDocument(string path, AssemblyDocument assembly)
         {
             SolidEdgeDocument d = null;
             try
             {
-                var app = SolidEdgeAddIn.Instance.Application;
-                d = app.Documents.OpenInBackground<SolidEdgeDocument>(path);
-
-                
+                var occurrence = assembly.Occurrences.OfType<Occurrence>().FirstOrDefault(o => o.OccurrenceFileName == path);
+                if (occurrence != null)
+                {
+                    d = occurrence.OccurrenceDocument as SolidEdgeDocument;
+                }
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(ex.Message);
             }
-          
+
             return d;
         }
 
@@ -273,7 +298,7 @@ namespace SExtensions
                 //MessageBox.Show(ex.Message);
             }
 
-           
+
             return string.Empty;
         }
     }
