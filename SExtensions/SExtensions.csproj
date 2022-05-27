@@ -125,6 +125,9 @@
     <Content Include="res\Save_16x16.png" />
     <Content Include="res\Search_32x32.png" />
     <Content Include="res\Tools_32x32.png" />
+    <Content Include="SE_Addin_Installer.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="res\excel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
