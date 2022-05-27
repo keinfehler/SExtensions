@@ -2,8 +2,27 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: NativeResource(1, @"res\Boxes_32.png")]
 [assembly: NativeResource(2, @"res\excel.png")]
+[assembly: NativeResource(3, @"res\Help_32x32.png")]
+[assembly: NativeResource(1, @"res\EdgeBar_20x20.png")]
+[assembly: NativeResource(100, @"res\BoundingBox_32.png")]
+[assembly: NativeResource(101, @"res\Box_32x32.png")]
+[assembly: NativeResource(102, @"res\Boxes_32.png")]
+[assembly: NativeResource(103, @"res\Camera_32x32.png")]
+[assembly: NativeResource(104, @"res\CommandPrompt_32x32.png")]
+[assembly: NativeResource(105, @"res\Favorites_32x32.png")]
+[assembly: NativeResource(106, @"res\Folder_16x16.png")]
+[assembly: NativeResource(107, @"res\GdiPlus_32.png")]
+[assembly: NativeResource(108, @"res\Help_32x32.png")]
+[assembly: NativeResource(109, @"res\Monitor_16x16.png")]
+[assembly: NativeResource(110, @"res\Notepad_32x32.png")]
+[assembly: NativeResource(111, @"res\Photograph_32x32.png")]
+[assembly: NativeResource(112, @"res\Printer_32x32.png")]
+[assembly: NativeResource(113, @"res\Question_32x32.png")]
+[assembly: NativeResource(114, @"res\Save_16x16.png")]
+[assembly: NativeResource(115, @"res\Search_32x32.png")]
+[assembly: NativeResource(116, @"res\Tools_32x32.png")]
+
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.

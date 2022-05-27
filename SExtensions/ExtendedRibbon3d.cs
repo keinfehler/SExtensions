@@ -22,10 +22,18 @@ namespace SExtensions
             switch (control.CommandId)
             {
                 case 0:
-                    ExtendedCommands.AddCopyPlus(_ribbonRadioButton.Checked);
+                    {
+                        //ExtendedCommands.AddCopyPlus(_ribbonRadioButton.Checked);
+                    }
                     break;
                 case 2:
-                    Helpers.FindOccurrencesAndExport();
+                    //Helpers.FindOccurrencesAndExport();
+                    {
+                        using (ExcelWaitingForm frm = new ExcelWaitingForm(() => Helpers.FindOccurrencesAndExport()))
+                        {
+                            frm.ShowDialog();
+                        }
+                    }
                     break;
                 default:
                     break;

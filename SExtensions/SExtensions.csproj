@@ -50,6 +50,9 @@
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="SharpGL, Version=3.1.1.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpGL.3.1.1\lib\net40\SharpGL.dll</HintPath>
+    </Reference>
     <Reference Include="SolidEdge.Community, Version=219.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SolidEdge.Community.219.0.0\lib\net40\SolidEdge.Community.dll</HintPath>
     </Reference>
@@ -61,6 +64,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -70,9 +74,16 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExcelWaitingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExcelWaitingForm.Designer.cs">
+      <DependentUpon>ExcelWaitingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExtendedCommands.cs" />
     <Compile Include="ExtendedRibbon3d.cs" />
     <Compile Include="ExcelExtension\Helpers.cs" />
+    <Compile Include="Objects\Doc.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -83,9 +94,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="SExtension.reg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
@@ -93,13 +101,32 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ExcelWaitingForm.resx">
+      <DependentUpon>ExcelWaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExtendedRibbon3d.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="res\BoundingBox_32.png" />
     <Content Include="res\Boxes_32.png" />
+    <Content Include="res\Box_32x32.png" />
+    <Content Include="res\Camera_32x32.png" />
+    <Content Include="res\CommandPrompt_32x32.png" />
+    <Content Include="res\EdgeBar_20x20.png" />
+    <Content Include="res\Favorites_32x32.png" />
+    <Content Include="res\Folder_16x16.png" />
+    <Content Include="res\GdiPlus_32.png" />
+    <Content Include="res\Help_32x32.png" />
+    <Content Include="res\Monitor_16x16.png" />
+    <Content Include="res\Notepad_32x32.png" />
+    <Content Include="res\Photograph_32x32.png" />
+    <Content Include="res\Printer_32x32.png" />
+    <Content Include="res\Question_32x32.png" />
+    <Content Include="res\Save_16x16.png" />
+    <Content Include="res\Search_32x32.png" />
+    <Content Include="res\Tools_32x32.png" />
     <EmbeddedResource Include="res\excel.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SolidEdge.Community.AddIn.219.0.0\build\net40\SolidEdge.Community.AddIn.targets" Condition="Exists('..\packages\SolidEdge.Community.AddIn.219.0.0\build\net40\SolidEdge.Community.AddIn.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

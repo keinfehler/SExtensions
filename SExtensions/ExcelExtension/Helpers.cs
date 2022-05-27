@@ -2,7 +2,6 @@
 using SolidEdgeAssembly;
 using SolidEdgeCommunity.AddIn;
 using SolidEdgeCommunity.Extensions; // https://github.com/SolidEdgeCommunity/SolidEdge.Community/wiki/Using-Extension-Methods
-
 using SolidEdgeFramework;
 using SolidEdgePart;
 using System;
@@ -10,16 +9,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SExtensions
 {
+    
+
     public static class Helpers
     {
-        public static Dictionary<string, Tuple<SolidEdgeDocument, int, string>> InternalUniqueOcurrences { get; set; } = new Dictionary<string, Tuple<SolidEdgeDocument, int, string>>();
+        public static Dictionary<string, Tuple<DocWrapper, int>> InternalUniqueOcurrences { get; set; } = new Dictionary<string, Tuple<DocWrapper, int>>();
         public static void FindOccurrencesAndExport()
         {
-            var start = DateTime.Now;
             InternalUniqueOcurrences.Clear();
             OutputPath = null;
 
@@ -30,7 +31,6 @@ namespace SExtensions
             {
 
                 FillOccurrence(assemblyDocument);
-
                 ExportOccurrences(System.IO.Path.GetFileNameWithoutExtension(assemblyDocument.FullName));
 
                 if (OutputPath == null)
@@ -42,6 +42,8 @@ namespace SExtensions
 
             else
                 MessageBox.Show("Not a assembly document opened");
+
+
         }
         public static string OutputPath { get; set; }
         private static void ExportOccurrences(string documentName)
@@ -60,9 +62,8 @@ namespace SExtensions
 
                 var test = filteredData.Select(o => new
                 {
-                    FileName = System.IO.Path.GetFileName(o.Value.Item1.FullName),
-                    Material = o.Value.Item3,
-                    O = o.Value.Item1.SummaryInfo as SummaryInfo,
+                    FileName = System.IO.Path.GetFileName(o.Key),
+                    O = o.Value.Item1,
                     Qty = o.Value.Item2
 
                 }).ToList();
@@ -75,7 +76,7 @@ namespace SExtensions
                                     o.O.RevisionNumber,
                                     o.O.Keywords,
                                     o.O.Title,
-                                    o.Material,
+                                    o.O.Material,
                                     o.O.Comments.Trim(),
                                     o.FileName
 
@@ -142,13 +143,13 @@ namespace SExtensions
         }
 
 
-        static void UpdateDictionary(string lowerFileName, SolidEdgeDocument solidEdgeDocument)
+        static void UpdateDictionary(string lowerFileName, DocWrapper solidEdgeDocument)
         {
             lowerFileName = lowerFileName.ToLower();
             if (!InternalUniqueOcurrences.ContainsKey(lowerFileName))
-                InternalUniqueOcurrences.Add(lowerFileName, Tuple.Create(solidEdgeDocument, 1, GetMaterial(solidEdgeDocument)));
+                InternalUniqueOcurrences.Add(lowerFileName, Tuple.Create(solidEdgeDocument, 1));
             else
-                InternalUniqueOcurrences[lowerFileName] = Tuple.Create(InternalUniqueOcurrences[lowerFileName].Item1, InternalUniqueOcurrences[lowerFileName].Item2 + 1, InternalUniqueOcurrences[lowerFileName].Item3);
+                InternalUniqueOcurrences[lowerFileName] = Tuple.Create(InternalUniqueOcurrences[lowerFileName].Item1, InternalUniqueOcurrences[lowerFileName].Item2 + 1);
         }
 
         static void FillOccurrence(AssemblyDocument assemblyDocument)
@@ -176,7 +177,7 @@ namespace SExtensions
                 {
                     continue;
                 }
-                // Filter out certain occurrences.
+                //Filter out certain occurrences.
                 if (!occurrence.IncludeInBom)
                 {
                     continue;
@@ -195,24 +196,33 @@ namespace SExtensions
                 if (doc is SolidEdgeDocument)
                 {
                     var solidEdgeDocument = doc as SolidEdgeDocument;
-                    UpdateDictionary(occurrence.OccurrenceFileName, solidEdgeDocument);
+
+                    if (solidEdgeDocument != null)
+                    {
+                        var summaryInfo = solidEdgeDocument.SummaryInfo as SummaryInfo;
+                        var d = new DocWrapper(summaryInfo.Category, summaryInfo.DocumentNumber, summaryInfo.RevisionNumber, summaryInfo.Keywords, summaryInfo.Title, summaryInfo.Comments, GetMaterial(solidEdgeDocument));
+                        UpdateDictionary(occurrence.OccurrenceFileName, d);
+                    }
+                  
                 }
 
                 if (doc is WeldmentDocument)
                 {
                     var wdoc = doc as WeldmentDocument;
-                    var vmodels = wdoc.WeldmentModels as WeldmentModels;
+                    var vmodels = wdoc.WeldmentModels;
                     if (vmodels != null)
                     {
                         var i = vmodels.Item(1);
                         if (i != null)
                         {
                             var parts = i.PartModels;
+                            
 
                             foreach (WeldPartModel part in parts)
                             {
                                 var path = part.FileName;
-                                var wd = GetDocument(path, assemblyDocument);
+                                
+                                var wd = GetDocument(path);
                                 if (wd == null)
                                 {
                                     continue;
@@ -231,15 +241,36 @@ namespace SExtensions
             }
         }
 
-        static SolidEdgeDocument GetDocument(string path, AssemblyDocument assembly)
+        static DocWrapper GetDocument(string path)
         {
-            SolidEdgeDocument d = null;
+            DocWrapper d = null;
             try
             {
-                var occurrence = assembly.Occurrences.OfType<Occurrence>().FirstOrDefault(o => o.OccurrenceFileName == path);
-                if (occurrence != null)
+
+                SolidEdgeCommunity.Reader.SolidEdgeDocument parDocument = null;
+
+
+                if (!InternalUniqueOcurrences.ContainsKey(path))
                 {
-                    d = occurrence.OccurrenceDocument as SolidEdgeDocument;
+                  
+                    parDocument = SolidEdgeCommunity.Reader.SolidEdgeDocument.Open(path);
+                    var summary = parDocument.SummaryInformation;
+                    var docSummary = parDocument.DocumentSummaryInformation;
+
+                    var material = parDocument?.MechanicalModeling?.Material;
+                    var projectInformation = parDocument?.ProjectInformation;
+
+                    var docNumber = projectInformation.DocumentNumber;
+                    var revisionNumber = projectInformation.Revision;
+
+                    d = new DocWrapper(docSummary.Category, docNumber, revisionNumber, summary.Keywords, summary.Title, summary.Comments, material);
+
+                  
+                    parDocument.Close();
+                }
+                else
+                {
+                    d = InternalUniqueOcurrences[path].Item1;
                 }
             }
             catch (Exception ex)
@@ -292,7 +323,7 @@ namespace SExtensions
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return string.Empty;
                 //MessageBox.Show(ex.Message);
@@ -301,5 +332,9 @@ namespace SExtensions
 
             return string.Empty;
         }
+
+       
     }
+
+
 }

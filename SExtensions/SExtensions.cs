@@ -107,11 +107,11 @@ namespace SExtensions
             // Depending on environment, you may or may not want to load different ribbons.
 
 
-            ///if (environmentCategory.Equals(SolidEdgeSDK.EnvironmentCategories.Assembly))
-            //{
-            // Assembly Environment
-            controller.Add<ExtendedRibbon3d>(environmentCategory, firstTime);
-            //}
+            if (environmentCategory.Equals(SolidEdgeSDK.EnvironmentCategories.Assembly))
+            {
+                // Assembly Environment
+                controller.Add<ExtendedRibbon3d>(environmentCategory, firstTime);
+            }
             //else if (environmentCategory.Equals(SolidEdgeSDK.EnvironmentCategories.Draft))
             //{
             //    // Draft Environment
@@ -513,12 +513,12 @@ namespace SExtensions
         #endregion
 
         #region RegAsm.exe callbacks
-
+      
         /// <summary>
         /// Called when regasm.exe is executed against the assembly.
         /// </summary>
         [ComRegisterFunction]
-        static void OnRegister(Type t)
+        public static void OnRegister(Type t)
         {
             // See http://www.codeproject.com/Articles/839585/Solid-Edge-ST-AddIn-Architecture-Overview#Registration for registration details.
             // The following code helps write registry entries that Solid Edge needs to identify an addin. You can omit this code and
@@ -560,7 +560,7 @@ namespace SExtensions
         /// Called when regasm.exe /u is executed against the assembly.
         /// </summary>
         [ComUnregisterFunction]
-        static void OnUnregister(Type t)
+        public static void OnUnregister(Type t)
         {
             SExtensions.Unregister(t);
         }
