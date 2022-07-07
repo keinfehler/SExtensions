@@ -54,7 +54,7 @@ namespace SExtensions
                 wbook.AddWorksheet("1");
 
                 var ws = wbook.Worksheet("1");
-                var columnNames = new string[] { "Tipo Pieza", "Cantidad", "Código", "RV", "Nº Articulo", "Descripción", "Material", "Ref Comercial", "Nombre Archivo" };
+                var columnNames = new string[] { "Tipo Pieza", "Cantidad", "Código", "RV", "Nº Articulo", "Descripción", "Material", "Ref Comercial", "Nombre Archivo","Ruta" };
 
                 var filteredData = InternalUniqueOcurrences.ToList();
 
@@ -64,7 +64,8 @@ namespace SExtensions
                 {
                     FileName = System.IO.Path.GetFileName(o.Key),
                     O = o.Value.Item1,
-                    Qty = o.Value.Item2
+                    Qty = o.Value.Item2,
+                    Path = o.Key
 
                 }).ToList();
 
@@ -78,7 +79,8 @@ namespace SExtensions
                                     o.O.Title,
                                     o.O.Material,
                                     o.O.Comments.Trim(),
-                                    o.FileName
+                                    o.FileName,
+                                    o.Path
 
                                 }).ToArray();
 
