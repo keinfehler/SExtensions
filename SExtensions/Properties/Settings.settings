@@ -3,7 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="DirectorioSalida" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\WorkingGIT\keinfehler\Ocurrencias\PRUEBA\SALIDA</Value>
+      <Value Profile="(Default)">C:\Users\Ricardo\Desktop\Prueba EXCEL\Salida</Value>
+    </Setting>
+    <Setting Name="RutaUtillaje" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Users\Ricardo\Desktop\Prueba Extension</Value>
+    </Setting>
+    <Setting Name="RutaTemporal" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Users\Ricardo\Desktop\UtillajeTemporal</Value>
     </Setting>
   </Settings>
 </SettingsFile>

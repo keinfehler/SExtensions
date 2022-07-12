@@ -29,7 +29,7 @@ namespace SExtensions
                 case 2:
                     //Helpers.FindOccurrencesAndExport();
                     {
-                        using (ExcelWaitingForm frm = new ExcelWaitingForm(() => Helpers.FindOccurrencesAndExport()))
+                        using (ExcelWaitingForm frm = new ExcelWaitingForm(() => Helpers.FindOccurrencesAndExport(_ribbonRadioButton.Checked)))
                         {
                             frm.ShowDialog();
                         }

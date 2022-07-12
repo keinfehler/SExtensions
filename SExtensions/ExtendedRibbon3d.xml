@@ -35,7 +35,12 @@
              supertip="Exportar a excel las ocurrencias"
              imageId="2"
              enabled="true" />
-      
+
+		<checkBox id="1"
+                label="Recorrer archivos .pwd"
+                screentip="Recorrer archivos .pwda"
+                supertip="Recorrer archivos .pwd"
+        />
     </group>
   </tab>
 </ribbon>

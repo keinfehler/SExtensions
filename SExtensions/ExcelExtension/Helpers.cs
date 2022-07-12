@@ -19,7 +19,7 @@ namespace SExtensions
     public static class Helpers
     {
         public static Dictionary<string, Tuple<DocWrapper, int>> InternalUniqueOcurrences { get; set; } = new Dictionary<string, Tuple<DocWrapper, int>>();
-        public static void FindOccurrencesAndExport()
+        public static void FindOccurrencesAndExport(bool getPwdFiles)
         {
             InternalUniqueOcurrences.Clear();
             OutputPath = null;
@@ -30,8 +30,15 @@ namespace SExtensions
             if (assemblyDocument != null)
             {
 
-                FillOccurrence(assemblyDocument);
-                ExportOccurrences(System.IO.Path.GetFileNameWithoutExtension(assemblyDocument.FullName));
+                FillOccurrence(assemblyDocument, getPwdFiles);
+
+                var fileName = System.IO.Path.GetFileNameWithoutExtension(assemblyDocument.FullName);
+                //update a template .xlsm
+                ExportOccurrences(fileName, Properties.Settings.Default.RutaUtillaje, "*RELACION UTILLAJE.xlsm", "X-HOJA A COPIAR", false);
+                
+
+                //to new .xlsx File
+                ExportOccurrences(fileName, Properties.Settings.Default.DirectorioSalida);
 
                 if (OutputPath == null)
                     return;
@@ -46,64 +53,83 @@ namespace SExtensions
 
         }
         public static string OutputPath { get; set; }
-        private static void ExportOccurrences(string documentName)
+        private static void ExportOccurrences(string documentName,  string outputPath, string documentPatern = null, string sheetName = null, bool header = true)
         {
             try
             {
+
+
+                if (outputPath != null && documentPatern != null)
+                {
+                    var file = Directory.GetFiles(outputPath, documentPatern).FirstOrDefault();
+                    if (file != null)
+                    {
+                        var destinationDirectory = System.IO.Path.GetDirectoryName(file);
+
+                        var tmpFileName = System.IO.Path.Combine(Properties.Settings.Default.RutaTemporal, System.IO.Path.GetFileNameWithoutExtension(file) /*+ "_TMP"*/ + System.IO.Path.GetExtension(file));
+
+
+                        var backupFileName = System.IO.Path.Combine(Properties.Settings.Default.RutaTemporal, System.IO.Path.GetFileNameWithoutExtension(file) + "_TMP_" + DateTime.Now.ToString("yyyyMMddHHmmss") +"_" + System.IO.Path.GetExtension(file));
+
+                        try
+                        {
+                            if (!Directory.Exists(Properties.Settings.Default.RutaTemporal))
+                                Directory.CreateDirectory(Properties.Settings.Default.RutaTemporal);
+                            
+
+                            if (File.Exists(tmpFileName))
+                                File.Delete(tmpFileName);
+
+                            File.Copy(file, tmpFileName);
+
+                            
+                            var wbookTmp = new XLWorkbook(tmpFileName);
+
+                            if (wbookTmp != null)
+                            {
+                                IXLWorksheet workSheet = wbookTmp.Worksheets.FirstOrDefault(o => o.Name.Contains(sheetName));
+
+                                if (workSheet != null)
+                                {
+                                    var newName = ConvertDocumentName(documentName);
+
+                                    var newWorkSheet = workSheet.CopyTo(wbookTmp, newName);
+
+                                    FillWorksheetData(newWorkSheet, false, false);
+
+                                    wbookTmp.Save();
+
+
+                                    File.Replace(tmpFileName, file, backupFileName);
+                                }
+                            }
+
+                           
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+
+                        }
+                       
+
+
+
+                    }
+                    return;
+                }
+               
+
+
                 var wbook = new XLWorkbook();
                 wbook.AddWorksheet("1");
 
                 var ws = wbook.Worksheet("1");
-                var columnNames = new string[] { "Tipo Pieza", "Cantidad", "Código", "RV", "Nº Articulo", "Descripción", "Material", "Ref Comercial", "Nombre Archivo","Ruta" };
 
-                var filteredData = InternalUniqueOcurrences.ToList();
+                FillWorksheetData(ws, header);
 
-                string[][] data = null;
-
-                var test = filteredData.Select(o => new
-                {
-                    FileName = System.IO.Path.GetFileName(o.Key),
-                    O = o.Value.Item1,
-                    Qty = o.Value.Item2,
-                    Path = o.Key
-
-                }).ToList();
-
-                data = test.Select(o => new[]
-                                {
-                                    o.O.Category,
-                                    o.Qty.ToString(),
-                                    o.O.DocumentNumber,
-                                    o.O.RevisionNumber,
-                                    o.O.Keywords,
-                                    o.O.Title,
-                                    o.O.Material,
-                                    o.O.Comments.Trim(),
-                                    o.FileName,
-                                    o.Path
-
-                                }).ToArray();
-
-
-                if (data == null)
-                {
-                    return;
-                }
-
-                int col = 1;
-                foreach (var item in columnNames)
-                {
-                    ws.Cell(1, col).Value = item;
-                    int row = 2;
-                    foreach (var o in data)
-                    {
-                        ws.Cell(row, col).Value = o[col - 1];
-                        row++;
-                    }
-                    col++;
-                }
-
-                var outPutPath = System.IO.Path.Combine(Properties.Settings.Default.DirectorioSalida, documentName + ".xlsx");
+                var outPutPath = System.IO.Path.Combine(outputPath, documentName + ".xlsx");
                 OutputPath = outPutPath;
 
 
@@ -138,6 +164,88 @@ namespace SExtensions
 
             }
         }
+        private static void FillWorksheetData(IXLWorksheet ws, bool header, bool ruta = true)
+        {
+            string[] columnNames = null;
+            var columnNamesList = new List<string> { "Tipo Pieza", "Cantidad", "Código", "RV", "Nº Articulo", "Descripción", "Material", "Ref Comercial", "Nombre Archivo" };
+
+            if (ruta)
+            {
+                columnNamesList.Add("Ruta");
+            }
+            columnNames = columnNamesList.ToArray();
+
+            var filteredData = InternalUniqueOcurrences.ToList();
+
+            string[][] data = null;
+
+            var test = filteredData.Select(o => new
+            {
+                FileName = System.IO.Path.GetFileName(o.Key),
+                O = o.Value.Item1,
+                Qty = o.Value.Item2,
+                Path = o.Key
+
+            }).ToList();
+
+            data = test.Select(o => new[]
+                                {
+                                    o.O.Category,
+                                    o.Qty.ToString(),
+                                    o.O.DocumentNumber,
+                                    o.O.RevisionNumber,
+                                    o.O.Keywords,
+                                    o.O.Title,
+                                    o.O.Material,
+                                    o.O.Comments.Trim(),
+                                    o.FileName,
+                                    ruta ? o.Path : ""
+
+                                }).ToArray();
+
+
+            if (data == null)
+            {
+                return;
+            }
+
+            int col = 1;
+            foreach (var item in columnNames)
+            {
+                if (header)
+                {
+                    ws.Cell(5, col).Value = item;
+                }
+
+                int row = 6;
+                foreach (var o in data)
+                {
+                    ws.Cell(row, col).Value = o[col - 1];
+                    row++;
+                }
+                col++;
+            }
+
+
+        }
+        private static string ConvertDocumentName(string documentName)
+        {
+            if (documentName.Length > 30)
+            {
+                if (documentName.StartsWith("SUBCONJUNTO"))
+                {
+                    documentName = documentName.Substring(12, 18);
+
+                }
+                else if (documentName.StartsWith("CONJUNTO"))
+                {
+                    documentName = documentName.Substring(8, 21);
+                }
+                
+            }
+            return documentName;
+        }
+
         static void End()
         {
             InternalUniqueOcurrences.Clear();
@@ -148,13 +256,19 @@ namespace SExtensions
         static void UpdateDictionary(string lowerFileName, DocWrapper solidEdgeDocument)
         {
             lowerFileName = lowerFileName.ToLower();
+
+            if (lowerFileName.EndsWith(".asm"))
+            {
+                return;
+            }
+
             if (!InternalUniqueOcurrences.ContainsKey(lowerFileName))
                 InternalUniqueOcurrences.Add(lowerFileName, Tuple.Create(solidEdgeDocument, 1));
             else
                 InternalUniqueOcurrences[lowerFileName] = Tuple.Create(InternalUniqueOcurrences[lowerFileName].Item1, InternalUniqueOcurrences[lowerFileName].Item2 + 1);
         }
 
-        static void FillOccurrence(AssemblyDocument assemblyDocument)
+        static void FillOccurrence(AssemblyDocument assemblyDocument, bool getPwdFiles)
         {
             if (assemblyDocument == null)
                 return;
@@ -179,15 +293,15 @@ namespace SExtensions
                 {
                     continue;
                 }
-                //Filter out certain occurrences.
+
                 if (!occurrence.IncludeInBom)
                 {
                     continue;
                 }
-                if (occurrence.IsPatternItem)
-                {
-                    continue;
-                }
+                //if (occurrence.IsPatternItem)
+                //{
+                //    continue;
+                //}
                 if (occurrence.OccurrenceDocument == null)
                 {
                     continue;
@@ -208,37 +322,39 @@ namespace SExtensions
                   
                 }
 
-                if (doc is WeldmentDocument)
+                if (getPwdFiles)
                 {
-                    var wdoc = doc as WeldmentDocument;
-                    var vmodels = wdoc.WeldmentModels;
-                    if (vmodels != null)
+                    if (doc is WeldmentDocument)
                     {
-                        var i = vmodels.Item(1);
-                        if (i != null)
+                        var wdoc = doc as WeldmentDocument;
+                        var vmodels = wdoc.WeldmentModels;
+                        if (vmodels != null)
                         {
-                            var parts = i.PartModels;
-                            
-
-                            foreach (WeldPartModel part in parts)
+                            var i = vmodels.Item(1);
+                            if (i != null)
                             {
-                                var path = part.FileName;
-                                
-                                var wd = GetDocument(path);
-                                if (wd == null)
+                                var parts = i.PartModels;
+
+
+                                foreach (WeldPartModel part in parts)
                                 {
-                                    continue;
+                                    var path = part.FileName;
+
+                                    var wd = GetDocument(path);
+                                    if (wd == null)
+                                    {
+                                        continue;
+                                    }
+                                    UpdateDictionary(path, wd);
                                 }
-                                UpdateDictionary(path, wd);
                             }
-
-
                         }
                     }
                 }
 
+
                 if (occurrence.Subassembly)
-                    FillOccurrence(occurrence.OccurrenceDocument as AssemblyDocument);
+                    FillOccurrence(occurrence.OccurrenceDocument as AssemblyDocument, getPwdFiles);
 
             }
         }
