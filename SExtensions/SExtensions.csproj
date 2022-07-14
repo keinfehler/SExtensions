@@ -63,6 +63,7 @@
       <HintPath>..\packages\SolidEdge.Community.Reader.2.0.0\lib\net40\SolidEdge.Community.Reader.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -84,21 +85,12 @@
     <Compile Include="ExtendedRibbon3d.cs" />
     <Compile Include="ExcelExtension\Helpers.cs" />
     <Compile Include="Objects\Doc.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="SExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>PublicSettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="SExtension.reg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

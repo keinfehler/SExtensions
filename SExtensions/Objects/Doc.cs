@@ -29,5 +29,13 @@
         public string Comments { get; set; }
 
         public string Material { get; set; }
+
+
+        public string Empresa { get; set; }
+        public string Maquina { get; set; }
+        public string Modelo { get; set; }
+        public string NombreArchivo { get; set; }
+
+        public bool IsHeader { get; set; }
     }
 }

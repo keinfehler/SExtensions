@@ -6,9 +6,11 @@ using SolidEdgeFramework;
 using SolidEdgePart;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -18,8 +20,14 @@ namespace SExtensions
 
     public static class Helpers
     {
+        private static System.Configuration.Configuration appConfig = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().Location);
+        
+        public static string rutaUtillaje = appConfig.AppSettings.Settings["RutaUtillaje"].Value;
+        public static string directorioSalida = appConfig.AppSettings.Settings["DirectorioSalida"].Value;
+        public static string rutaTemporal = appConfig.AppSettings.Settings["RutaTemporal"].Value;
+
         public static Dictionary<string, Tuple<DocWrapper, int>> InternalUniqueOcurrences { get; set; } = new Dictionary<string, Tuple<DocWrapper, int>>();
-        public static void FindOccurrencesAndExport(bool getPwdFiles)
+        public static void FindOccurrencesAndExport(bool getPwdFiles,  bool rutas, bool utillaje)
         {
             InternalUniqueOcurrences.Clear();
             OutputPath = null;
@@ -33,12 +41,16 @@ namespace SExtensions
                 FillOccurrence(assemblyDocument, getPwdFiles);
 
                 var fileName = System.IO.Path.GetFileNameWithoutExtension(assemblyDocument.FullName);
-                //update a template .xlsm
-                ExportOccurrences(fileName, Properties.Settings.Default.RutaUtillaje, "*RELACION UTILLAJE.xlsm", "X-HOJA A COPIAR", false);
-                
 
+                if (utillaje)
+                {
+                    //update a template .xlsm
+                    ExportOccurrences(fileName, rutaUtillaje, "*RELACION UTILLAJE.xlsm", "X-HOJA A COPIAR", false, (rutas && utillaje));
+                }
+                
+                
                 //to new .xlsx File
-                ExportOccurrences(fileName, Properties.Settings.Default.DirectorioSalida);
+                ExportOccurrences(fileName, directorioSalida);
 
                 if (OutputPath == null)
                     return;
@@ -53,7 +65,7 @@ namespace SExtensions
 
         }
         public static string OutputPath { get; set; }
-        private static void ExportOccurrences(string documentName,  string outputPath, string documentPatern = null, string sheetName = null, bool header = true)
+        private static void ExportOccurrences(string documentName,  string outputPath, string documentPatern = null, string sheetName = null, bool header = true, bool rutas = true)
         {
             try
             {
@@ -66,15 +78,15 @@ namespace SExtensions
                     {
                         var destinationDirectory = System.IO.Path.GetDirectoryName(file);
 
-                        var tmpFileName = System.IO.Path.Combine(Properties.Settings.Default.RutaTemporal, System.IO.Path.GetFileNameWithoutExtension(file) /*+ "_TMP"*/ + System.IO.Path.GetExtension(file));
+                        var tmpFileName = System.IO.Path.Combine(rutaTemporal, System.IO.Path.GetFileNameWithoutExtension(file) /*+ "_TMP"*/ + System.IO.Path.GetExtension(file));
 
 
-                        var backupFileName = System.IO.Path.Combine(Properties.Settings.Default.RutaTemporal, System.IO.Path.GetFileNameWithoutExtension(file) + "_TMP_" + DateTime.Now.ToString("yyyyMMddHHmmss") +"_" + System.IO.Path.GetExtension(file));
+                        var backupFileName = System.IO.Path.Combine(rutaTemporal, System.IO.Path.GetFileNameWithoutExtension(file) + "_BACKUP_" + DateTime.Now.ToString("yyyyMMddHHmmss") + System.IO.Path.GetExtension(file));
 
                         try
                         {
-                            if (!Directory.Exists(Properties.Settings.Default.RutaTemporal))
-                                Directory.CreateDirectory(Properties.Settings.Default.RutaTemporal);
+                            if (!Directory.Exists(rutaTemporal))
+                                Directory.CreateDirectory(rutaTemporal);
                             
 
                             if (File.Exists(tmpFileName))
@@ -93,12 +105,16 @@ namespace SExtensions
                                 {
                                     var newName = ConvertDocumentName(documentName);
 
+                                    IXLWorksheet repeatedWorkSheet = null;
+                                    if(wbookTmp.TryGetWorksheet(newName, out repeatedWorkSheet)) 
+                                        repeatedWorkSheet.Delete();
+                                    
+
                                     var newWorkSheet = workSheet.CopyTo(wbookTmp, newName);
 
-                                    FillWorksheetData(newWorkSheet, false, false);
+                                    FillWorksheetData(newWorkSheet, false, rutas, true, rutasCheckbox:true);
 
                                     wbookTmp.Save();
-
 
                                     File.Replace(tmpFileName, file, backupFileName);
                                 }
@@ -110,12 +126,7 @@ namespace SExtensions
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message);
-
                         }
-                       
-
-
-
                     }
                     return;
                 }
@@ -127,7 +138,7 @@ namespace SExtensions
 
                 var ws = wbook.Worksheet("1");
 
-                FillWorksheetData(ws, header);
+                FillWorksheetData(ws, header, rutasCheckbox:rutas);
 
                 var outPutPath = System.IO.Path.Combine(outputPath, documentName + ".xlsx");
                 OutputPath = outPutPath;
@@ -147,7 +158,6 @@ namespace SExtensions
                     }
                     finally
                     {
-
                     }
                 }
 
@@ -164,20 +174,36 @@ namespace SExtensions
 
             }
         }
-        private static void FillWorksheetData(IXLWorksheet ws, bool header, bool ruta = true)
+        private static Tuple<int?, int, string> GetTuple(int? row, int column, string value)
         {
-            string[] columnNames = null;
-            var columnNamesList = new List<string> { "Tipo Pieza", "Cantidad", "Código", "RV", "Nº Articulo", "Descripción", "Material", "Ref Comercial", "Nombre Archivo" };
+            return Tuple.Create(row, column, value);
+
+        }
+        private static void FillWorksheetData(IXLWorksheet ws, bool header, bool ruta = true, bool exportHeader = false, bool rutasCheckbox = true)
+        {
+            Tuple<int?, int, string>[] columnNames = null;
+            var columnNamesList = new List<Tuple<int?, int, string>> 
+            { 
+               GetTuple(5,1, "Tipo Pieza"),
+               GetTuple(5,2, "Cantidad"),
+               GetTuple(5,3,"Código"),
+               GetTuple(5,4, "RV"),
+               GetTuple(5,5, "Nº Articulo"), 
+               GetTuple(5,6, "Descripción"),
+               GetTuple(5,7, "Material"),
+               GetTuple(5,8, "Ref Comercial"),
+               GetTuple(5,9, "Nombre Archivo" )
+            };
 
             if (ruta)
             {
-                columnNamesList.Add("Ruta");
+                columnNamesList.Add(GetTuple(5, rutasCheckbox ? 14 : 10, "Ruta"));
             }
             columnNames = columnNamesList.ToArray();
 
             var filteredData = InternalUniqueOcurrences.ToList();
 
-            string[][] data = null;
+            Tuple<int?, int, string>[][] data = null;
 
             var test = filteredData.Select(o => new
             {
@@ -188,18 +214,21 @@ namespace SExtensions
 
             }).ToList();
 
-            data = test.Select(o => new[]
+
+
+            data = test.Select(o => new Tuple<int?, int, string>[]
                                 {
-                                    o.O.Category,
-                                    o.Qty.ToString(),
-                                    o.O.DocumentNumber,
-                                    o.O.RevisionNumber,
-                                    o.O.Keywords,
-                                    o.O.Title,
-                                    o.O.Material,
-                                    o.O.Comments.Trim(),
-                                    o.FileName,
-                                    ruta ? o.Path : ""
+                                    GetTuple(null, 1, o.O.Category),
+                                    GetTuple(null, 2, o.Qty.ToString()),
+                                    GetTuple(null, 3, o.O.DocumentNumber),
+                                    GetTuple(null, 4, o.O.RevisionNumber),
+                                    GetTuple(null, 5, o.O.Keywords),
+                                    GetTuple(null, 6, o.O.Title),
+                                    GetTuple(null, 7, o.O.Material),
+                                    GetTuple(null, 8, o.O.Comments.Trim()),
+                                    GetTuple(null, 9, o.FileName),
+                                    GetTuple(null, rutasCheckbox ? 14 : 10, ruta ? o.Path : "")
+
 
                                 }).ToArray();
 
@@ -208,22 +237,34 @@ namespace SExtensions
             {
                 return;
             }
+            if (exportHeader)
+            {
+                ws.Cell(1, 2).Value = Head.Empresa;
+                ws.Cell(2, 2).Value = Head.Maquina;
+                ws.Cell(3, 2).Value = Head.Modelo;
+                ws.Cell(1, 6).Value = Head.Title;
+                ws.Cell(2, 6).Value = Head.NombreArchivo;
+            }
 
-            int col = 1;
+            //int col = 1;
             foreach (var item in columnNames)
             {
                 if (header)
                 {
-                    ws.Cell(5, col).Value = item;
+                    ws.Cell(item.Item1.Value, item.Item2).Value = item.Item3;
                 }
 
                 int row = 6;
-                foreach (var o in data)
+                foreach (var d in data)
                 {
-                    ws.Cell(row, col).Value = o[col - 1];
+                    foreach (var r in d)
+                    {
+                        ws.Cell(row, r.Item2).Value = r.Item3;
+                    }
+                    
                     row++;
                 }
-                col++;
+                //col++;
             }
 
 
@@ -235,11 +276,14 @@ namespace SExtensions
                 if (documentName.StartsWith("SUBCONJUNTO"))
                 {
                     documentName = documentName.Substring(12, 18);
-
                 }
                 else if (documentName.StartsWith("CONJUNTO"))
                 {
                     documentName = documentName.Substring(8, 21);
+
+                }else
+                {
+                    documentName = documentName.Substring(0, 30);
                 }
                 
             }
@@ -267,21 +311,77 @@ namespace SExtensions
             else
                 InternalUniqueOcurrences[lowerFileName] = Tuple.Create(InternalUniqueOcurrences[lowerFileName].Item1, InternalUniqueOcurrences[lowerFileName].Item2 + 1);
         }
+        static string GetCustomProperty(this AssemblyDocument obj, string propertyName)
+        {
 
+            SolidEdgeDocument document = null;
+
+            if (obj is SolidEdgeDocument)
+            {
+                document = obj as SolidEdgeDocument;
+            }
+
+            if (document == null)
+            {
+                return string.Empty;
+            }
+
+            try
+            {
+                var p = document.Properties;
+                var propertySets = (SolidEdgeFramework.PropertySets)p;
+
+                var customProperties = propertySets.Item(4);
+
+                var items = customProperties.OfType<SolidEdgeFramework.Property>();
+
+                var property = items.FirstOrDefault(o => o.Name == propertyName);
+
+                if (property != null)
+                {
+                    return property.get_Value()?.ToString() ?? string.Empty;
+                }
+            
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+                //MessageBox.Show(ex.Message);
+            }
+
+
+            return string.Empty;
+        }
+        public static DocWrapper Head { get; set; }
+
+        private static SummaryInfo GetSummaryInfoPropertyValue(this AssemblyDocument doc)
+        {
+            return doc.GetSummaryInfo();
+        }
         static void FillOccurrence(AssemblyDocument assemblyDocument, bool getPwdFiles)
         {
             if (assemblyDocument == null)
                 return;
 
+            Head = null;
+            Head = new DocWrapper();
+            Head.Modelo = assemblyDocument.GetCustomProperty("MODELO");
+            Head.Maquina = assemblyDocument.GetCustomProperty("MAQUINA");
+            Head.Empresa = assemblyDocument.GetSummaryInfoPropertyValue().Company;
+            Head.NombreArchivo = assemblyDocument.Name;
+            Head.Title = assemblyDocument.GetSummaryInfoPropertyValue().Title;
+            Head.IsHeader = true;
 
             foreach (var occ in assemblyDocument.Occurrences)
             {
                 Occurrence occurrence = null;
-
+                
                 if (occ is Occurrence)
                 {
                     occurrence = occ as Occurrence;
                 }
+
+                
 
                 if (occ == null) 
                 {
@@ -307,6 +407,8 @@ namespace SExtensions
                     continue;
                 }
 
+                var documentSummaryInfo = assemblyDocument.SummaryInfo;
+
                 var doc = occurrence.OccurrenceDocument;
 
                 if (doc is SolidEdgeDocument)
@@ -316,6 +418,9 @@ namespace SExtensions
                     if (solidEdgeDocument != null)
                     {
                         var summaryInfo = solidEdgeDocument.SummaryInfo as SummaryInfo;
+
+                        
+
                         var d = new DocWrapper(summaryInfo.Category, summaryInfo.DocumentNumber, summaryInfo.RevisionNumber, summaryInfo.Keywords, summaryInfo.Title, summaryInfo.Comments, GetMaterial(solidEdgeDocument));
                         UpdateDictionary(occurrence.OccurrenceFileName, d);
                     }

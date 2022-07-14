@@ -11,7 +11,7 @@ namespace SExtensions
 {
     public static class ExtendedCommands
     {
-        public static string OutputDirectory =>  Properties.Settings.Default.DirectorioSalida;
+        public static string OutputDirectory =>  Helpers.directorioSalida;
         public static void AddCopyPlus(bool allOccurrences)
         {
             //MessageBox.Show("Hola Mundo!");

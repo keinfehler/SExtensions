@@ -5,6 +5,11 @@ namespace SExtensions
     public class ExtendedRibbon3d : Ribbon
     {
         private RibbonCheckBox _ribbonRadioButton;
+
+        private RibbonCheckBox _ribbonExportarRutasRadioButton;
+        private RibbonCheckBox _ribbonUtillajeRadioButton;
+
+
         const string _embeddedResourceName = "SExtensions.ExtendedRibbon3d.xml";
         public ExtendedRibbon3d()
         {
@@ -15,6 +20,8 @@ namespace SExtensions
             LoadXml(assembly, _embeddedResourceName);
 
             _ribbonRadioButton = GetCheckBox(1);
+            _ribbonExportarRutasRadioButton = GetCheckBox(4);
+            _ribbonUtillajeRadioButton = GetCheckBox(3);
         }
 
         public override void OnControlClick(RibbonControl control)
@@ -29,7 +36,8 @@ namespace SExtensions
                 case 2:
                     //Helpers.FindOccurrencesAndExport();
                     {
-                        using (ExcelWaitingForm frm = new ExcelWaitingForm(() => Helpers.FindOccurrencesAndExport(_ribbonRadioButton.Checked)))
+                        using (ExcelWaitingForm frm = new ExcelWaitingForm(() => 
+                        Helpers.FindOccurrencesAndExport(_ribbonRadioButton.Checked, _ribbonExportarRutasRadioButton.Checked, _ribbonUtillajeRadioButton.Checked)))
                         {
                             frm.ShowDialog();
                         }

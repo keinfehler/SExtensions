@@ -7,40 +7,32 @@
 <ribbon xmlns="http://github.com/SolidEdgeCommunity/SolidEdge/Ribbon">
   <tab name="Helpers">
     <group name="Ocurrencias">
-      <!--<button id="0"
-             size="large"
-             label="Agregar copia +"
-             screentip="Agrega un copia"
-             supertip="Agrega una copia de la ocurrencia seleccionada en la misma posición.&#13;&#13;Automáticamente copia el plano y renombra pieza y plano según el siguiente nombre de archivo que corresponda al usuario activo.&#13;&#13;Redefine los vínculos que pudiera tener la pieza al conjunto actual.&#13;&#13;También actualiza las propiedades 'Autores' y 'FechaPlano'."
-             imageId="1"
-             enabled="true" />-->
-      <!--<button id="0"
-             size="large"
-             label="Agregar copia +"
-             screentip="Agrega un copia"
-             supertip="Agrega una copia de la ocurrencia seleccionada en la misma posición.&#13;&#13;Automáticamente copia el plano y renombra pieza y plano según el siguiente nombre de archivo que corresponda al usuario activo.&#13;&#13;Redefine los vínculos que pudiera tener la pieza al conjunto actual.&#13;&#13;También actualiza las propiedades 'Autores' y 'FechaPlano'."
-             imageId="1"
-             enabled="true" />
-
-      <checkBox id="1"
-                label="Solo ocurrencias seleccionadas"
-                screentip="Solo ocurrencias seleccionada"
-                supertip="Cuando está activado, configura 'Reemplazar con copia +' para reemplazar solo las ocurrencias seleccionadas. Si existe más de una posición del artículo en el mismo nivel, el resto de ocurrencias no se reeemplazarán.&#13;&#13;Sólo es válido para el próximo uso. Después se desactivará"
-      />-->
-
       <button id="2"
              size="large"
-             label="a Excel"
+             label="Utillaje"
              screentip="Exportar a excel las ocurrencias"
              supertip="Exportar a excel las ocurrencias"
              imageId="2"
              enabled="true" />
-
-		<checkBox id="1"
-                label="Recorrer archivos .pwd"
-                screentip="Recorrer archivos .pwda"
-                supertip="Recorrer archivos .pwd"
         />
-    </group>
+     </group>
+
+	  <group name="Opciones">
+		  <checkBox id="1"
+			  label="Incluir Hijos.pwd"
+			  screentip="Incluir Hijos.pwda"
+			  supertip="Incluir Hijos .pwd"/>
+
+		  <checkBox id="4"
+				  label="Incluir rutas"
+				  screentip="Incluir Ruta."
+				  supertip="Incluir Ruta." />
+
+		  <checkBox id="3"
+				  label="Exportar Utillaje"
+				  screentip="Exportar Utillaje."
+				  supertip="Exportar Utillaje ." />
+		  
+	  </group>
   </tab>
 </ribbon>
