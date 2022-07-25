@@ -5,7 +5,7 @@
   https://github.com/SolidEdgeCommunity/SolidEdge.Community/wiki/Package-Manager-Console-Powershell-Reference#install-solidedgeaddinribbonschema
 -->
 <ribbon xmlns="http://github.com/SolidEdgeCommunity/SolidEdge/Ribbon">
-  <tab name="Extensions">
+  <tab name="Design Manager">
     <group name="Ocurrencias">
       <button id="0"
              size="large"
