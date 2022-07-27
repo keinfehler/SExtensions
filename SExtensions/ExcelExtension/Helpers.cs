@@ -436,6 +436,34 @@ namespace SExtensions
                     }
                 }
 
+                //if (doc is SheetMetalDocument)
+                //{
+                //    var sheetMetalDocument = doc as SheetMetalDocument;
+
+                //    if (sheetMetalDocument != null)
+                //    {
+                //        var models = sheetMetalDocument.Models;
+
+                        
+
+                //        for (int i = 1; i <= models.Count; i++)
+                //        {
+                //            var body = models.Item(i);
+                //            var bodyDoc = body.Document as SolidEdgePart.PartDocument;
+                //            if (bodyDoc != null)
+                //            {
+                //                //Console.WriteLine(bodyDoc.FullName);
+                //            }
+                            
+
+                            
+                //            //models = models.Item(i);
+                //            //model.HealAndOptimizeBody(true, true);
+                //        }
+                //    }
+
+                //}
+
 
                 if (occurrence.Subassembly)
                 {
