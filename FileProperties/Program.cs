@@ -29,64 +29,7 @@ namespace ReportFileProperties
 
                 if (document != null)
                 {
-                    var name = document.Name;
-
-                    var p = document.Properties;
-                    var propertySets = (SolidEdgeFramework.PropertySets)p;
-
-                    var customProperties = propertySets.Item(4);
-
-                    var items = customProperties.OfType<SolidEdgeFramework.Property>();
-                    var modelo = items.FirstOrDefault(o => o.Name == "MODELO");
-
-
-                    foreach (var pp in propertySets)
-                    {
-
-                        var properties = pp as SolidEdgeFramework.Properties;
-                        if (properties != null)
-                        {
-
-                            Console.WriteLine("PropertSet '{0}'.", properties.Name);
-                            
-
-                            foreach (var property in properties.OfType<SolidEdgeFramework.Property>())
-                            {
-                                System.Runtime.InteropServices.VarEnum nativePropertyType = System.Runtime.InteropServices.VarEnum.VT_EMPTY;
-                                Type runtimePropertyType = null;
-
-                                object value = null;
-
-                                nativePropertyType = (System.Runtime.InteropServices.VarEnum)property.Type;
-
-                                // Accessing Value property may throw an exception...
-                                try
-                                {
-                                    value = property.get_Value();
-                                }
-                                catch (System.Exception ex)
-                                {
-                                    value = ex.Message;
-                                }
-
-                                if (value != null)
-                                {
-                                    runtimePropertyType = value.GetType();
-                                }
-
-                                Console.WriteLine("\t{0} = '{1}' ({2} | {3}).", property.Name, value, nativePropertyType, runtimePropertyType);
-                            }
-                        }
-                        else
-                        {
-
-                        }
-
-
-                        Console.WriteLine();
-
-                        
-                    }
+                    SExtensions.Helpers.FillOccurrence(document, true, 0);
 
                     Console.ReadLine();
                 }

@@ -38,7 +38,7 @@ namespace SExtensions
             if (assemblyDocument != null)
             {
 
-                FillOccurrence(assemblyDocument, getPwdFiles);
+                FillOccurrence(assemblyDocument, getPwdFiles, 0);
 
                 var fileName = System.IO.Path.GetFileNameWithoutExtension(assemblyDocument.FullName);
 
@@ -297,15 +297,11 @@ namespace SExtensions
         }
 
 
-        static void UpdateDictionary(string lowerFileName, DocWrapper solidEdgeDocument)
+        static void UpdateDictionary(string lowerFileName, DocWrapper solidEdgeDocument, int level)
         {
             lowerFileName = lowerFileName.ToLower();
 
-            if (lowerFileName.EndsWith(".asm"))
-            {
-                return;
-            }
-
+            //Console.WriteLine($"Nivel: {level} -- {lowerFileName}");
             if (!InternalUniqueOcurrences.ContainsKey(lowerFileName))
                 InternalUniqueOcurrences.Add(lowerFileName, Tuple.Create(solidEdgeDocument, 1));
             else
@@ -358,11 +354,13 @@ namespace SExtensions
         {
             return doc.GetSummaryInfo();
         }
-        static void FillOccurrence(AssemblyDocument assemblyDocument, bool getPwdFiles)
+        
+        
+        public static void FillOccurrence(AssemblyDocument assemblyDocument, bool getPwdFiles, int level)
         {
             if (assemblyDocument == null)
                 return;
-
+   
             Head = null;
             Head = new DocWrapper();
             Head.Modelo = assemblyDocument.GetCustomProperty("MODELO");
@@ -374,62 +372,43 @@ namespace SExtensions
 
             foreach (var occ in assemblyDocument.Occurrences)
             {
+                level++;
+
                 Occurrence occurrence = null;
                 
                 if (occ is Occurrence)
-                {
                     occurrence = occ as Occurrence;
-                }
-
                 
-
-                if (occ == null) 
-                {
-                    continue; 
-                }
-
-
-                if (occurrence.FileMissing())
-                {
+                if (occ == null || occurrence.FileMissing() || !occurrence.IncludeInBom /*|| occurrence.IsPatternItem*/ || occurrence.OccurrenceDocument == null) 
                     continue;
-                }
-
-                if (!occurrence.IncludeInBom)
-                {
-                    continue;
-                }
-                //if (occurrence.IsPatternItem)
-                //{
-                //    continue;
-                //}
-                if (occurrence.OccurrenceDocument == null)
-                {
-                    continue;
-                }
-
-                var documentSummaryInfo = assemblyDocument.SummaryInfo;
 
                 var doc = occurrence.OccurrenceDocument;
 
-                if (doc is SolidEdgeDocument)
-                {
-                    var solidEdgeDocument = doc as SolidEdgeDocument;
+                var name = occurrence.OccurrenceFileName;
 
-                    if (solidEdgeDocument != null)
+                bool includeAsmParent = false;
+                if (name.EndsWith(".asm"))
+                {
+                    var fileName = System.IO.Path.GetFileName(name);
+                    if (fileName.StartsWith("SUBCONJUNTO SOLDADO"))
                     {
-                        var summaryInfo = solidEdgeDocument.SummaryInfo as SummaryInfo;
-
-                        
-
-                        var d = new DocWrapper(summaryInfo.Category, summaryInfo.DocumentNumber, summaryInfo.RevisionNumber, summaryInfo.Keywords, summaryInfo.Title, summaryInfo.Comments, GetMaterial(solidEdgeDocument));
-                        UpdateDictionary(occurrence.OccurrenceFileName, d);
+                        includeAsmParent = true;
+                        FillParents(occ, level);
                     }
-                  
                 }
-
-                if (getPwdFiles)
+                else
                 {
-                    if (doc is WeldmentDocument)
+                    FillParents(occ, level);
+                } 
+                
+
+
+                if (doc is WeldmentDocument)
+                {
+                    
+                    FillParents(occ, level);
+
+                    if (getPwdFiles)
                     {
                         var wdoc = doc as WeldmentDocument;
                         var vmodels = wdoc.WeldmentModels;
@@ -450,7 +429,7 @@ namespace SExtensions
                                     {
                                         continue;
                                     }
-                                    UpdateDictionary(path, wd);
+                                    UpdateDictionary(path, wd, level);
                                 }
                             }
                         }
@@ -459,7 +438,45 @@ namespace SExtensions
 
 
                 if (occurrence.Subassembly)
-                    FillOccurrence(occurrence.OccurrenceDocument as AssemblyDocument, getPwdFiles);
+                {
+                    if (includeAsmParent)
+                    {
+                        if (getPwdFiles)
+                        {
+                            FillOccurrence(occurrence.OccurrenceDocument as AssemblyDocument, getPwdFiles, level);
+                        }
+                    }
+                    else
+                    {
+                        FillOccurrence(occurrence.OccurrenceDocument as AssemblyDocument, getPwdFiles, level);
+                    }
+                }
+                    
+
+            }
+        }
+
+        static void FillParents(object occ, int level)
+        {
+            Occurrence occurrence = null;
+
+            if (occ is Occurrence)
+                occurrence = occ as Occurrence;
+
+            var doc = occurrence.OccurrenceDocument;
+
+            if (doc is SolidEdgeDocument)
+            {
+                var solidEdgeDocument = doc as SolidEdgeDocument;
+
+                if (solidEdgeDocument != null)
+                {
+                    var summaryInfo = solidEdgeDocument.SummaryInfo as SummaryInfo;
+
+
+                    var d = new DocWrapper(summaryInfo.Category, summaryInfo.DocumentNumber, summaryInfo.RevisionNumber, summaryInfo.Keywords, summaryInfo.Title, summaryInfo.Comments, GetMaterial(solidEdgeDocument));
+                    UpdateDictionary(occurrence.OccurrenceFileName, d, level);
+                }
 
             }
         }
