@@ -390,7 +390,7 @@ namespace SExtensions
                 if (name.EndsWith(".asm"))
                 {
                     var fileName = System.IO.Path.GetFileName(name);
-                    if (fileName.StartsWith("SUBCONJUNTO SOLDADO"))
+                    if (fileName.StartsWith("SUBCONJUNTO SOLDADO") || fileName.StartsWith("SUBCONJUNTO MONTADO"))
                     {
                         includeAsmParent = true;
                         FillParents(occ, level);
@@ -405,8 +405,6 @@ namespace SExtensions
 
                 if (doc is WeldmentDocument)
                 {
-                    
-                    FillParents(occ, level);
 
                     if (getPwdFiles)
                     {
@@ -439,29 +437,64 @@ namespace SExtensions
                 //if (doc is SheetMetalDocument)
                 //{
                 //    var sheetMetalDocument = doc as SheetMetalDocument;
-
                 //    if (sheetMetalDocument != null)
                 //    {
-                //        var models = sheetMetalDocument.Models;
-
                         
-
+                //        var models = sheetMetalDocument.Models;
                 //        for (int i = 1; i <= models.Count; i++)
                 //        {
                 //            var body = models.Item(i);
-                //            var bodyDoc = body.Document as SolidEdgePart.PartDocument;
-                //            if (bodyDoc != null)
+
+                            
+                //            if (body != null)
                 //            {
-                //                //Console.WriteLine(bodyDoc.FullName);
+                               
+                //                //Console.WriteLine("body '{0}'.", body.);
                 //            }
                             
 
-                            
-                //            //models = models.Item(i);
-                //            //model.HealAndOptimizeBody(true, true);
+                //            //    var bodyDoc = body.Document as SolidEdgeFramework.SolidEdgeDocument;
+                //            //    if (bodyDoc != null)
+                //            //    {
+
+                //            //        var propertySets = bodyDoc.Properties as SolidEdgeFramework.PropertySets;
+                //            //        foreach (var properties in propertySets.OfType<SolidEdgeFramework.Properties>())
+                //            //        {
+                //            //            Console.WriteLine("PropertSet '{0}'.", properties.Name);
+
+                //            //            foreach (var property in properties.OfType<SolidEdgeFramework.Property>())
+                //            //            {
+                //            //                System.Runtime.InteropServices.VarEnum nativePropertyType = System.Runtime.InteropServices.VarEnum.VT_EMPTY;
+                //            //                Type runtimePropertyType = null;
+
+                //            //                object value = null;
+
+                //            //                nativePropertyType = (System.Runtime.InteropServices.VarEnum)property.Type;
+
+                //            //                // Accessing Value property may throw an exception...
+                //            //                try
+                //            //                {
+                //            //                    value = property.get_Value();
+                //            //                }
+                //            //                catch (System.Exception ex)
+                //            //                {
+                //            //                    value = ex.Message;
+                //            //                }
+
+                //            //                if (value != null)
+                //            //                {
+                //            //                    runtimePropertyType = value.GetType();
+                //            //                }
+
+                //            //                Console.WriteLine("\t{0} = '{1}' ({2} | {3}).", property.Name, value, nativePropertyType, runtimePropertyType);
+                //            //            }
+
+                //            //            Console.WriteLine();
+
+                //            //    }
+                //            //}
                 //        }
                 //    }
-
                 //}
 
 
