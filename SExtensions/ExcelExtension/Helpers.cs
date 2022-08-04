@@ -11,20 +11,27 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace SExtensions
 {
-    
+
+    public static class ConfigurationHelper
+    {
+        private static System.Configuration.Configuration appConfig = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().Location);
+        public static string GetConfigurationValue(string key)
+        {
+            return appConfig.AppSettings.Settings[key].Value;
+        }
+    }
 
     public static class Helpers
     {
-        private static System.Configuration.Configuration appConfig = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().Location);
         
-        public static string rutaUtillaje = appConfig.AppSettings.Settings["RutaUtillaje"].Value;
-        public static string directorioSalida = appConfig.AppSettings.Settings["DirectorioSalida"].Value;
-        public static string rutaTemporal = appConfig.AppSettings.Settings["RutaTemporal"].Value;
+        
+        public static string rutaUtillaje = ConfigurationHelper.GetConfigurationValue("RutaUtillaje");
+        public static string directorioSalida = ConfigurationHelper.GetConfigurationValue("DirectorioSalida");
+        public static string rutaTemporal = ConfigurationHelper.GetConfigurationValue("RutaTemporal");
 
         public static Dictionary<string, Tuple<DocWrapper, int>> InternalUniqueOcurrences { get; set; } = new Dictionary<string, Tuple<DocWrapper, int>>();
         public static void FindOccurrencesAndExport(bool getPwdFiles,  bool rutas, bool utillaje)

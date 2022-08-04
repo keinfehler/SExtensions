@@ -50,6 +50,7 @@
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="SharpGL, Version=3.1.1.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpGL.3.1.1\lib\net40\SharpGL.dll</HintPath>
     </Reference>
@@ -84,6 +85,7 @@
     <Compile Include="ExtendedCommands.cs" />
     <Compile Include="ExtendedRibbon3d.cs" />
     <Compile Include="ExcelExtension\Helpers.cs" />
+    <Compile Include="Helpers\IncludeExcludeHelper.cs" />
     <Compile Include="Objects\Doc.cs" />
     <Compile Include="SExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,10 +110,12 @@
     <Content Include="res\Camera_32x32.png" />
     <Content Include="res\CommandPrompt_32x32.png" />
     <Content Include="res\EdgeBar_20x20.png" />
+    <Content Include="res\exclude.png" />
     <Content Include="res\Favorites_32x32.png" />
     <Content Include="res\Folder_16x16.png" />
     <Content Include="res\GdiPlus_32.png" />
     <Content Include="res\Help_32x32.png" />
+    <Content Include="res\include.png" />
     <Content Include="res\Monitor_16x16.png" />
     <Content Include="res\Notepad_32x32.png" />
     <Content Include="res\Photograph_32x32.png" />

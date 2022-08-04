@@ -43,6 +43,16 @@ namespace SExtensions
                         }
                     }
                     break;
+                case 5:
+                    {
+                        IncludeExcludeHelper.IncludeExclude(true);
+                        break;
+                    }
+                case 6:
+                    {
+                        IncludeExcludeHelper.IncludeExclude(false);
+                        break;
+                    }
                 default:
                     break;
             }

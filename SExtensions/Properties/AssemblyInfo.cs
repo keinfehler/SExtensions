@@ -22,6 +22,8 @@ using System.Runtime.InteropServices;
 [assembly: NativeResource(114, @"res\Save_16x16.png")]
 [assembly: NativeResource(115, @"res\Search_32x32.png")]
 [assembly: NativeResource(116, @"res\Tools_32x32.png")]
+[assembly: NativeResource(117, @"res\include.png")]
+[assembly: NativeResource(118, @"res\exclude.png")]
 
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,

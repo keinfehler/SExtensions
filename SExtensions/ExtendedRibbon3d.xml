@@ -14,7 +14,6 @@
              supertip="Exportar a excel las ocurrencias"
              imageId="2"
              enabled="true" />
-        />
      </group>
 
 	  <group name="Opciones">
@@ -34,5 +33,24 @@
 				  supertip="Exportar Utillaje ." />
 		  
 	  </group>
+
+    <group name="Incluir / Excluir Ocurrencias">
+      
+      <button id="5"
+              size="large"
+              label="Incluir"
+              screentip="Incluir ocurrencias"
+              supertip="Incluir ocurrencias"
+              imageId="117"
+              enabled="true" />
+      
+      <button id="6"
+              size="large"
+              label="Excluir"
+              screentip="Excluir ocurrencias"
+              supertip="Excluir ocurrencias"
+              imageId="118"
+              enabled="true" />
+    </group>
   </tab>
 </ribbon>

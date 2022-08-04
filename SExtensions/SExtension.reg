@@ -26,13 +26,13 @@ Windows Registry Editor Version 5.00
 "Class"="SExtensions.SExtensions"
 "Assembly"="SExtensions"
 "RuntimeVersion"="v4.0.30319"
-"CodeBase"="file:///C:/Users/Ricardo/Source/Repos/keinfehler/SExtensions/SExtensions/bin/Debug/SExtensions.DLL"
+"CodeBase"="file:///C:/WorkingGIT/SExtensions/SExtensions/bin/Debug/SExtensions.DLL"
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{c673e93e-29e6-4d07-b809-0952b5759f83}\InprocServer32\1.0.0.0]
 "Class"="SExtensions.SExtensions"
 "Assembly"="SExtensions"
 "RuntimeVersion"="v4.0.30319"
-"CodeBase"="file:///C:/Users/Ricardo/Source/Repos/keinfehler/SExtensions/SExtensions/bin/Debug/SExtensions.DLL"
+"CodeBase"="file:///C:/WorkingGIT/SExtensions/SExtensions/bin/Debug/SExtensions.DLL"
 
 
 
