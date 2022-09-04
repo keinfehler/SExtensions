@@ -34,7 +34,7 @@ namespace SExtensions
         public static string rutaTemporal = ConfigurationHelper.GetConfigurationValue("RutaTemporal");
 
         public static Dictionary<string, Tuple<DocWrapper, int>> InternalUniqueOcurrences { get; set; } = new Dictionary<string, Tuple<DocWrapper, int>>();
-        public static void FindOccurrencesAndExport(bool getPwdFiles,  bool rutas, bool utillaje)
+        public static void FindOccurrencesAndExport(bool getPwdFiles,  bool rutas, bool utillaje, string rutaUtillajeOutput = null)
         {
             InternalUniqueOcurrences.Clear();
             OutputPath = null;
@@ -51,6 +51,7 @@ namespace SExtensions
 
                 if (utillaje)
                 {
+                    rutaUtillaje = rutaUtillajeOutput;
                     //update a template .xlsm
                     ExportOccurrences(fileName, rutaUtillaje, "*RELACION UTILLAJE.xlsm", "X-HOJA A COPIAR", false, (rutas && utillaje));
                 }
@@ -63,6 +64,8 @@ namespace SExtensions
                     return;
 
                 Process.Start(OutputPath);
+
+                
                 End();
             }
 
@@ -124,6 +127,8 @@ namespace SExtensions
                                     wbookTmp.Save();
 
                                     File.Replace(tmpFileName, file, backupFileName);
+
+                                    Process.Start(file);
                                 }
                             }
 
@@ -204,7 +209,8 @@ namespace SExtensions
 
             if (ruta)
             {
-                columnNamesList.Add(GetTuple(5, rutasCheckbox ? 14 : 10, "Ruta"));
+                columnNamesList.Add(GetTuple(5, rutasCheckbox ? 25 : 10, "Ruta 2D"));
+                columnNamesList.Add(GetTuple(5, rutasCheckbox ? 26 : 10, "Ruta 3D"));
             }
             columnNames = columnNamesList.ToArray();
 
@@ -234,7 +240,8 @@ namespace SExtensions
                                     GetTuple(null, 7, o.O.Material),
                                     GetTuple(null, 8, o.O.Comments.Trim()),
                                     GetTuple(null, 9, o.FileName),
-                                    GetTuple(null, rutasCheckbox ? 14 : 10, ruta ? o.Path : "")
+                                    GetTuple(null, rutasCheckbox ? 25 : 10, ruta ? System.IO.Path.ChangeExtension(o.Path, ".dft") : ""),
+                                    GetTuple(null, rutasCheckbox ? 26 : 10, ruta ? o.Path : "")
 
 
                                 }).ToArray();
@@ -306,7 +313,7 @@ namespace SExtensions
 
         static void UpdateDictionary(string lowerFileName, DocWrapper solidEdgeDocument, int level)
         {
-            lowerFileName = lowerFileName.ToLower();
+            lowerFileName = lowerFileName.ToUpper();
 
             //Console.WriteLine($"Nivel: {level} -- {lowerFileName}");
             if (!InternalUniqueOcurrences.ContainsKey(lowerFileName))

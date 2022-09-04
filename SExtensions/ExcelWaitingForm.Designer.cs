@@ -30,33 +30,55 @@ namespace SExtensions
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelWaitingForm));
-            this.label2 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button_output = new System.Windows.Forms.Button();
+            this.button_export = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 25);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Processing...";
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(29, 53);
+            this.progressBar1.Location = new System.Drawing.Point(29, 131);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(186, 23);
+            this.progressBar1.Size = new System.Drawing.Size(412, 23);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 1;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(29, 53);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(412, 20);
+            this.textBox1.TabIndex = 2;
+            this.textBox1.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
+            // 
+            // button_output
+            // 
+            this.button_output.Location = new System.Drawing.Point(319, 24);
+            this.button_output.Name = "button_output";
+            this.button_output.Size = new System.Drawing.Size(122, 23);
+            this.button_output.TabIndex = 3;
+            this.button_output.Text = "Buscar directorio";
+            this.button_output.UseVisualStyleBackColor = true;
+            this.button_output.Click += new System.EventHandler(this.Button_output_Click);
+            // 
+            // button_export
+            // 
+            this.button_export.Location = new System.Drawing.Point(29, 93);
+            this.button_export.Name = "button_export";
+            this.button_export.Size = new System.Drawing.Size(412, 23);
+            this.button_export.TabIndex = 4;
+            this.button_export.Text = "Exportar";
+            this.button_export.UseVisualStyleBackColor = true;
+            this.button_export.Click += new System.EventHandler(this.Button_export_Click);
+            // 
             // ExcelWaitingForm
             // 
-            this.ClientSize = new System.Drawing.Size(268, 105);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(465, 193);
+            this.Controls.Add(this.button_export);
+            this.Controls.Add(this.button_output);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.label2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ExcelWaitingForm";
             this.Text = "Export..";
@@ -68,7 +90,9 @@ namespace SExtensions
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button_output;
+        private System.Windows.Forms.Button button_export;
     }
 }

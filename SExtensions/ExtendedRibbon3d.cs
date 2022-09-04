@@ -36,11 +36,27 @@ namespace SExtensions
                 case 2:
                     //Helpers.FindOccurrencesAndExport();
                     {
-                        using (ExcelWaitingForm frm = new ExcelWaitingForm(() => 
-                        Helpers.FindOccurrencesAndExport(_ribbonRadioButton.Checked, _ribbonExportarRutasRadioButton.Checked, _ribbonUtillajeRadioButton.Checked)))
+                        if (_ribbonUtillajeRadioButton.Checked)
                         {
-                            frm.ShowDialog();
+                            using (ExcelWaitingForm frm = new ExcelWaitingForm())
+                            {
+                                frm.ExportRutas = _ribbonExportarRutasRadioButton.Checked;
+                                frm.GetPwdFiles = _ribbonRadioButton.Checked;
+                                frm.Utillaje = _ribbonUtillajeRadioButton.Checked;
+
+                                frm.ShowDialog();
+                            }
                         }
+                        else
+                        {
+                            using (ExcelWaitingDialog frm = new ExcelWaitingDialog(() => 
+                            Helpers.FindOccurrencesAndExport(_ribbonRadioButton.Checked, _ribbonExportarRutasRadioButton.Checked, _ribbonUtillajeRadioButton.Checked)))
+                            {
+                                frm.ShowDialog();
+                            }
+                        }
+
+
                     }
                     break;
                 case 5:

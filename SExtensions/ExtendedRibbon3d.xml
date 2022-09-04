@@ -9,7 +9,7 @@
     <group name="Ocurrencias">
       <button id="2"
              size="large"
-             label="Utillaje"
+             label="Informe"
              screentip="Exportar a excel las ocurrencias"
              supertip="Exportar a excel las ocurrencias"
              imageId="2"
@@ -34,7 +34,7 @@
 		  
 	  </group>
 
-    <group name="Incluir / Excluir Ocurrencias">
+    <group name="Incluir / Excluir">
       
       <button id="5"
               size="large"

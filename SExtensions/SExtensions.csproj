@@ -76,6 +76,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExcelWaitingDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExcelWaitingDialog.Designer.cs">
+      <DependentUpon>ExcelWaitingDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExcelWaitingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +104,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ExcelWaitingDialog.resx">
+      <DependentUpon>ExcelWaitingDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExcelWaitingForm.resx">
       <DependentUpon>ExcelWaitingForm.cs</DependentUpon>
     </EmbeddedResource>
