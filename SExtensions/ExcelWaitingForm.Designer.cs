@@ -39,6 +39,7 @@ namespace SExtensions
             // progressBar1
             // 
             this.progressBar1.Location = new System.Drawing.Point(29, 131);
+            this.progressBar1.MarqueeAnimationSpeed = 0;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(412, 23);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;

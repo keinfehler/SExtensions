@@ -14,15 +14,25 @@
              supertip="Exportar a excel las ocurrencias"
              imageId="2"
              enabled="true" />
+		
+		<checkBox id="1"
+			 label="Incluir Hijos"
+			 screentip="Incluir Hijos"
+			 supertip="Incluir Hijos"/>
+	  
      </group>
 
-	  <group name="Opciones">
-		  <checkBox id="1"
-			  label="Incluir Hijos.pwd"
-			  screentip="Incluir Hijos.pwda"
-			  supertip="Incluir Hijos .pwd"/>
+	  <group name="Utillaje">
+		  
+		  <button id="7"
+			  size="large"
+			  label="Utillaje"
+			  screentip="Exportar utillaje"
+			  supertip="Exportar utillaje"
+			  imageId="2"
+			  enabled="true" />
 
-		  <checkBox id="4"
+		  <!--<checkBox id="4"
 				  label="Incluir rutas"
 				  screentip="Incluir Ruta."
 				  supertip="Incluir Ruta." />
@@ -30,7 +40,7 @@
 		  <checkBox id="3"
 				  label="Exportar Utillaje"
 				  screentip="Exportar Utillaje."
-				  supertip="Exportar Utillaje ." />
+				  supertip="Exportar Utillaje ." />-->
 		  
 	  </group>
 

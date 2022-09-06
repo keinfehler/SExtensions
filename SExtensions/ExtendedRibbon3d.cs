@@ -34,28 +34,19 @@ namespace SExtensions
                     }
                     break;
                 case 2:
-                    //Helpers.FindOccurrencesAndExport();
                     {
-                        if (_ribbonUtillajeRadioButton.Checked)
-                        {
-                            using (ExcelWaitingForm frm = new ExcelWaitingForm())
-                            {
-                                frm.ExportRutas = _ribbonExportarRutasRadioButton.Checked;
-                                frm.GetPwdFiles = _ribbonRadioButton.Checked;
-                                frm.Utillaje = _ribbonUtillajeRadioButton.Checked;
+                        var exportarHijos = false;
 
-                                frm.ShowDialog();
-                            }
-                        }
-                        else
+                        if (_ribbonRadioButton.Checked != exportarHijos)
                         {
-                            using (ExcelWaitingDialog frm = new ExcelWaitingDialog(() => 
-                            Helpers.FindOccurrencesAndExport(_ribbonRadioButton.Checked, _ribbonExportarRutasRadioButton.Checked, _ribbonUtillajeRadioButton.Checked)))
-                            {
-                                frm.ShowDialog();
-                            }
+                            exportarHijos = _ribbonRadioButton.Checked;
                         }
-
+                           
+                        using (ExcelWaitingDialog frm = new ExcelWaitingDialog(() =>
+                            Helpers.FindOccurrencesAndExport(exportarHijos, true, false)))
+                        {
+                            frm.ShowDialog();
+                        }
 
                     }
                     break;
@@ -68,6 +59,19 @@ namespace SExtensions
                     {
                         IncludeExcludeHelper.IncludeExclude(false);
                         break;
+                    }
+                case 7:
+                    {
+                        using (ExcelWaitingForm frm = new ExcelWaitingForm())
+                        {
+                            frm.ExportRutas = true;
+                            frm.GetPwdFiles = true;
+                            frm.Utillaje = true;
+
+                            frm.ShowDialog();
+                        }
+                        break;
+
                     }
                 default:
                     break;

@@ -55,15 +55,19 @@ namespace SExtensions
                     //update a template .xlsm
                     ExportOccurrences(fileName, rutaUtillaje, "*RELACION UTILLAJE.xlsm", "X-HOJA A COPIAR", false, (rutas && utillaje));
                 }
+                else
+                {
+                    //to new .xlsx File
+                    ExportOccurrences(fileName, directorioSalida);
+
+                    if (OutputPath == null)
+                        return;
+
+                    Process.Start(OutputPath);
+                }
                 
                 
-                //to new .xlsx File
-                ExportOccurrences(fileName, directorioSalida);
-
-                if (OutputPath == null)
-                    return;
-
-                Process.Start(OutputPath);
+              
 
                 
                 End();

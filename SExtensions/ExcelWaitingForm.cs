@@ -36,25 +36,41 @@ namespace SExtensions
         {
             base.OnLoad(e);
 
-        }
 
+        }
+        private void StopProgress()
+        {
+            progressBar1.MarqueeAnimationSpeed = 0;
+        }
+        private void StartProgress()
+        {
+            progressBar1.MarqueeAnimationSpeed = 100;
+        }
         private void StartAction()
         {
             if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
                 return;
             }
+            StartProgress();
+
 
             Task.Factory.StartNew(() => 
             {
                 Helpers.FindOccurrencesAndExport(GetPwdFiles, ExportRutas, Utillaje, textBox1.Text);
 
-            }).ContinueWith(t => { this.Close(); }, TaskScheduler.FromCurrentSynchronizationContext());
+            }).ContinueWith(t => 
+            { 
+                this.Close();
+                StopProgress();
+
+
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private void Button_export_Click(object sender, EventArgs e)
         {
-
+            
             StartAction();
         }
 
