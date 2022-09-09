@@ -29,7 +29,7 @@ namespace SExtensions
     {
         
         
-        public static string rutaUtillaje = ConfigurationHelper.GetConfigurationValue("RutaUtillaje");
+        //public static string rutaUtillaje = ConfigurationHelper.GetConfigurationValue("RutaUtillaje");
         public static string directorioSalida = ConfigurationHelper.GetConfigurationValue("DirectorioSalida");
         public static string rutaTemporal = ConfigurationHelper.GetConfigurationValue("RutaTemporal");
 
@@ -51,9 +51,9 @@ namespace SExtensions
 
                 if (utillaje)
                 {
-                    rutaUtillaje = rutaUtillajeOutput;
+                    //rutaUtillaje = rutaUtillajeOutput;
                     //update a template .xlsm
-                    ExportOccurrences(fileName, rutaUtillaje, "*RELACION UTILLAJE.xlsm", "X-HOJA A COPIAR", false, (rutas && utillaje));
+                    ExportOccurrences(fileName, rutaUtillajeOutput, "*RELACION UTILLAJE.xlsm", "X-HOJA A COPIAR", false, (rutas && utillaje));
                 }
                 else
                 {
@@ -87,51 +87,84 @@ namespace SExtensions
 
                 if (outputPath != null && documentPatern != null)
                 {
-                    var file = Directory.GetFiles(outputPath, documentPatern).FirstOrDefault();
+                    //busca el primer achivo con el patron "*RELACION UTILLAJE.xlsm" en el directorio de salida
+                    var file = outputPath; // Directory.GetFiles(outputPath, documentPatern, searchOption: SearchOption.TopDirectoryOnly).FirstOrDefault();
+
+
                     if (file != null)
                     {
-                        var destinationDirectory = System.IO.Path.GetDirectoryName(file);
+                        //si encuentra el archivo entonces buscamos el directorio en el que se encuentra
+                        var destinationDirectory = outputPath; // System.IO.Path.GetDirectoryName(file);
 
-                        var tmpFileName = System.IO.Path.Combine(rutaTemporal, System.IO.Path.GetFileNameWithoutExtension(file) /*+ "_TMP"*/ + System.IO.Path.GetExtension(file));
+                        //crear ruta del archivo temporal en el directorio principal (ya no hay directorio temporal)
+                        var tmpFileName = System.IO.Path.ChangeExtension(destinationDirectory, "_TMP" + System.IO.Path.GetExtension(destinationDirectory)); ///System.IO.Path.GetFileNameWithoutExtension(destinationDirectory) + "_TMP" + System.IO.Path.GetExtension(destinationDirectory);
+                            
 
-
-                        var backupFileName = System.IO.Path.Combine(rutaTemporal, System.IO.Path.GetFileNameWithoutExtension(file) + "_BACKUP_" + DateTime.Now.ToString("yyyyMMddHHmmss") + System.IO.Path.GetExtension(file));
+                        //var backupFileName = System.IO.Path.Combine(rutaTemporal, System.IO.Path.GetFileNameWithoutExtension(file) + "_BACKUP_" + DateTime.Now.ToString("yyyyMMddHHmmss") + System.IO.Path.GetExtension(file));
 
                         try
                         {
-                            if (!Directory.Exists(rutaTemporal))
-                                Directory.CreateDirectory(rutaTemporal);
+                            //if (!Directory.Exists(rutaTemporal))
+                            //    Directory.CreateDirectory(rutaTemporal);
                             
-
+                            //si el archivo temporal existe, lo borramos
                             if (File.Exists(tmpFileName))
                                 File.Delete(tmpFileName);
 
+
+                            //creamos el archivo temporal en base a el archivo original de utillaje
                             File.Copy(file, tmpFileName);
 
                             
+                            //trabajamos con el archivo temporal
                             var wbookTmp = new XLWorkbook(tmpFileName);
 
                             if (wbookTmp != null)
                             {
+                                //si lo carga correctamente, buscamos la hoja "X-HOJA A COPIAR"
                                 IXLWorksheet workSheet = wbookTmp.Worksheets.FirstOrDefault(o => o.Name.Contains(sheetName));
 
                                 if (workSheet != null)
                                 {
+                                    //genero el nombre de la hoja nueva
                                     var newName = ConvertDocumentName(documentName);
 
                                     IXLWorksheet repeatedWorkSheet = null;
                                     if(wbookTmp.TryGetWorksheet(newName, out repeatedWorkSheet)) 
+                                        //en caso de existir, se borrara
                                         repeatedWorkSheet.Delete();
                                     
-
+                                    //copia el contenido a la nueva hoja
                                     var newWorkSheet = workSheet.CopyTo(wbookTmp, newName);
 
-                                    FillWorksheetData(newWorkSheet, false, rutas, true, rutasCheckbox:true);
+                                    FillWorksheetData(newWorkSheet, false, rutas, true, rutasCheckbox:true, hyperLinks:true);
 
                                     wbookTmp.Save();
 
-                                    File.Replace(tmpFileName, file, backupFileName);
+                                    //TMP-Datei finden
+                                    if (File.Exists(tmpFileName))
+                                    {
+                                        //alte Datei löschen
+                                        if (File.Exists(file))
+                                        {
+                                            // Bei Append die TMP-Datei in diesem Fall beihalten.
+                                            File.Delete(file);
+                                        }
 
+                                        try
+                                        {
+                                            //TMP-Datei in Original umbenennen
+                                            if (!File.Exists(file))
+                                            {
+                                                File.Move(tmpFileName, file);
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            throw ex;
+                                        }
+
+                                    }
                                     Process.Start(file);
                                 }
                             }
@@ -142,6 +175,7 @@ namespace SExtensions
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message);
+                            return;
                         }
                     }
                     return;
@@ -195,7 +229,7 @@ namespace SExtensions
             return Tuple.Create(row, column, value);
 
         }
-        private static void FillWorksheetData(IXLWorksheet ws, bool header, bool ruta = true, bool exportHeader = false, bool rutasCheckbox = true)
+        private static void FillWorksheetData(IXLWorksheet ws, bool header, bool ruta = true, bool exportHeader = false, bool rutasCheckbox = true, bool hyperLinks = false)
         {
             Tuple<int?, int, string>[] columnNames = null;
             var columnNamesList = new List<Tuple<int?, int, string>> 
@@ -244,8 +278,14 @@ namespace SExtensions
                                     GetTuple(null, 7, o.O.Material),
                                     GetTuple(null, 8, o.O.Comments.Trim()),
                                     GetTuple(null, 9, o.FileName),
+
+                                   
+
                                     GetTuple(null, rutasCheckbox ? 25 : 10, ruta ? System.IO.Path.ChangeExtension(o.Path, ".dft") : ""),
-                                    GetTuple(null, rutasCheckbox ? 26 : 10, ruta ? o.Path : "")
+                                    GetTuple(null, rutasCheckbox ? 26 : 10, ruta ? o.Path : ""),
+
+                                    GetTuple(null, 14, ""),
+                                    GetTuple(null, 15, ""),
 
 
                                 }).ToArray();
@@ -262,6 +302,14 @@ namespace SExtensions
                 ws.Cell(3, 2).Value = Head.Modelo;
                 ws.Cell(1, 6).Value = Head.Title;
                 ws.Cell(2, 6).Value = Head.NombreArchivo;
+                ws.Cell(3, 7).Value = Head.DocumentNumber;
+
+                ws.Cell(2, 14).Value = "2D";
+                ws.Cell(2, 14).SetHyperlink(new XLHyperlink(System.IO.Path.ChangeExtension(Head.Ruta, ".dft")));
+                
+                ws.Cell(2, 15).Value = "3D";
+                ws.Cell(2, 15).SetHyperlink(new XLHyperlink(Head.Ruta));
+
             }
 
             //int col = 1;
@@ -277,7 +325,21 @@ namespace SExtensions
                 {
                     foreach (var r in d)
                     {
-                        ws.Cell(row, r.Item2).Value = r.Item3;
+                        if (r.Item2 == 14 && hyperLinks)
+                        {
+                            ws.Cell(row, r.Item2).Value = "2D";
+                            ws.Cell(row, r.Item2).SetHyperlink(new XLHyperlink(ws.Cell(row, 25).Value.ToString()));
+                        }
+                        else if (r.Item2 == 15 && hyperLinks)
+                        {
+                            ws.Cell(row, r.Item2).Value = "3D";
+                            ws.Cell(row, r.Item2).SetHyperlink(new XLHyperlink(ws.Cell(row, 26).Value.ToString()));
+                        }
+                        else
+                        {
+                            ws.Cell(row, r.Item2).Value = r.Item3;
+                        }
+                        
                     }
                     
                     row++;
@@ -378,15 +440,21 @@ namespace SExtensions
         {
             if (assemblyDocument == null)
                 return;
-   
-            Head = null;
-            Head = new DocWrapper();
-            Head.Modelo = assemblyDocument.GetCustomProperty("MODELO");
-            Head.Maquina = assemblyDocument.GetCustomProperty("MAQUINA");
-            Head.Empresa = assemblyDocument.GetSummaryInfoPropertyValue().Company;
-            Head.NombreArchivo = assemblyDocument.Name;
-            Head.Title = assemblyDocument.GetSummaryInfoPropertyValue().Title;
-            Head.IsHeader = true;
+
+            if (level == 0)
+            {
+                Head = null;
+                Head = new DocWrapper();
+                Head.Modelo = assemblyDocument.GetCustomProperty("MODELO");
+                Head.Maquina = assemblyDocument.GetCustomProperty("MAQUINA");
+                Head.Empresa = assemblyDocument.GetSummaryInfoPropertyValue().Company;
+                Head.DocumentNumber = assemblyDocument.GetSummaryInfoPropertyValue().DocumentNumber;
+                Head.NombreArchivo = assemblyDocument.Name;
+                Head.Ruta = assemblyDocument.FullName;
+                Head.Title = assemblyDocument.GetSummaryInfoPropertyValue().Title;
+                Head.IsHeader = true;
+            }  
+           
 
             foreach (var occ in assemblyDocument.Occurrences)
             {

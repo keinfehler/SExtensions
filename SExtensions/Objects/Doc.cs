@@ -35,7 +35,7 @@
         public string Maquina { get; set; }
         public string Modelo { get; set; }
         public string NombreArchivo { get; set; }
-
+        public string Ruta { get; set; }
         public bool IsHeader { get; set; }
     }
 }

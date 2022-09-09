@@ -54,6 +54,7 @@ namespace SExtensions
             }
             StartProgress();
 
+           
 
             Task.Factory.StartNew(() => 
             {
@@ -76,14 +77,15 @@ namespace SExtensions
 
         private void Button_output_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog folderDlg = new FolderBrowserDialog();
-            folderDlg.ShowNewFolderButton = true;
+            OpenFileDialog folderDlg = new OpenFileDialog();
+            
+
             // Show the FolderBrowserDialog.  
             DialogResult result = folderDlg.ShowDialog();
             if (result == DialogResult.OK)
             {
-                textBox1.Text = folderDlg.SelectedPath;
-                Environment.SpecialFolder root = folderDlg.RootFolder;
+                textBox1.Text = folderDlg.FileName;
+              
             }
         }
 
