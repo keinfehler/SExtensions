@@ -69,6 +69,12 @@
   <ItemGroup>
     <Content Include="res\Boxes_32.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{06238d7d-4527-449a-b0e8-91a25d55fb88}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SolidEdge.Community.AddIn.219.0.0\build\net40\SolidEdge.Community.AddIn.targets" Condition="Exists('..\packages\SolidEdge.Community.AddIn.219.0.0\build\net40\SolidEdge.Community.AddIn.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

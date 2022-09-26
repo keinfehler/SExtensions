@@ -15,7 +15,23 @@ namespace DesignManager
         public static void AddCopyPlus(bool allOccurrences)
         {
             //MessageBox.Show("Hola Mundo!");
-            ProcessSelectedOccurrences(new ProcessOccurrenceWithNewModel(ReplaceOccurrence), allOccurrences);
+            //ProcessSelectedOccurrences(new ProcessOccurrenceWithNewModel(ReplaceOccurrence), allOccurrences);
+            ReplaceAndCopy(allOccurrences);
+        }
+
+        private static void ReplaceAndCopy(bool allOccurrences)
+        {
+            var activeDocument = SolidEdgeAddIn.Instance.Application.ActiveDocument as SolidEdgeDocument;
+
+
+
+            Helpers.DesignManagerHelpers.ReplaceAndCopy(activeDocument, allOccurrences);
+            //List<Occurrence> occurrences;
+
+            //SelectSet selectSet = 
+            //((SolidEdgeDocument)SolidEdgeAddIn.Instance.Application.ActiveDocument).SelectSet;
+
+            //(selectSet.Item((object)i) is Occurrence)
         }
 
         private static bool _allOccurrences;
@@ -55,6 +71,10 @@ namespace DesignManager
                 {
                     string empty1 = string.Empty;
                     SolidEdgeDocument key = selectedOccurrence.Key;
+
+
+
+                    
 
                     //17.05.2022 - RE: Out
                     //if (CSAHelpers.debug == CSAHelpers.UserYearID)
