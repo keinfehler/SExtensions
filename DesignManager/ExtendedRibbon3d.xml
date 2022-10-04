@@ -5,21 +5,75 @@
   https://github.com/SolidEdgeCommunity/SolidEdge.Community/wiki/Package-Manager-Console-Powershell-Reference#install-solidedgeaddinribbonschema
 -->
 <ribbon xmlns="http://github.com/SolidEdgeCommunity/SolidEdge/Ribbon">
-  <tab name="Design Manager">
-    <group name="Ocurrencias">
-      <button id="0"
-             size="large"
-             label="Agregar copia +"
-             screentip="Agrega un copia"
-             supertip="Agrega una copia de la ocurrencia seleccionada en la misma posición.&#13;&#13;Automáticamente copia el plano y renombra pieza y plano según el siguiente nombre de archivo que corresponda al usuario activo.&#13;&#13;Redefine los vínculos que pudiera tener la pieza al conjunto actual.&#13;&#13;También actualiza las propiedades 'Autores' y 'FechaPlano'."
-             imageId="1"
-             enabled="true" />
+	<tab name="Design Manager">
+		<group name="Reemplazar">
+			<button id="0"
+				   size="large"
+				   label="Reemplazar con Copia +"
+				   screentip="Reeplazar con Copia +"
+				   supertip="Reemplaza por una copia de la ocurrencia seleccionada.&#13;&#13;Automáticamente copia el plano, resetea revisiones. &#13;&#13;Redefine los vínculos que pudiera tener la pieza al conjunto actual.&#13;&#13;También actualiza las propiedades."
+				   imageId="0"
+				   enabled="true" />
 
-      <checkBox id="1"
-                label="Solo ocurrencias seleccionadas"
-                screentip="Solo ocurrencias seleccionada"
-                supertip="Cuando está activado, configura 'Reemplazar con copia +' para reemplazar solo las ocurrencias seleccionadas. Si existe más de una posición del artículo en el mismo nivel, el resto de ocurrencias no se reeemplazarán.&#13;&#13;Sólo es válido para el próximo uso. Después se desactivará"
-      />
-    </group>
-  </tab>
+			<button id="4"
+				 size="large"
+				 label="Reemplaza por Comercial Mecanizado"
+				 screentip="Reemplaza por Comercial Mecanizado"
+				 supertip="Reemplaza por Comercial Mecanizado"
+				 imageId="4"
+				 enabled="true" />
+			/>
+
+			<button id="5"
+				 size="large"
+				 label="Reemplaza por Revision"
+				 screentip="Reemplaza por Revision"
+				 supertip="Reemplaza por Revision"
+				 imageId="5"
+				 enabled="true" />
+
+			<checkBox id="1"
+					  label="Only"
+					  screentip="Only"
+					  supertip="Cuando está activado, configura 'Reemplazar con copia +' para reemplazar solo las ocurrencias seleccionadas. Si existe más de una posición del artículo en el mismo nivel, el resto de ocurrencias no se reeemplazarán.&#13;&#13;Sólo es válido para el próximo uso. Después se desactivará" />
+		</group>
+		<group name="Renombrar">
+			<button id="3"
+				 size="large"
+				 label="Redefinir Nombre"
+				 screentip="Redefinir Nombre"
+				 supertip="Redefinir Nombre"
+				 imageId="3"
+				 enabled="true" />
+		</group>
+		<group name="Añadir">
+
+			<button id="6"
+				 size="large"
+				 label="Agregar Copia"
+				 screentip="Agregar Copia"
+				 supertip="Agregar Copia"
+				 imageId="6"
+				 enabled="true" />
+		</group>
+		<group name="Visualizar">
+
+			<button id="2"
+				 size="large"
+				 label="Directorio Trabajo"
+				 screentip="Abre directorio de trabajo"
+				 supertip="Abre directorio de trabajo"
+				 imageId="2"
+				 enabled="true" />
+
+			<button id="7"
+				 size="large"
+				 label="Abrir Plano"
+				 screentip="Abrir Plano"
+				 supertip="Abrir Plano"
+				 imageId="7"
+				 enabled="true" />
+			/>
+		</group>
+	</tab>
 </ribbon>

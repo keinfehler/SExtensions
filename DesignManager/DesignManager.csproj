@@ -68,6 +68,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="res\Boxes_32.png" />
+    <Content Include="res\CMD11086.png" />
+    <Content Include="res\CMD248.png" />
+    <Content Include="res\CMD50005.png" />
+    <Content Include="res\CMD62007.png" />
+    <Content Include="res\CMD11026.png" />
+    <Content Include="res\CMD62015.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Helpers\Helpers.csproj">

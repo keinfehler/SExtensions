@@ -11,7 +11,27 @@ namespace Helpers
 {
     public static class DesignManagerHelpers
     {
-        
+        public static string GetNewName(string relatedItemfileNameWithoutExtension)
+        {
+            var splittedFileName = relatedItemfileNameWithoutExtension.Split('-').ToList();
+
+            if (splittedFileName.Count > 1)
+            {
+                var lastItem = splittedFileName.LastOrDefault();
+
+                splittedFileName.RemoveAt(splittedFileName.Count-1);
+
+            }
+            splittedFileName.Add("-00");
+
+            var result = string.Empty;
+            foreach (var c in splittedFileName)
+            {
+                result += c;
+            }
+
+            return result;
+        }
 
         public static List<Occurrence> GetSelectedOccurrences(SolidEdgeDocument doc, bool all)
         {
@@ -72,24 +92,19 @@ namespace Helpers
 
                     var newPath = relatedItem;
                     var newName = relatedItemfileNameWithoutExtension;
-                    if (!relatedItemfileNameWithoutExtension.EndsWith("-00"))
-                    {
-                        var reladtedItemLength = relatedItemfileNameWithoutExtension.Length;
-                        var reladtedItemLengthWithoutCharacters = reladtedItemLength - 3;
 
-                        newName = relatedItemfileNameWithoutExtension.Substring(0, reladtedItemLengthWithoutCharacters) + "-00";
+                    newName = GetNewName(relatedItemfileNameWithoutExtension);
 
-
-                    }
                     newPath = Path.Combine(activeDocumentDirectoryName, newName + relatedItemExtension);
 
                     Console.WriteLine($"--SUBITEM: {relatedItem}");
                     Console.WriteLine($"----OLDPATH: {relatedItem}");
                     Console.WriteLine($"----NEWPATH: {newPath}");
+
                     try
                     {
                         if (File.Exists(newPath))
-                            File.Delete(newPath);
+                            continue;
                     }
                     catch (Exception ex)
                     {
@@ -121,7 +136,7 @@ namespace Helpers
                     var replacement = replaceFiles.TryGetValue(fileName, out val);
                     if (val != null)
                     {
-                        item.Replace(val, true);
+                        item.Replace(val, allOccurrences);
 
                         UpdateProperties(item);
 
