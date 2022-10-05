@@ -7,10 +7,10 @@ using System.Runtime.InteropServices;
 [assembly: NativeResource(0, @"res\CMD11026.png")]
 [assembly: NativeResource(1, @"res\CMD62015.png")]
 [assembly: NativeResource(2, @"res\CMD62015.png")]
-[assembly: NativeResource(3, @"res\CMD11086.png")]
-[assembly: NativeResource(4, @"res\CMD62007.png")]
-[assembly: NativeResource(5, @"res\CMD50005.png")]
-[assembly: NativeResource(6, @"res\CMD248.png")]
+[assembly: NativeResource(3, @"res\Renombrar.png")]
+[assembly: NativeResource(4, @"res\ComerMec.png")]
+[assembly: NativeResource(5, @"res\Revision.png")]
+[assembly: NativeResource(6, @"res\Copia.png")]
 [assembly: NativeResource(7, @"res\CMD50005.png")]
 
 

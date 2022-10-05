@@ -70,10 +70,16 @@
     <Content Include="res\Boxes_32.png" />
     <Content Include="res\CMD11086.png" />
     <Content Include="res\CMD248.png" />
+    <Content Include="res\CMD50005-1.png" />
     <Content Include="res\CMD50005.png" />
     <Content Include="res\CMD62007.png" />
     <Content Include="res\CMD11026.png" />
     <Content Include="res\CMD62015.png" />
+    <Content Include="res\ComerMec.png" />
+    <Content Include="res\Copia.png" />
+    <Content Include="res\Renombrar.png" />
+    <Content Include="res\Revision.png" />
+    <Content Include="res\Revision1.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Helpers\Helpers.csproj">
