@@ -17,12 +17,17 @@ namespace DesignManager
         {
             ReplaceAndCopy(allOccurrences);
         }
-
         private static void ReplaceAndCopy(bool allOccurrences)
         {
-            var activeDocument = SolidEdgeAddIn.Instance.Application.ActiveDocument as SolidEdgeDocument;
+            
 
-            Helpers.DesignManagerHelpers.ReplaceAndCopy(activeDocument, allOccurrences);
+            Helpers.DesignManagerHelpers.ReplaceAndCopy(Helpers.DesignManagerHelpers.ActiveDocument, allOccurrences);
+        }
+        public static void RenameSelectedOcurrences()
+        {
+            var newNameForm = new FormRename();
+            newNameForm.ShowDialog();
+            
         }
 
         internal static void OpenDirectory()

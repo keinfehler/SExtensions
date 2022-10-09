@@ -27,6 +27,9 @@ namespace DesignManager
                 case 2:
                     ExtendedCommands.OpenDirectory();
                     break;
+                case 3:
+                    ExtendedCommands.RenameSelectedOcurrences();
+                    break;
                 default:
                     break;
             }
