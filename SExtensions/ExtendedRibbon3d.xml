@@ -5,11 +5,11 @@
   https://github.com/SolidEdgeCommunity/SolidEdge.Community/wiki/Package-Manager-Console-Powershell-Reference#install-solidedgeaddinribbonschema
 -->
 <ribbon xmlns="http://github.com/SolidEdgeCommunity/SolidEdge/Ribbon">
-  <tab name="Helpers">
-    <group name="Ocurrencias">
+  <tab name="SyN-BooM">
+    <group name="Infor-XA">
       <button id="2"
              size="large"
-             label="Informe"
+             label="BooM  Infor-XA"
              screentip="Exportar a excel las ocurrencias"
              supertip="Exportar a excel las ocurrencias"
              imageId="2"
@@ -26,7 +26,7 @@
 		  
 		  <button id="7"
 			  size="large"
-			  label="Utillaje"
+			  label="Relacion  de Utillaje"
 			  screentip="Exportar utillaje"
 			  supertip="Exportar utillaje"
 			  imageId="2"
