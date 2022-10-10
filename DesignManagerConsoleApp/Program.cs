@@ -10,18 +10,18 @@ namespace DesignManagerConsoleApp
         static void Main(string[] args)
         {
 
-            ChangeName();
-            //SolidEdgeFramework.Application application = null;
-            //// Register with OLE to handle concurrency issues on the current thread.
-            //SolidEdgeCommunity.OleMessageFilter.Register();
+            //ChangeName();
+            SolidEdgeFramework.Application application = null;
+            // Register with OLE to handle concurrency issues on the current thread.
+            SolidEdgeCommunity.OleMessageFilter.Register();
 
-            //// Connect to or start Solid Edge.
-            //application = SolidEdgeCommunity.SolidEdgeUtils.Connect(true, true);
+            // Connect to or start Solid Edge.
+            application = SolidEdgeCommunity.SolidEdgeUtils.Connect(true, true);
 
-            //// Get a reference to the active assembly document.
-            //var document = application.GetActiveDocument<SolidEdgeDocument>(false);
+            // Get a reference to the active assembly document.
+            var document = application.GetActiveDocument<SolidEdgeDocument>(false);
 
-            //Helpers.DesignManagerHelpers.ReplaceAndCopy(document, true);
+            Helpers.DesignManagerHelpers.ReplaceAndCopy(document, true);
 
         }
 

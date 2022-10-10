@@ -291,6 +291,14 @@ namespace Helpers
                 summaryInfo.DocumentNumber = "0";
                 summaryInfo.RevisionNumber = "0";
                 summaryInfo.ProjectName = "0";
+
+                Console.WriteLine($"---OccurrenceFileName: {occurrence.OccurrenceFileName}");
+                var occurrenceName = Path.GetFileNameWithoutExtension(occurrence.OccurrenceFileName);
+                Console.WriteLine($"---Name: {occurrenceName}");
+                var l = occurrenceName.Length - 3;
+                var title = occurrenceName.Substring(0, l);
+                Console.WriteLine($"---Title: {title}");
+                summaryInfo.Title = title;
                 doc.Status = DocumentStatus.igStatusAvailable;
 
 
