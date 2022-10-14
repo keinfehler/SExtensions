@@ -30,6 +30,9 @@ namespace DesignManager
                 case 3:
                     ExtendedCommands.RenameSelectedOcurrences();
                     break;
+                case 7:
+                    ExtendedCommands.OpenDraftFiles();
+                    break;
                 default:
                     break;
             }

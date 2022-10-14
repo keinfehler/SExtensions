@@ -1,4 +1,5 @@
-﻿using SolidEdgeAssembly;
+﻿using Helpers;
+using SolidEdgeAssembly;
 using SolidEdgeCommunity.AddIn;
 using SolidEdgeFramework;
 using System;
@@ -41,5 +42,9 @@ namespace DesignManager
 
         }
 
+        internal static void OpenDraftFiles()
+        {
+            DesignManagerHelpers.OpenDraftFiles();
+        }
     }
 }

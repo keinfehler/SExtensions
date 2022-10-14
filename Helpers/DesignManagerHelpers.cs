@@ -4,6 +4,7 @@ using SolidEdgeCommunity.Extensions;
 using SolidEdgeFramework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Path = System.IO.Path;
@@ -47,6 +48,30 @@ namespace Helpers
             return null;
         }
         public static SolidEdgeDocument ActiveDocument => SolidEdgeAddIn.Instance.Application.ActiveDocument as SolidEdgeDocument;
+        public static void OpenDraftFiles()
+        {
+            foreach (var selectedItem in Helpers.DesignManagerHelpers.GetSelectedOccurrences(ActiveDocument, true))
+            {
+
+                var draftPath = Path.ChangeExtension(selectedItem.OccurrenceFileName, ".dft") ;
+                //SolidEdgeAddIn.Instance.Application.ope
+                try
+                {
+                    Process.Start(draftPath);
+                }
+                catch (Exception ex)
+                {
+                    
+                    continue;
+                }
+               
+            }
+        }
+        public static void OtroMetodo()
+        {
+
+        }
+
 
         public static void Rename(string newReName, bool deleteAfterRename = true)
         {

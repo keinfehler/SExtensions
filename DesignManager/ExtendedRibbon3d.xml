@@ -38,7 +38,7 @@
 				 screentip="Agregar Copia"
 				 supertip="Agregar Copia"
 				 imageId="6"
-				 enabled="true" />			
+				 enabled="true" />	
 			
 			<checkBox id="1"
 					  size="large"
@@ -47,7 +47,17 @@
 					  supertip="Cuando está activado, configura 'Reemplazar con copia +' para reemplazar solo las ocurrencias seleccionadas. Si existe más de una posición del artículo en el mismo nivel, el resto de ocurrencias no se reeemplazarán.&#13;&#13;Sólo es válido para el próximo uso. Después se desactivará" />
 		
 		</group>
-		<group name="Renombrar">
+		<group name="Redefinir">
+			
+			<button id="8"
+				 size="large"
+				 label="Redefine  por Sub.Sol"
+				 screentip="Redefine  por Sub.Sol"
+				 supertip="Redefine  por Sub.Sol"
+				 imageId="8"
+				 enabled="true" />		
+			
+			
 			<button id="3"
 				 size="large"
 				 label="Redefine Nombre"

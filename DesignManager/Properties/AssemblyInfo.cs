@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: NativeResource(5, @"res\Revision.png")]
 [assembly: NativeResource(6, @"res\Copia.png")]
 [assembly: NativeResource(7, @"res\CMD50005.png")]
-
+[assembly: NativeResource(8, @"res\sub.sol.png")]
 
 
 // La información general de un ensamblado se controla mediante el siguiente 

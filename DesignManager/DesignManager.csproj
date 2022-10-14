@@ -90,6 +90,7 @@
     <Content Include="res\Renombrar.png" />
     <Content Include="res\Revision.png" />
     <Content Include="res\Revision1.png" />
+    <Content Include="res\sub.sol.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Helpers\Helpers.csproj">
