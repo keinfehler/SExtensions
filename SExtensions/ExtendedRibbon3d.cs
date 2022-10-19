@@ -1,11 +1,11 @@
 ﻿using SolidEdgeCommunity.AddIn;
 
-namespace SExtensions
+namespace DesignManager
 {
     public class ExtendedRibbon3d : Ribbon
     {
         private RibbonCheckBox _ribbonRadioButton;
-        const string _embeddedResourceName = "SExtensions.ExtendedRibbon3d.xml";
+        const string _embeddedResourceName = "DesignManager.ExtendedRibbon3d.xml";
         public ExtendedRibbon3d()
         {
             // Get a reference to the current assembly. This is where the ribbon XML is embedded.
