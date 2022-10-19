@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5B36AE94-A494-4C9C-AEC3-954D5D206E0A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DesignManager</RootNamespace>
+    <AssemblyName>DesignManager</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Interop.SolidEdge, Version=220.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Interop.SolidEdge.220.2.0\lib\net40\Interop.SolidEdge.dll</HintPath>
+    </Reference>
+    <Reference Include="SolidEdge.Community, Version=219.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SolidEdge.Community.219.0.0\lib\net40\SolidEdge.Community.dll</HintPath>
+    </Reference>
+    <Reference Include="SolidEdge.Community.AddIn, Version=219.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SolidEdge.Community.AddIn.219.0.0\lib\net40\SolidEdge.Community.AddIn.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExtendedCommands.cs" />
+    <Compile Include="ExtendedRibbon3d.cs" />
+    <Compile Include="FormRename.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRename.Designer.cs">
+      <DependentUpon>FormRename.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DesignManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ExtendedRibbon3d.xml" />
+    <EmbeddedResource Include="FormRename.resx">
+      <DependentUpon>FormRename.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DesignManager.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="res\Boxes_32.png" />
+    <Content Include="res\CMD11086.png" />
+    <Content Include="res\CMD248.png" />
+    <Content Include="res\CMD50005-1.png" />
+    <Content Include="res\CMD50005.png" />
+    <Content Include="res\CMD62007.png" />
+    <Content Include="res\CMD11026.png" />
+    <Content Include="res\CMD62015.png" />
+    <Content Include="res\ComerMec.png" />
+    <Content Include="res\Copia.png" />
+    <Content Include="res\Renombrar.png" />
+    <Content Include="res\Revision.png" />
+    <Content Include="res\Revision1.png" />
+    <Content Include="res\sub.sol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{06238d7d-4527-449a-b0e8-91a25d55fb88}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\SolidEdge.Community.AddIn.219.0.0\build\net40\SolidEdge.Community.AddIn.targets" Condition="Exists('..\packages\SolidEdge.Community.AddIn.219.0.0\build\net40\SolidEdge.Community.AddIn.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\SolidEdge.Community.AddIn.219.0.0\build\net40\SolidEdge.Community.AddIn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SolidEdge.Community.AddIn.219.0.0\build\net40\SolidEdge.Community.AddIn.targets'))" />
+  </Target>
+</Project>
