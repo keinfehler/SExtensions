@@ -1,0 +1,49 @@
+Windows Registry Editor Version 5.00
+
+;Remove previous registration
+[-HKEY_CURRENT_USER\Software\Classes\CLSID\{4e1bdb52-729e-453a-9741-afea0969518f}]
+[-HKEY_CURRENT_USER\Software\Classes\DesignManager]
+
+; New Registration
+[HKEY_CURRENT_USER\Software\Classes\CLSID\{4e1bdb52-729e-453a-9741-afea0969518f}]
+@="DesignManager.DesignManager"
+"AutoConnect"=dword:00000001
+"409"="Solid Edge DesignManager"
+
+[HKEY_CURRENT_USER\Software\Classes\CLSID\{4e1bdb52-729e-453a-9741-afea0969518f}\Environment Categories]
+
+; SolidEdge Assembly Environment
+[HKEY_CURRENT_USER\Software\Classes\CLSID\{4e1bdb52-729e-453a-9741-afea0969518f}\Environment Categories\{26618395-09d6-11d1-ba07-080036230602}]
+
+; SolidEdge Addin Environment
+[HKEY_CURRENT_USER\Software\Classes\CLSID\{4e1bdb52-729e-453a-9741-afea0969518f}\Implemented Categories\{26b1d2d1-2b03-11d2-b589-080036e8b802}]
+
+[HKEY_CURRENT_USER\Software\Classes\CLSID\{4e1bdb52-729e-453a-9741-afea0969518f}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}]
+
+[HKEY_CURRENT_USER\Software\Classes\CLSID\{4e1bdb52-729e-453a-9741-afea0969518f}\InprocServer32]
+@="mscoree.dll"
+"ThreadingModel"="Both"
+"Class"="DesignManager.DesignManager"
+"Assembly"="DesignManager"
+"RuntimeVersion"="v4.0.30319"
+"CodeBase"="file:///C:/WorkingGIT/keinfehler/DesignManager/DesignManager/bin/Debug/DesignManager.DLL"
+
+[HKEY_CURRENT_USER\Software\Classes\CLSID\{4e1bdb52-729e-453a-9741-afea0969518f}\InprocServer32\1.0.0.0]
+"Class"="DesignManager.DesignManager"
+"Assembly"="DesignManager"
+"RuntimeVersion"="v4.0.30319"
+"CodeBase"="file:///C:/WorkingGIT/keinfehler/DesignManager/DesignManager/bin/Debug/DesignManager.DLL"
+
+
+
+[HKEY_CURRENT_USER\Software\Classes\CLSID\{4e1bdb52-729e-453a-9741-afea0969518f}\ProgId]
+@="DesignManager"
+
+[HKEY_CURRENT_USER\Software\Classes\CLSID\{4e1bdb52-729e-453a-9741-afea0969518f}\Summary]
+"409"="Solid Edge Addin in .NET 4.0."
+
+[HKEY_CURRENT_USER\Software\Classes\DesignManager]
+@="DesignManager.DesignManager"
+
+[HKEY_CURRENT_USER\Software\Classes\DesignManager\CLSID]
+@="{4e1bdb52-729e-453a-9741-afea0969518f}"

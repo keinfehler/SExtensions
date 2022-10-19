@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	To enable XML intellisense, use package manager console command: Install-SolidEdgeAddInRibbonSchema
+  This command adds\updates Ribbon.xsd in your project.
+  https://github.com/SolidEdgeCommunity/SolidEdge.Community/wiki/Package-Manager-Console-Powershell-Reference#install-solidedgeaddinribbonschema
+-->
+<ribbon xmlns="http://github.com/SolidEdgeCommunity/SolidEdge/Ribbon">
+	<tab name="SyN-Design">
+		<group name="Reemplazar">
+			<button id="0"
+				   size="large"
+				   label="Reemplaza  por Copia"
+				   screentip="Reeplazar con Copia +"
+				   supertip="Reemplaza por una copia de la ocurrencia seleccionada.&#13;&#13;Automáticamente copia el plano, resetea revisiones. &#13;&#13;Redefine los vínculos que pudiera tener la pieza al conjunto actual.&#13;&#13;También actualiza las propiedades."
+				   imageId="0"
+				   enabled="true" />
+
+			<button id="4"
+				 size="large"
+				 label="Reemplaza  por C-Mec"
+				 screentip="Reemplaza por Comercial Mecanizado"
+				 supertip="Reemplaza por Comercial Mecanizado"
+				 imageId="4"
+				 enabled="true" />
+			/>
+			
+			<button id="5"
+				 size="large"
+				 label="Reemplaza  por Rev"
+				 screentip="Reemplaza por Revision"
+				 supertip="Reemplaza por Revision"
+				 imageId="5"
+				 enabled="true" />
+
+			<button id="6"
+				 size="large"
+				 label="Agrega  Copia"
+				 screentip="Agregar Copia"
+				 supertip="Agregar Copia"
+				 imageId="6"
+				 enabled="true" />	
+			
+			<checkBox id="1"
+					  size="large"
+					  label="Only"
+					  screentip="Only"
+					  supertip="Cuando está activado, configura 'Reemplazar con copia +' para reemplazar solo las ocurrencias seleccionadas. Si existe más de una posición del artículo en el mismo nivel, el resto de ocurrencias no se reeemplazarán.&#13;&#13;Sólo es válido para el próximo uso. Después se desactivará" />
+		
+		</group>
+		<group name="Redefinir">
+			
+			<button id="8"
+				 size="large"
+				 label="Redefine  por Sub.Sol"
+				 screentip="Redefine  por Sub.Sol"
+				 supertip="Redefine  por Sub.Sol"
+				 imageId="8"
+				 enabled="true" />		
+			
+			
+			<button id="3"
+				 size="large"
+				 label="Redefine Nombre"
+				 screentip="Redefinir Nombre"
+				 supertip="Redefinir Nombre"
+				 imageId="3"
+				 enabled="true" />
+
+		</group>
+		<group name="Visualizar">
+
+			<button id="7"
+				 size="large"
+				 label="Abre  Plano"
+				 screentip="Abrir Plano"
+				 supertip="Abrir Plano"
+				 imageId="7"
+				 enabled="true" />
+			
+			<button id="2"
+				 size="large"
+				 label="Directorio Trabajo"
+				 screentip="Abre directorio de trabajo"
+				 supertip="Abre directorio de trabajo"
+				 imageId="2"
+				 enabled="true" />
+
+
+			/>
+		</group>
+	</tab>
+</ribbon>

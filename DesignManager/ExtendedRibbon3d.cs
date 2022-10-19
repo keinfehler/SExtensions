@@ -24,6 +24,15 @@ namespace DesignManager
                 case 0:
                     ExtendedCommands.AddCopyPlus(_ribbonRadioButton.Checked);
                     break;
+                case 2:
+                    ExtendedCommands.OpenDirectory();
+                    break;
+                case 3:
+                    ExtendedCommands.RenameSelectedOcurrences();
+                    break;
+                case 7:
+                    ExtendedCommands.OpenDraftFiles();
+                    break;
                 default:
                     break;
             }
