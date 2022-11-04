@@ -22,7 +22,8 @@
 				 screentip="Agregar Subcojunto"
 				 supertip="Abre el directorio de trabajo del documento activo."
 				 imageId="16"
-				 enabled="true" />		
+				 enabled="true" />	
+		</group>
 		
 		<group name="Reemplazar">
 			<button id="0"
