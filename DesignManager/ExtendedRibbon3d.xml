@@ -11,26 +11,24 @@
 				   size="large"
 				   label="Reemplaza  por Copia"
 				   screentip="Reeplazar con Copia +"
-				   supertip="Reemplaza por una copia de la ocurrencia seleccionada.&#13;&#13;Automáticamente copia el plano, resetea revisiones. &#13;&#13;Redefine los vínculos que pudiera tener la pieza al conjunto actual.&#13;&#13;También actualiza las propiedades."
+				   supertip="Reemplaza por una copia de la ocurrencia seleccionada.&#13;&#13;Automáticamente:&#13;&#13;Guarda la copia en el directorio de trabajo.&#13;Copia el plano.&#13;Resetea revisiones.&#13;Redefine vínculos que pudiera tener la pieza al conjunto actual.&#13;Actualiza las propiedades.&#13;&#13;Por defecto, sustituye todas las ocurrencias idénticas que haya en el nivel de ensamblaje actual. Para sustituir solo la ocurrencia seleccionada, active el Check ‘Only’."
 				   imageId="0"
 				   enabled="true" />
 
-			<!--comentario-->
-			
 			<button id="4"
 				 size="large"
 				 label="Reemplaza  por C-Mec"
 				 screentip="Reemplaza por Comercial Mecanizado"
-				 supertip="Reemplaza por Comercial Mecanizado"
+				 supertip="Reemplaza por una copia de la ocurrencia COMERCIAL seleccionada.&#13;&#13;Automáticamente:&#13;&#13;Guarda la copia en el directorio de trabajo.&#13;Copia el plano.&#13;Resetea revisiones.&#13;Redefine vínculos que pudiera tener la pieza al conjunto actual.&#13;Actualiza las propiedades.&#13;&#13;Por defecto, sustituye todas las ocurrencias idénticas que haya en el nivel de ensamblaje actual. Para sustituir solo la ocurrencia seleccionada, active el Check ‘Only’."
 				 imageId="4"
 				 enabled="true" />
 			/>
-			
+
 			<button id="5"
 				 size="large"
 				 label="Reemplaza  por Rev"
 				 screentip="Reemplaza por Revision"
-				 supertip="Reemplaza por Revision"
+				 supertip="Reemplaza por una copia de la ocurrencia seleccionada.&#13;&#13;Automáticamente:&#13;&#13;Genera la siguiente revisión.&#13;Guarda la copia en el directorio de trabajo.&#13;Copia el plano.&#13;Actualiza revisiones.&#13;Redefine vínculos que pudiera tener la pieza al conjunto actual.&#13;&#13;Por defecto, sustituye todas las ocurrencias idénticas que haya en el nivel de ensamblaje actual. Para sustituir solo la ocurrencia seleccionada, active el Check ‘Only’."
 				 imageId="5"
 				 enabled="true" />
 
@@ -38,33 +36,70 @@
 				 size="large"
 				 label="Agrega  Copia"
 				 screentip="Agregar Copia"
-				 supertip="Agregar Copia"
+				 supertip="Agrega una copia de la ocurrencia seleccionada en la misma posición.&#13;&#13;Automáticamente:&#13;&#13;Guarda la copia en el directorio de trabajo.&#13;Copia el plano.&#13;Resetea revisiones.&#13;Redefine vínculos que pudiera tener la pieza al conjunto actual.&#13;Actualiza las propiedades. &#13;Se debe definir el nuevo nombre de la copia."
 				 imageId="6"
-				 enabled="true" />	
-			
+				 enabled="true" />
+
 			<checkBox id="1"
 					  size="large"
 					  label="Only"
 					  screentip="Only"
 					  supertip="Cuando está activado, configura 'Reemplazar con copia +' para reemplazar solo las ocurrencias seleccionadas. Si existe más de una posición del artículo en el mismo nivel, el resto de ocurrencias no se reeemplazarán.&#13;&#13;Sólo es válido para el próximo uso. Después se desactivará" />
-		
+
+		</group>
+		<group name="Convertir">
+
+			<button id="9"
+				 size="large"
+				 label="Convertir  a C-Comercial"
+				 screentip="Convertir a Componente Comercial"
+				 supertip="Convierte la ocurrencia seleccionada por un Componente COMERCIAL.&#13;&#13;Automáticamente:&#13;&#13;Adjunta plano si existiera.&#13;Codifica según el siguiente nombre de archivo que corresponda en el repositorio.&#13;Actualiza las propiedades."
+				 imageId="9"
+				 enabled="true" />
+
+
+			<button id="10"
+				 size="large"
+				 label="Convertir  a C-Electrico"
+				 screentip="Convertir a Componente Electrico"
+				 supertip="Convierte la ocurrencia seleccionada por un Componente ELECTRICO.&#13;&#13;Automáticamente:&#13;&#13;Adjunta plano si existiera.&#13;Codifica según el siguiente nombre de archivo que corresponda en el repositorio.&#13;Actualiza las propiedades."
+				 imageId="10"
+				 enabled="true" />
+
+			<button id="11"
+				 size="large"
+				 label="Convertir  a C-Neumatico"
+				 screentip="Convertir a Componente Neumatico"
+				 supertip="Convierte la ocurrencia seleccionada por un Componente NEUMATICO.&#13;&#13;Automáticamente:&#13;&#13;Adjunta plano si existiera.&#13;Codifica según el siguiente nombre de archivo que corresponda en el repositorio.&#13;Actualiza las propiedades."
+				 imageId="11"
+				 enabled="true" />
+
+			<button id="12"
+				 size="large"
+				 label="Convertir  a C-Serie"
+				 screentip="Convertir a Componente de Serie"
+				 supertip="Convierte la ocurrencia seleccionada por un Componente de SERIE.&#13;&#13;Automáticamente:&#13;&#13;Adjunta plano si existiera.&#13;Codifica según el siguiente nombre de archivo que corresponda en el repositorio.&#13;Actualiza las propiedades."
+				 imageId="12"
+				 enabled="true" />
+
+
 		</group>
 		<group name="Redefinir">
-			
+
 			<button id="8"
 				 size="large"
 				 label="Redefine  por Sub.Sol"
 				 screentip="Redefine  por Sub.Sol"
-				 supertip="Redefine  por Sub.Sol"
+				 supertip="Sustituye la ocurrencia seleccionada PWD por el ASM constructivo.&#13;&#13;Automáticamente:&#13;&#13;Redefine vínculos que pudiera tener la pieza al conjunto actual.&#13;Actualiza las propiedades."
 				 imageId="8"
-				 enabled="true" />		
-			
-			
+				 enabled="true" />
+
+
 			<button id="3"
 				 size="large"
 				 label="Redefine Nombre"
 				 screentip="Redefinir Nombre"
-				 supertip="Redefinir Nombre"
+				 supertip="Renombra la ocurrencia seleccionada asignándole el nombre que se defina en el cuadro de dialogo.&#13;&#13;Redefine el plano.&#13;Resetea revisiones.&#13;Redefine vínculos que pudiera tener la pieza al conjunto actual.&#13;Actualiza las propiedades."
 				 imageId="3"
 				 enabled="true" />
 
@@ -75,15 +110,15 @@
 				 size="large"
 				 label="Abre  Plano"
 				 screentip="Abrir Plano"
-				 supertip="Abrir Plano"
+				 supertip="Abre los planos de las ocurrencias seleccionadas que estén disponibles en el deposito.&#13;&#13;Múltiple Selección."
 				 imageId="7"
 				 enabled="true" />
-			
+
 			<button id="2"
 				 size="large"
 				 label="Directorio Trabajo"
 				 screentip="Abre directorio de trabajo"
-				 supertip="Abre directorio de trabajo"
+				 supertip="Abre el directorio de trabajo del documento activo."
 				 imageId="2"
 				 enabled="true" />
 
