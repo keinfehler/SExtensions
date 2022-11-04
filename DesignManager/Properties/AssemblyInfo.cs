@@ -17,6 +17,10 @@ using System.Runtime.InteropServices;
 [assembly: NativeResource(10, @"res\C-Comercial.png")]
 [assembly: NativeResource(11, @"res\C-Comercial.png")]
 [assembly: NativeResource(12, @"res\C-Comercial.png")]
+[assembly: NativeResource(13, @"res\C-Comercial.png")]
+[assembly: NativeResource(14, @"res\C-Comercial.png")]
+[assembly: NativeResource(15, @"res\C-Comercial.png")]
+[assembly: NativeResource(16, @"res\C-Comercial.png")]
 
 
 // La información general de un ensamblado se controla mediante el siguiente 
