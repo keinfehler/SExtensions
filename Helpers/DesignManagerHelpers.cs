@@ -42,6 +42,7 @@ namespace Helpers
             if (doc != null)
             {
                 var selectedItems = doc.SelectSet.OfType<Occurrence>().ToList();
+              
                 return selectedItems;
 
             }
@@ -50,29 +51,169 @@ namespace Helpers
         public static SolidEdgeDocument ActiveDocument => SolidEdgeAddIn.Instance.Application.ActiveDocument as SolidEdgeDocument;
         public static void OpenDraftFiles()
         {
-            foreach (var selectedItem in Helpers.DesignManagerHelpers.GetSelectedOccurrences(ActiveDocument, true))
+            if (ActiveDocument != null)
             {
+                List<Occurrence> occs = new List<Occurrence>();
 
-                var draftPath = Path.ChangeExtension(selectedItem.OccurrenceFileName, ".dft") ;
-                //SolidEdgeAddIn.Instance.Application.ope
-                try
+                var selectedItems = ActiveDocument.SelectSet.OfType<Occurrence>().ToList();
+                occs.AddRange(selectedItems);
+
+                foreach (var item in selectedItems)
                 {
-                    Process.Start(draftPath);
+                    var subItems = item?.SubOccurrences?.OfType<Occurrence>();
+                    if (subItems?.Any() ?? false)
+                    {
+                        occs.AddRange(subItems);
+                    }
                 }
-                catch (Exception ex)
+
+                foreach (var selectedItem in occs)
                 {
-                    
-                    continue;
+
+                    var draftPath = Path.ChangeExtension(selectedItem.OccurrenceFileName, ".dft");
+                    //SolidEdgeAddIn.Instance.Application.ope
+                    try
+                    {
+                        Process.Start(draftPath);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        continue;
+                    }
+
                 }
-               
+
             }
+
+           
         }
         public static void OtroMetodo()
         {
 
         }
 
+        public static void CreateCopy(string newReName)
+        {
+            SolidEdgeDocument document = ActiveDocument;
+            
+            var activeDocumentFullName = document.FullName;
+            var activeDocumentDirectoryName = Path.GetDirectoryName(activeDocumentFullName);
+            Console.WriteLine($"ACTIVEDOCUMENT:{activeDocumentFullName}");
+            Console.WriteLine($"ACTIVEDOCUMENT_DIRECTORY:{activeDocumentDirectoryName}");
+            Console.WriteLine($"----------------");
+            Console.WriteLine($"----------------");
+            Console.WriteLine($"----------------");
+            Console.WriteLine($"----------------");
 
+            var selectedOccs = Helpers.DesignManagerHelpers.GetSelectedOccurrences(document, true);
+            if (selectedOccs.Count > 1)
+            {
+                return;
+            }
+
+
+            foreach (var item in selectedOccs)
+            {
+                Console.WriteLine($"----------------");
+                Console.WriteLine($"----------------");
+
+                var filePath = item.OccurrenceFileName;
+                Console.WriteLine($"-OCCURRENCE: {filePath}");
+
+                var fileName = Path.GetFileName(filePath);
+                Console.WriteLine($"-OCCURRENCE-FILE: {fileName}");
+
+
+                var directoryName = Path.GetDirectoryName(filePath);
+                Console.WriteLine($"-DIRECTORY: {directoryName}");
+
+
+                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+
+                var relatedItems = Directory.GetFiles(directoryName, $"{fileNameWithoutExtension}*");
+
+
+                var replaceFiles = new Dictionary<string, string>();
+                var filesToDelete = new List<string>();
+
+                foreach (var relatedItem in relatedItems)
+                {
+
+
+                    var relatedItemDirectoryName = Path.GetDirectoryName(relatedItem);
+                    var relatedItemfileName = Path.GetFileName(relatedItem);
+                    var relatedItemfileNameWithoutExtension = Path.GetFileNameWithoutExtension(relatedItem);
+                    var relatedItemExtension = Path.GetExtension(relatedItem);
+
+                    var newPath = relatedItem;
+                    var newName = relatedItemfileNameWithoutExtension;
+
+                    filesToDelete.Add(relatedItem);
+
+                    newName = newReName + "-00";//GetNewName(relatedItemfileNameWithoutExtension);
+
+                    newPath = Path.Combine(relatedItemDirectoryName, newName + relatedItemExtension);
+
+                    Console.WriteLine($"--SUBITEM: {relatedItem}");
+                    Console.WriteLine($"----OLDPATH: {relatedItem}");
+                    Console.WriteLine($"----NEWPATH: {newPath}");
+
+                    try
+                    {
+                        if (File.Exists(newPath))
+                            continue;
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw ex;
+                    }
+
+                    try
+                    {
+                        File.Copy(relatedItem, newPath);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw ex;
+                    }
+
+                    if (relatedItem.EndsWith(fileName))
+                    {
+                        replaceFiles.Add(fileName, newPath);
+                    }
+
+                }
+
+
+                try
+                {
+                    string val = null;
+                    var replacement = replaceFiles.TryGetValue(fileName, out val);
+                    if (val != null)
+                    {
+
+                        
+                        double[] matrix = item.GetMatrix();
+                        Occurrences occurrences = ((AssemblyDocument)SolidEdgeAddIn.Instance.Application.ActiveDocument).Occurrences;
+                        
+                        Occurrence occurrence = occurrences.AddWithMatrix(val, matrix);
+
+                        UpdateProperties(occurrence);
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+            }
+            Console.ReadLine();
+        }
         public static void Rename(string newReName, bool deleteAfterRename = true)
         {
             SolidEdgeDocument document = ActiveDocument;

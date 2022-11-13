@@ -15,12 +15,21 @@ namespace DesignManager
         {
             InitializeComponent();
         }
+        public bool CreateCopy { get; set; }
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(textBox1.Text))
             {
-                Helpers.DesignManagerHelpers.Rename(textBox1.Text);
+                if (CreateCopy)
+                {
+                    Helpers.DesignManagerHelpers.CreateCopy(textBox1.Text);
+                }
+                else
+                {
+                    Helpers.DesignManagerHelpers.Rename(textBox1.Text);
+                }
+                
                 Close();
             }
             

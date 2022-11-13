@@ -57,7 +57,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Name = "FormRename";
-            this.Text = "Introducir nuevo nombre";
+            this.Text = "Introducir nombre";
             this.ResumeLayout(false);
             this.PerformLayout();
 

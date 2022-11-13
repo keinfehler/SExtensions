@@ -30,6 +30,13 @@ namespace DesignManager
             newNameForm.ShowDialog();
             
         }
+        public static void CreateFromSelectedOcurrence()
+        {
+            var newNameForm = new FormRename();
+            newNameForm.CreateCopy = true;
+            newNameForm.ShowDialog();
+
+        }
 
         internal static void OpenDirectory()
         {
