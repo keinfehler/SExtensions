@@ -8,6 +8,14 @@
 	<tab name="SyN-DesigN">
 		<group name="Insertar">
 
+			<button id="16"
+				 size="large"
+				 label="Agregar Subconjunto"
+				 screentip="Agregar Subcojunto"
+				 supertip="Abre el directorio de trabajo del documento activo."
+				 imageId="16"
+				 enabled="true" />			
+			
 			<button id="15"
 				 size="large"
 				 label="Agregar Pieza"
@@ -15,14 +23,14 @@
 				 supertip="Abre los planos de las ocurrencias seleccionadas que estén disponibles en el deposito.&#13;&#13;Múltiple Selección."
 				 imageId="15"
 				 enabled="true" />
-
-			<button id="16"
+			
+			<button id="17"
 				 size="large"
-				 label="Agregar Subcojunto"
+				 label="Agregar Chapa"
 				 screentip="Agregar Subcojunto"
 				 supertip="Abre el directorio de trabajo del documento activo."
 				 imageId="16"
-				 enabled="true" />	
+				 enabled="true" />
 		</group>
 		
 		<group name="Reemplazar">
@@ -96,7 +104,7 @@
 
 
 		</group>
-		<group name="Convertir a Comercial">
+		<!--<group name="Convertir a Comercial">
 
 
 			<button id="9"
@@ -125,7 +133,7 @@
 				 enabled="true" />			
 
 
-		</group>
+		</group>-->
 		<group name="Redefinir">
 
 			<button id="8"
