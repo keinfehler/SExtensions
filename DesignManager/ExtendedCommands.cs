@@ -20,10 +20,13 @@ namespace DesignManager
         }
         private static void ReplaceAndCopy(bool allOccurrences)
         {
-            
-
             Helpers.DesignManagerHelpers.ReplaceAndCopy(Helpers.DesignManagerHelpers.ActiveDocument, allOccurrences);
         }
+        public static void ReplaceAndCopyWithRevision(bool allOccurrences)
+        {
+            Helpers.DesignManagerHelpers.ReplaceAndCopy(Helpers.DesignManagerHelpers.ActiveDocument, allOccurrences, revision:true);
+        }
+
         public static void RenameSelectedOcurrences()
         {
             var newNameForm = new FormRename();

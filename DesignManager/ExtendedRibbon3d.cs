@@ -30,6 +30,9 @@ namespace DesignManager
                 case 3:
                     ExtendedCommands.RenameSelectedOcurrences();
                     break;
+                case 5:
+                    ExtendedCommands.ReplaceAndCopyWithRevision(_ribbonRadioButton.Checked);
+                    break;
                 case 6:
                     ExtendedCommands.CreateFromSelectedOcurrence();
                     break;

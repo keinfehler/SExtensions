@@ -13,7 +13,20 @@ namespace Helpers
 {
     public static class DesignManagerHelpers
     {
-        public static string GetNewName(string relatedItemfileNameWithoutExtension)
+        public static int GetRevisionNumber(string relatedItemfileNameWithoutExtension)
+        {
+            var intValue = 0;
+            var splittedFileName = relatedItemfileNameWithoutExtension.Split('-').ToList();
+            if (splittedFileName.Count > 1)
+            {
+                var lastItem = splittedFileName.LastOrDefault();
+         
+                if (int.TryParse(lastItem, out intValue))
+                    intValue++;
+            }
+            return intValue;
+        }
+        public static string GetNewName(string relatedItemfileNameWithoutExtension, string revNumber = "00")
         {
             var splittedFileName = relatedItemfileNameWithoutExtension.Split('-').ToList();
 
@@ -21,10 +34,10 @@ namespace Helpers
             {
                 var lastItem = splittedFileName.LastOrDefault();
 
-                splittedFileName.RemoveAt(splittedFileName.Count-1);
+                splittedFileName.RemoveAt(splittedFileName.Count - 1);
 
             }
-            splittedFileName.Add("-00");
+            splittedFileName.Add($"-{revNumber}");
 
             var result = string.Empty;
             foreach (var c in splittedFileName)
@@ -338,7 +351,7 @@ namespace Helpers
             }
             Console.ReadLine();
         }
-        public static void ReplaceAndCopy(SolidEdgeDocument document, bool allOccurrences)
+        public static void ReplaceAndCopy(SolidEdgeDocument document, bool allOccurrences, bool revision = false)
         {
 
             var activeDocumentFullName = document.FullName;
@@ -373,6 +386,15 @@ namespace Helpers
 
 
                 var replaceFiles = new Dictionary<string, string>();
+                int revisionNumber = 0;
+                var revisionNumberString = "00";
+                if (revision)
+                {
+                    revisionNumber = GetRevisionNumber(fileNameWithoutExtension);
+                    revisionNumberString = revisionNumber.ToString("00");
+                }
+
+                
 
                 foreach (var relatedItem in relatedItems)
                 {
@@ -386,7 +408,7 @@ namespace Helpers
                     var newPath = relatedItem;
                     var newName = relatedItemfileNameWithoutExtension;
 
-                    newName = GetNewName(relatedItemfileNameWithoutExtension);
+                    newName = GetNewName(relatedItemfileNameWithoutExtension, revisionNumberString);
 
                     newPath = Path.Combine(activeDocumentDirectoryName, newName + relatedItemExtension);
 
@@ -431,8 +453,7 @@ namespace Helpers
                     {
                         item.Replace(val, allOccurrences);
 
-                        UpdateProperties(item);
-
+                        UpdateProperties(item, revision, revisionNumber);
                     }
 
                 }
@@ -446,7 +467,7 @@ namespace Helpers
             Console.ReadLine();
         }
 
-        private static void UpdateProperties(Occurrence occurrence)
+        private static void UpdateProperties(Occurrence occurrence, bool revision = false, int revisionNumber = 0)
         {
             try
             {
@@ -454,21 +475,27 @@ namespace Helpers
                 SolidEdgeFramework.PropertySets properties = (SolidEdgeFramework.PropertySets)(doc.Properties);
 
                 var summaryInfo = doc.GetSummaryInfo();
-                summaryInfo.DocumentNumber = "0";
-                summaryInfo.RevisionNumber = "0";
-                summaryInfo.ProjectName = "0";
-
-                Console.WriteLine($"---OccurrenceFileName: {occurrence.OccurrenceFileName}");
-                var occurrenceName = Path.GetFileNameWithoutExtension(occurrence.OccurrenceFileName);
-                Console.WriteLine($"---Name: {occurrenceName}");
-                var l = occurrenceName.Length - 3;
-                var title = occurrenceName.Substring(0, l);
-                Console.WriteLine($"---Title: {title}");
-                summaryInfo.Title = title;
-                doc.Status = DocumentStatus.igStatusAvailable;
+                if (!revision)
+                {
+                    summaryInfo.DocumentNumber = "0";
+                    summaryInfo.ProjectName = "0";
+                }
 
 
-                properties.ChangeCustomProperty("x", "Þ");
+                summaryInfo.RevisionNumber = revisionNumber.ToString();
+
+                if (!revision)
+                {
+                    Console.WriteLine($"---OccurrenceFileName: {occurrence.OccurrenceFileName}");
+                    var occurrenceName = Path.GetFileNameWithoutExtension(occurrence.OccurrenceFileName);
+                    Console.WriteLine($"---Name: {occurrenceName}");
+                    var l = occurrenceName.Length - 3;
+                    var title = occurrenceName.Substring(0, l);
+                    Console.WriteLine($"---Title: {title}");
+                    summaryInfo.Title = title;
+                    doc.Status = DocumentStatus.igStatusAvailable;
+                    properties.ChangeCustomProperty("x", "Þ");
+                }
                 //properties.ChangeCustomProperty("FechaPlano", DateTime.Now.ToString("dd/MM/yyyy"));
                 properties.Save();
             }
