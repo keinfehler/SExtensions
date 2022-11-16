@@ -80,6 +80,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="res\Agrega Ch.png" />
+    <Content Include="res\Agrega Con.png" />
+    <Content Include="res\Agrega Pz.png" />
     <Content Include="res\Boxes_32.png" />
     <Content Include="res\C-Comercial.png" />
     <Content Include="res\CMD11086.png" />

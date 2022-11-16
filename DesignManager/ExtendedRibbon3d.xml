@@ -29,7 +29,7 @@
 				 label="Agregar Chapa"
 				 screentip="Agregar Chapa"
 				 supertip="Agrega una nueva ocurrencia de chapa al conjunto actual y activa su edicion.&#13;&#13;Automáticamente:&#13;&#13;Guarda la ocurrencia en el directorio de trabajo.&#13;Crea el plano.&#13;Resetea revisiones.&#13;Actualiza las propiedades. &#13;Se debe definir el nuevo nombre de la chapa."
-				 imageId="16"
+				 imageId="17"
 				 enabled="true" />
 		</group>
 		

@@ -19,9 +19,9 @@ using System.Runtime.InteropServices;
 [assembly: NativeResource(12, @"res\C-Comercial.png")]
 [assembly: NativeResource(13, @"res\C-Comercial.png")]
 [assembly: NativeResource(14, @"res\C-Comercial.png")]
-[assembly: NativeResource(15, @"res\C-Comercial.png")]
-[assembly: NativeResource(16, @"res\C-Comercial.png")]
-[assembly: NativeResource(17, @"res\C-Comercial.png")]
+[assembly: NativeResource(15, @"res\Agrega Pz.png")]
+[assembly: NativeResource(16, @"res\Agrega Con.png")]
+[assembly: NativeResource(17, @"res\Agrega Ch.png")]
 
 // La información general de un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
