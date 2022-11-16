@@ -12,7 +12,7 @@
 				 size="large"
 				 label="Agregar Subconjunto"
 				 screentip="Agregar Subcojunto"
-				 supertip="Abre el directorio de trabajo del documento activo."
+				 supertip="Agrega una nueva ocurrencia de conjunto al conjunto actual y activa su edicion.&#13;&#13;Automáticamente:&#13;&#13;Guarda la ocurrencia en el directorio de trabajo.&#13;Crea el plano.&#13;Resetea revisiones.&#13;Actualiza las propiedades. &#13;Se debe definir el nuevo nombre del conjunto."
 				 imageId="16"
 				 enabled="true" />			
 			
@@ -20,15 +20,15 @@
 				 size="large"
 				 label="Agregar Pieza"
 				 screentip="Agregar Pieza"
-				 supertip="Abre los planos de las ocurrencias seleccionadas que estén disponibles en el deposito.&#13;&#13;Múltiple Selección."
+				 supertip="Agrega una nueva ocurrencia de pieza al conjunto actual y activa su edicion.&#13;&#13;Automáticamente:&#13;&#13;Guarda la ocurrencia en el directorio de trabajo.&#13;Crea el plano.&#13;Resetea revisiones.&#13;Actualiza las propiedades. &#13;Se debe definir el nuevo nombre de la pieza."
 				 imageId="15"
 				 enabled="true" />
 			
 			<button id="17"
 				 size="large"
 				 label="Agregar Chapa"
-				 screentip="Agregar Subcojunto"
-				 supertip="Abre el directorio de trabajo del documento activo."
+				 screentip="Agregar Chapa"
+				 supertip="Agrega una nueva ocurrencia de chapa al conjunto actual y activa su edicion.&#13;&#13;Automáticamente:&#13;&#13;Guarda la ocurrencia en el directorio de trabajo.&#13;Crea el plano.&#13;Resetea revisiones.&#13;Actualiza las propiedades. &#13;Se debe definir el nuevo nombre de la chapa."
 				 imageId="16"
 				 enabled="true" />
 		</group>
