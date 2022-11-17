@@ -80,6 +80,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="res\Abrir Plan.png" />
     <Content Include="res\Agrega Ch.png" />
     <Content Include="res\Agrega Con.png" />
     <Content Include="res\Agrega Pz.png" />
@@ -88,7 +89,6 @@
     <Content Include="res\CMD11086.png" />
     <Content Include="res\CMD248.png" />
     <Content Include="res\CMD50005-1.png" />
-    <Content Include="res\CMD50005.png" />
     <Content Include="res\CMD62007.png" />
     <Content Include="res\CMD11026.png" />
     <Content Include="res\CMD62015.png" />
