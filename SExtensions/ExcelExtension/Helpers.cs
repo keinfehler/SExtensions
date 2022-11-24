@@ -476,7 +476,7 @@ namespace SExtensions
                 if (name.EndsWith(".asm"))
                 {
                     var fileName = System.IO.Path.GetFileName(name);
-                    if (fileName.StartsWith("SUBCONJUNTO SOLDADO") || fileName.StartsWith("SUBCONJUNTO MONTADO"))
+                    if (fileName.StartsWith("SUBCONJUNTO SOLDADO") || fileName.StartsWith("SUBCONJUNTO MONTADO") || fileName.StartsWith("SUBCONJUNTO MONTAJE"))
                     {
                         includeAsmParent = true;
                         FillParents(occ, level);

@@ -61,6 +61,18 @@
               supertip="Excluir ocurrencias"
               imageId="118"
               enabled="true" />
-    </group>
+	</group>
+
+	<group name="Imprimir">
+
+		<button id="8"
+			size="large"
+			label="Relacion de Impresiones"
+			screentip="Relacion de Impresiones"
+			supertip="Relacion de Impresiones"
+			imageId="8"
+			enabled="true" />
+
+	</group>
   </tab>
 </ribbon>
