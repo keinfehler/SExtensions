@@ -445,8 +445,8 @@ namespace SExtensions
             {
                 Head = null;
                 Head = new DocWrapper();
-                Head.Modelo = assemblyDocument.GetCustomProperty("MODELO");
-                Head.Maquina = assemblyDocument.GetCustomProperty("MAQUINA");
+                Head.Modelo = assemblyDocument.GetSummaryInfoPropertyValue().Subject;
+                Head.Maquina = assemblyDocument.GetSummaryInfoPropertyValue().ProjectName;
                 Head.Empresa = assemblyDocument.GetSummaryInfoPropertyValue().Company;
                 Head.DocumentNumber = assemblyDocument.GetSummaryInfoPropertyValue().DocumentNumber;
                 Head.NombreArchivo = assemblyDocument.Name;
