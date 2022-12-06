@@ -26,6 +26,7 @@ using System.Runtime.InteropServices;
 [assembly: NativeResource(118, @"res\exclude.png")]
 [assembly: NativeResource(8, @"res\Imprimir.png")]
 
+
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.

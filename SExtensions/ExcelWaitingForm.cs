@@ -58,7 +58,7 @@ namespace SExtensions
 
             Task.Factory.StartNew(() => 
             {
-                Helpers.FindOccurrencesAndExport(GetPwdFiles, ExportRutas, Utillaje, textBox1.Text);
+                Helpers.FindOccurrencesAndExport(GetPwdFiles, ExportRutas, OcurrencesExportMode.Utillaje, textBox1.Text);
 
             }).ContinueWith(t => 
             { 

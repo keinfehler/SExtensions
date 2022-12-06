@@ -24,7 +24,13 @@ namespace SExtensions
             return appConfig.AppSettings.Settings[key].Value;
         }
     }
+    public enum OcurrencesExportMode
+    {
+        None,
+        Utillaje,
+        ParaImprimir
 
+    }
     public static class Helpers
     {
         
@@ -34,7 +40,7 @@ namespace SExtensions
         public static string rutaTemporal = ConfigurationHelper.GetConfigurationValue("RutaTemporal");
 
         public static Dictionary<string, Tuple<DocWrapper, int>> InternalUniqueOcurrences { get; set; } = new Dictionary<string, Tuple<DocWrapper, int>>();
-        public static void FindOccurrencesAndExport(bool getPwdFiles,  bool rutas, bool utillaje, string rutaUtillajeOutput = null)
+        public static void FindOccurrencesAndExport(bool getPwdFiles,  bool rutas, OcurrencesExportMode mode, string rutaUtillajeOutput = null, string fileTemplate = null, string outputDirectory = null)
         {
             InternalUniqueOcurrences.Clear();
             OutputPath = null;
@@ -45,31 +51,38 @@ namespace SExtensions
             if (assemblyDocument != null)
             {
 
-                FillOccurrence(assemblyDocument, getPwdFiles, 0);
+                
 
                 var fileName = System.IO.Path.GetFileNameWithoutExtension(assemblyDocument.FullName);
 
-                if (utillaje)
+                switch (mode)
                 {
-                    //rutaUtillaje = rutaUtillajeOutput;
-                    //update a template .xlsm
-                    ExportOccurrences(fileName, rutaUtillajeOutput, "*RELACION UTILLAJE.xlsm", "X-HOJA A COPIAR", false, (rutas && utillaje));
+                    case OcurrencesExportMode.Utillaje:
+                        {
+                            FillOccurrence(assemblyDocument, getPwdFiles, 0);
+                            ExportOccurrencesUtillaje(fileName, rutaUtillajeOutput, "*RELACION UTILLAJE.xlsm", "X-HOJA A COPIAR", false, (rutas && true));
+                        }
+                        
+                        break;
+                    case OcurrencesExportMode.ParaImprimir:
+                        {
+                            FillOccurrence(assemblyDocument, true, 0);
+                            ExportOccurrencesPrint(fileTemplate, outputDirectory);
+                        }
+                        break;
+                    default:
+                        {
+                            FillOccurrence(assemblyDocument, getPwdFiles, 0);
+                            //to new .xlsx File
+                            ExportOccurrences(fileName, directorioSalida);
+
+                            if (OutputPath == null)
+                                return;
+
+                            Process.Start(OutputPath);
+                        }
+                        break;
                 }
-                else
-                {
-                    //to new .xlsx File
-                    ExportOccurrences(fileName, directorioSalida);
-
-                    if (OutputPath == null)
-                        return;
-
-                    Process.Start(OutputPath);
-                }
-                
-                
-              
-
-                
                 End();
             }
 
@@ -79,12 +92,85 @@ namespace SExtensions
 
         }
         public static string OutputPath { get; set; }
-        private static void ExportOccurrences(string documentName,  string outputPath, string documentPatern = null, string sheetName = null, bool header = true, bool rutas = true)
+        private static void ExportOccurrencesPrint(string filePath, string outputDirectory)
         {
             try
             {
 
+                if (filePath != null && outputDirectory != null)
+                {
+                    //busca el primer achivo con el patron "*RELACION UTILLAJE.xlsm" en el directorio de salida
+                    var file = filePath; // Directory.GetFiles(outputPath, documentPatern, searchOption: SearchOption.TopDirectoryOnly).FirstOrDefault();
 
+
+                    if (file != null)
+                    {
+                        //si encuentra el archivo entonces buscamos el directorio en el que se encuentra
+                        var destinationDirectory = outputDirectory; // System.IO.Path.GetDirectoryName(file);
+
+                        var nowString = DateTime.Now.ToString("ddMMyyyyHHmmss");
+                        //crear ruta del archivo temporal en el directorio principal (ya no hay directorio temporal)
+                        var tmpFileName = System.IO.Path.Combine(destinationDirectory,  System.IO.Path.ChangeExtension(file, nowString + System.IO.Path.GetExtension(file))); ///System.IO.Path.GetFileNameWithoutExtension(destinationDirectory) + "_TMP" + System.IO.Path.GetExtension(destinationDirectory);
+
+
+                        //var backupFileName = System.IO.Path.Combine(rutaTemporal, System.IO.Path.GetFileNameWithoutExtension(file) + "_BACKUP_" + DateTime.Now.ToString("yyyyMMddHHmmss") + System.IO.Path.GetExtension(file));
+
+                        try
+                        {
+                            //if (!Directory.Exists(rutaTemporal))
+                            //    Directory.CreateDirectory(rutaTemporal);
+
+                            //si el archivo temporal existe, lo borramos
+                            if (File.Exists(tmpFileName))
+                                File.Delete(tmpFileName);
+
+
+                            //creamos el archivo temporal en base a el archivo original de utillaje
+                            File.Copy(file, tmpFileName);
+
+
+                            //trabajamos con el archivo temporal
+                            var wbookTmp = new XLWorkbook(tmpFileName);
+
+                            if (wbookTmp != null)
+                            {
+                                //si lo carga correctamente, buscamos la hoja "X-HOJA A COPIAR"
+                                IXLWorksheet workSheet = wbookTmp.Worksheets.FirstOrDefault();
+
+                                if (workSheet != null)
+                                {
+                                    //genero el nombre de la hoja nueva
+
+                                    FillWorksheetDataToPrint(workSheet, false, true, true, rutasCheckbox: true, hyperLinks: true);
+
+                                    wbookTmp.Save();
+
+                                    Process.Start(tmpFileName);
+                                }
+                            }
+
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+
+                        }
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        private static void ExportOccurrencesUtillaje(string documentName, string outputPath, string documentPatern = null, string sheetName = null, bool header = true, bool rutas = true)
+        {
+            try
+            {
                 if (outputPath != null && documentPatern != null)
                 {
                     //busca el primer achivo con el patron "*RELACION UTILLAJE.xlsm" en el directorio de salida
@@ -98,7 +184,7 @@ namespace SExtensions
 
                         //crear ruta del archivo temporal en el directorio principal (ya no hay directorio temporal)
                         var tmpFileName = System.IO.Path.ChangeExtension(destinationDirectory, "_TMP" + System.IO.Path.GetExtension(destinationDirectory)); ///System.IO.Path.GetFileNameWithoutExtension(destinationDirectory) + "_TMP" + System.IO.Path.GetExtension(destinationDirectory);
-                            
+
 
                         //var backupFileName = System.IO.Path.Combine(rutaTemporal, System.IO.Path.GetFileNameWithoutExtension(file) + "_BACKUP_" + DateTime.Now.ToString("yyyyMMddHHmmss") + System.IO.Path.GetExtension(file));
 
@@ -106,7 +192,7 @@ namespace SExtensions
                         {
                             //if (!Directory.Exists(rutaTemporal))
                             //    Directory.CreateDirectory(rutaTemporal);
-                            
+
                             //si el archivo temporal existe, lo borramos
                             if (File.Exists(tmpFileName))
                                 File.Delete(tmpFileName);
@@ -115,7 +201,7 @@ namespace SExtensions
                             //creamos el archivo temporal en base a el archivo original de utillaje
                             File.Copy(file, tmpFileName);
 
-                            
+
                             //trabajamos con el archivo temporal
                             var wbookTmp = new XLWorkbook(tmpFileName);
 
@@ -130,14 +216,14 @@ namespace SExtensions
                                     var newName = ConvertDocumentName(documentName);
 
                                     IXLWorksheet repeatedWorkSheet = null;
-                                    if(wbookTmp.TryGetWorksheet(newName, out repeatedWorkSheet)) 
+                                    if (wbookTmp.TryGetWorksheet(newName, out repeatedWorkSheet))
                                         //en caso de existir, se borrara
                                         repeatedWorkSheet.Delete();
-                                    
+
                                     //copia el contenido a la nueva hoja
                                     var newWorkSheet = workSheet.CopyTo(wbookTmp, newName);
 
-                                    FillWorksheetData(newWorkSheet, false, rutas, true, rutasCheckbox:true, hyperLinks:true);
+                                    FillWorksheetData(newWorkSheet, false, rutas, true, rutasCheckbox: true, hyperLinks: true);
 
                                     wbookTmp.Save();
 
@@ -169,20 +255,28 @@ namespace SExtensions
                                 }
                             }
 
-                           
+
 
                         }
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message);
-                            return;
+                         
                         }
                     }
-                    return;
+                    
                 }
-               
+            }
+            catch (Exception)
+            {
 
-
+                throw;
+            }
+        }
+        private static void ExportOccurrences(string documentName,  string outputPath, string documentPatern = null, string sheetName = null, bool header = true, bool rutas = true)
+        {
+            try
+            {
                 var wbook = new XLWorkbook();
                 wbook.AddWorksheet("1");
 
@@ -227,6 +321,70 @@ namespace SExtensions
         private static Tuple<int?, int, string> GetTuple(int? row, int column, string value)
         {
             return Tuple.Create(row, column, value);
+
+        }
+        private static void FillWorksheetDataToPrint(IXLWorksheet ws, bool header, bool ruta = true, bool exportHeader = false, bool rutasCheckbox = true, bool hyperLinks = false)
+        {
+           
+
+            var filteredData = InternalUniqueOcurrences.ToList();
+
+            Tuple<int?, int, string>[][] data = null;
+
+            var _data = filteredData.Select(o => new
+            {
+                FileName = System.IO.Path.GetFileName(o.Key),
+                O = o.Value.Item1,
+                Qty = o.Value.Item2,
+                Path = o.Key
+
+            }).ToList();
+
+
+
+            data = _data.Select(o => new Tuple<int?, int, string>[]
+                                {
+                                    GetTuple(null, 1,o.Path)
+                                    //GetTuple(null, 1, o.O.Category),
+                                    //GetTuple(null, 2, o.Qty.ToString()),
+                                    //GetTuple(null, 3, o.O.DocumentNumber),
+                                    //GetTuple(null, 4, o.O.RevisionNumber),
+                                    //GetTuple(null, 5, o.O.Keywords),
+                                    //GetTuple(null, 6, o.O.Title),
+                                    //GetTuple(null, 7, o.O.Material),
+                                    //GetTuple(null, 8, o.O.Comments.Trim()),
+                                    //GetTuple(null, 9, o.FileName),
+
+
+
+                                    //GetTuple(null, rutasCheckbox ? 25 : 10, ruta ? System.IO.Path.ChangeExtension(o.Path, ".dft") : ""),
+                                    //GetTuple(null, rutasCheckbox ? 26 : 10, ruta ? o.Path : ""),
+
+                                    //GetTuple(null, 14, ""),
+                                    //GetTuple(null, 15, ""),
+
+
+                                }).ToArray();
+
+
+            if (data == null)
+            {
+                return;
+            }
+
+
+            int row = 3;
+            foreach (var d in data)
+            {
+                foreach (var r in d)
+                {
+                    ws.Cell(row, r.Item2).Value = r.Item3;
+
+                }
+
+                row++;
+            }
+
 
         }
         private static void FillWorksheetData(IXLWorksheet ws, bool header, bool ruta = true, bool exportHeader = false, bool rutasCheckbox = true, bool hyperLinks = false)
