@@ -62,5 +62,17 @@
               imageId="118"
               enabled="true" />
     </group>
+
+	<group name="imprimir">
+
+		  <button id="8"
+				  size="large"
+				  label="imprimir"
+				  screentip="imprimir"
+				  supertip="imprimir"
+				  imageId="110"
+				  enabled="true" />
+	</group>
+	  
   </tab>
 </ribbon>

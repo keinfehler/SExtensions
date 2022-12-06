@@ -4,6 +4,8 @@ namespace SExtensions
 {
     public class ExtendedRibbon3d : Ribbon
     {
+        public static string directorioSalida = ConfigurationHelper.GetConfigurationValue("DirectorioSalida");
+        public static string printFileLocation = ConfigurationHelper.GetConfigurationValue("PrintFileLocation");
         private RibbonCheckBox _ribbonRadioButton;
 
         private RibbonCheckBox _ribbonExportarRutasRadioButton;
@@ -43,7 +45,7 @@ namespace SExtensions
                         }
                            
                         using (ExcelWaitingDialog frm = new ExcelWaitingDialog(() =>
-                            Helpers.FindOccurrencesAndExport(exportarHijos, true, false)))
+                            Helpers.FindOccurrencesAndExport(exportarHijos, true, OcurrencesExportMode.None)))
                         {
                             frm.ShowDialog();
                         }
@@ -73,6 +75,10 @@ namespace SExtensions
                         break;
 
                     }
+                case 8:
+                    Helpers.FindOccurrencesAndExport
+                        (true, true, OcurrencesExportMode.ParaImprimir, fileTemplate: printFileLocation, outputDirectory: directorioSalida);
+                    break;
                 default:
                     break;
             }
