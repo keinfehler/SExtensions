@@ -66,7 +66,7 @@ namespace SExtensions
                         break;
                     case OcurrencesExportMode.ParaImprimir:
                         {
-                            FillOccurrence(assemblyDocument, true, 0);
+                            FillOccurrence(assemblyDocument, true, 0, true);
                             ExportOccurrencesPrint(fileTemplate, outputDirectory);
                         }
                         break;
@@ -594,7 +594,7 @@ namespace SExtensions
         }
         
         
-        public static void FillOccurrence(AssemblyDocument assemblyDocument, bool getPwdFiles, int level)
+        public static void FillOccurrence(AssemblyDocument assemblyDocument, bool getPwdFiles, int level, bool includeAllparents = false)
         {
             if (assemblyDocument == null)
                 return;
@@ -634,7 +634,7 @@ namespace SExtensions
                 if (name.EndsWith(".asm"))
                 {
                     var fileName = System.IO.Path.GetFileName(name);
-                    if (fileName.StartsWith("SUBCONJUNTO SOLDADO") || fileName.StartsWith("SUBCONJUNTO MONTADO") || fileName.StartsWith("SUBCONJUNTO MONTAJE"))
+                    if (includeAllparents || fileName.StartsWith("SUBCONJUNTO SOLDADO") || fileName.StartsWith("SUBCONJUNTO MONTADO") || fileName.StartsWith("SUBCONJUNTO MONTAJE"))
                     {
                         includeAsmParent = true;
                         FillParents(occ, level);
