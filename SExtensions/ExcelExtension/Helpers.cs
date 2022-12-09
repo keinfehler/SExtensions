@@ -346,10 +346,14 @@ namespace SExtensions
             data = _data.Select(o => new Tuple<int?, int, string>[]
                                 {
                                     GetTuple(null, 1,o.Path),
+                                    //GetTuple(null, 1, o.O.AddressFieldName),
                                     GetTuple(null, 2, o.FileName),
                                     //GetTuple(null, 3, o.O.ProjectName),
+                                    //columnNamesList.Add(GetTuple(6, rutasCheckbox ? 25 : 10, "Abrir Plano"));
+                                    //columnNamesList.Add(GetTuple(7, rutasCheckbox ? 25 : 10, "Abrir 3D"));
+                                    //GetTuple(null, 7, o.O.ProjectName),
                                     GetTuple(null, 9, o.O.DocumentNumber),
-                                    //GetTuple(null, 12, o.O.AddressFieldName),
+
                                     //GetTuple(null, 2, o.Qty.ToString()),
                                     //GetTuple(null, 4, o.O.RevisionNumber),
                                     //GetTuple(null, 5, o.O.Keywords),
