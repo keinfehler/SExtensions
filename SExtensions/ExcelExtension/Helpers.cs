@@ -1,4 +1,5 @@
-﻿using ClosedXML.Excel;
+﻿using ClosedXML;
+using ClosedXML.Excel;
 using SolidEdgeAssembly;
 using SolidEdgeCommunity.AddIn;
 using SolidEdgeCommunity.Extensions; // https://github.com/SolidEdgeCommunity/SolidEdge.Community/wiki/Using-Extension-Methods
@@ -344,16 +345,18 @@ namespace SExtensions
 
             data = _data.Select(o => new Tuple<int?, int, string>[]
                                 {
-                                    GetTuple(null, 1,o.Path)
-                                    //GetTuple(null, 1, o.O.Category),
+                                    GetTuple(null, 1,o.Path),
+                                    GetTuple(null, 2, o.FileName),
+                                    //GetTuple(null, 3, o.O.ProjectName),
+                                    GetTuple(null, 9, o.O.DocumentNumber),
+                                    //GetTuple(null, 12, o.O.AddressFieldName),
                                     //GetTuple(null, 2, o.Qty.ToString()),
-                                    //GetTuple(null, 3, o.O.DocumentNumber),
                                     //GetTuple(null, 4, o.O.RevisionNumber),
                                     //GetTuple(null, 5, o.O.Keywords),
                                     //GetTuple(null, 6, o.O.Title),
                                     //GetTuple(null, 7, o.O.Material),
                                     //GetTuple(null, 8, o.O.Comments.Trim()),
-                                    //GetTuple(null, 9, o.FileName),
+
 
 
 
@@ -366,6 +369,11 @@ namespace SExtensions
 
                                 }).ToArray();
 
+            //if (ruta)
+            //{
+            //    columnNamesList.Add(GetTuple(5, rutasCheckbox ? 25 : 10, "Abrir Plano"));
+            //    columnNamesList.Add(GetTuple(5, rutasCheckbox ? 26 : 10, "Abrir 3D"));
+            //}
 
             if (data == null)
             {
@@ -387,6 +395,12 @@ namespace SExtensions
 
 
         }
+
+        private static Tuple<int?, int, string> GetTuple(object value, int v, object location)
+        {
+            throw new NotImplementedException();
+        }
+
         private static void FillWorksheetData(IXLWorksheet ws, bool header, bool ruta = true, bool exportHeader = false, bool rutasCheckbox = true, bool hyperLinks = false)
         {
             Tuple<int?, int, string>[] columnNames = null;

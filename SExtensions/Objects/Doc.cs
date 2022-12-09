@@ -1,4 +1,7 @@
-﻿namespace SExtensions
+﻿using System.IO;
+using DocumentFormat.OpenXml.Wordprocessing;
+
+namespace SExtensions
 {
     public class DocWrapper
     {
@@ -14,6 +17,7 @@
             Title = title;
             Comments = comments;
             Material = material;
+            //AddressFieldName = Ubicacion;
         }
       
         public string Category { get; set; }
@@ -29,6 +33,7 @@
         public string Comments { get; set; }
 
         public string Material { get; set; }
+        //public bool Ubicacion { get; set; }
 
 
         public string Empresa { get; set; }
