@@ -349,7 +349,8 @@ namespace SExtensions
                                     GetTuple(null, 1, o.O.Ubicacion),
                                     GetTuple(null, 2, o.FileName),
                                     GetTuple(null, 9, o.O.DocumentNumber),
-                                    //GetTuple(null, 3, o.O.ProjectName),
+                                    GetTuple(null, 3, o.O.ProjectName),
+                                    GetTuple(null, 11, o.O.Material),
                                     //GetTuple(null, 1,o.Path),
                                     //columnNamesList.Add(GetTuple(6, rutasCheckbox ? 25 : 10, "Abrir Plano"));
                                     //columnNamesList.Add(GetTuple(7, rutasCheckbox ? 25 : 10, "Abrir 3D"));
@@ -360,7 +361,7 @@ namespace SExtensions
                                     //GetTuple(null, 4, o.O.RevisionNumber),
                                     //GetTuple(null, 5, o.O.Keywords),
                                     //GetTuple(null, 6, o.O.Title),
-                                    //GetTuple(null, 7, o.O.Material),
+                                    
                                     //GetTuple(null, 8, o.O.Comments.Trim()),
 
 
@@ -476,7 +477,7 @@ namespace SExtensions
             if (exportHeader)
             {
                 ws.Cell(1, 2).Value = Head.Empresa;
-                ws.Cell(2, 2).Value = Head.Maquina;
+                ws.Cell(2, 2).Value = Head.ProjectName;
                 ws.Cell(3, 2).Value = Head.Modelo;
                 ws.Cell(1, 6).Value = Head.Title;
                 ws.Cell(2, 6).Value = Head.NombreArchivo;
@@ -624,7 +625,7 @@ namespace SExtensions
                 Head = null;
                 Head = new DocWrapper();
                 Head.Modelo = assemblyDocument.GetSummaryInfoPropertyValue().Subject;
-                Head.Maquina = assemblyDocument.GetSummaryInfoPropertyValue().ProjectName;
+                Head.ProjectName = assemblyDocument.GetSummaryInfoPropertyValue().ProjectName;
                 Head.Empresa = assemblyDocument.GetSummaryInfoPropertyValue().Company;
                 Head.DocumentNumber = assemblyDocument.GetSummaryInfoPropertyValue().DocumentNumber;
                 Head.NombreArchivo = assemblyDocument.Name;
@@ -800,7 +801,7 @@ namespace SExtensions
                     var summaryInfo = solidEdgeDocument.SummaryInfo as SummaryInfo;
 
                     
-                    var d = new DocWrapper(summaryInfo.Category, summaryInfo.DocumentNumber, summaryInfo.RevisionNumber, summaryInfo.Keywords, summaryInfo.Title, summaryInfo.Comments, GetMaterial(solidEdgeDocument), solidEdgeDocument.Path);
+                    var d = new DocWrapper(summaryInfo.Category, summaryInfo.DocumentNumber, summaryInfo.RevisionNumber, summaryInfo.Keywords, summaryInfo.Title, summaryInfo.Comments, GetMaterial(solidEdgeDocument), solidEdgeDocument.Path, summaryInfo.ProjectName);
                     UpdateDictionary(occurrence.OccurrenceFileName, d, level);
                 }
 
@@ -830,7 +831,7 @@ namespace SExtensions
                     var revisionNumber = projectInformation.Revision;
                     var directory = System.IO.Path.GetDirectoryName(path);
 
-                    d = new DocWrapper(docSummary.Category, docNumber, revisionNumber, summary.Keywords, summary.Title, summary.Comments, material, directory);
+                    d = new DocWrapper(docSummary.Category, docNumber, revisionNumber, summary.Keywords, summary.Title, summary.Comments, material, directory, projectInformation.ProjectName);
 
                   
                     parDocument.Close();

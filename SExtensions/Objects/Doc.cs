@@ -8,7 +8,7 @@ namespace SExtensions
         public DocWrapper()
         {
         }
-        public DocWrapper(string cat, string docNumber, string revNumber, string keywords, string title, string comments, string material, string ubicacion/*, string projectname*/)
+        public DocWrapper(string cat, string docNumber, string revNumber, string keywords, string title, string comments, string material, string ubicacion, string projectname)
         {
             Category = cat;
             DocumentNumber = docNumber;
@@ -18,7 +18,7 @@ namespace SExtensions
             Comments = comments;
             Material = material;
             Ubicacion = ubicacion;
-            //ProjectName = projectname;
+            ProjectName = projectname;
 
         }
 
@@ -36,11 +36,11 @@ namespace SExtensions
 
         public string Material { get; set; }
         public string Ubicacion { get; set; }
-        //public string ProjectName { get; set; }
+        public string ProjectName { get; set; }
 
 
         public string Empresa { get; set; }
-        public string Maquina { get; set; }
+        //public string Maquina { get; set; }
         public string Modelo { get; set; }
         public string NombreArchivo { get; set; }
         public string Ruta { get; set; }
