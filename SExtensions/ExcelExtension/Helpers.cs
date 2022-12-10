@@ -345,14 +345,16 @@ namespace SExtensions
 
             data = _data.Select(o => new Tuple<int?, int, string>[]
                                 {
-                                    GetTuple(null, 1,o.Path),
-                                    //GetTuple(null, 1, o.O.AddressFieldName),
+                                    
+                                    GetTuple(null, 1, o.O.Ubicacion),
                                     GetTuple(null, 2, o.FileName),
+                                    GetTuple(null, 9, o.O.DocumentNumber),
                                     //GetTuple(null, 3, o.O.ProjectName),
+                                    //GetTuple(null, 1,o.Path),
                                     //columnNamesList.Add(GetTuple(6, rutasCheckbox ? 25 : 10, "Abrir Plano"));
                                     //columnNamesList.Add(GetTuple(7, rutasCheckbox ? 25 : 10, "Abrir 3D"));
                                     //GetTuple(null, 7, o.O.ProjectName),
-                                    GetTuple(null, 9, o.O.DocumentNumber),
+                                    
 
                                     //GetTuple(null, 2, o.Qty.ToString()),
                                     //GetTuple(null, 4, o.O.RevisionNumber),
@@ -628,6 +630,7 @@ namespace SExtensions
                 Head.NombreArchivo = assemblyDocument.Name;
                 Head.Ruta = assemblyDocument.FullName;
                 Head.Title = assemblyDocument.GetSummaryInfoPropertyValue().Title;
+                Head.Ubicacion = assemblyDocument.Path;
                 Head.IsHeader = true;
             }  
            
@@ -796,8 +799,8 @@ namespace SExtensions
                 {
                     var summaryInfo = solidEdgeDocument.SummaryInfo as SummaryInfo;
 
-
-                    var d = new DocWrapper(summaryInfo.Category, summaryInfo.DocumentNumber, summaryInfo.RevisionNumber, summaryInfo.Keywords, summaryInfo.Title, summaryInfo.Comments, GetMaterial(solidEdgeDocument));
+                    
+                    var d = new DocWrapper(summaryInfo.Category, summaryInfo.DocumentNumber, summaryInfo.RevisionNumber, summaryInfo.Keywords, summaryInfo.Title, summaryInfo.Comments, GetMaterial(solidEdgeDocument), solidEdgeDocument.Path);
                     UpdateDictionary(occurrence.OccurrenceFileName, d, level);
                 }
 
@@ -825,8 +828,9 @@ namespace SExtensions
 
                     var docNumber = projectInformation.DocumentNumber;
                     var revisionNumber = projectInformation.Revision;
+                    var directory = System.IO.Path.GetDirectoryName(path);
 
-                    d = new DocWrapper(docSummary.Category, docNumber, revisionNumber, summary.Keywords, summary.Title, summary.Comments, material);
+                    d = new DocWrapper(docSummary.Category, docNumber, revisionNumber, summary.Keywords, summary.Title, summary.Comments, material, directory);
 
                   
                     parDocument.Close();

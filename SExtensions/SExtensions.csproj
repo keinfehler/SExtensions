@@ -95,6 +95,7 @@
     <Compile Include="ExtendedRibbon3d.cs" />
     <Compile Include="ExcelExtension\Helpers.cs" />
     <Compile Include="Helpers\IncludeExcludeHelper.cs" />
+    <Compile Include="Objects\assembly.cs" />
     <Compile Include="Objects\Doc.cs" />
     <Compile Include="SExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
