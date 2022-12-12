@@ -111,8 +111,11 @@ namespace SExtensions
                         var destinationDirectory = outputDirectory; // System.IO.Path.GetDirectoryName(file);
 
                         var nowString = DateTime.Now.ToString("ddMMyyyyHHmmss");
+
+                        var newFileName = System.IO.Path.GetFileName(System.IO.Path.ChangeExtension(file, nowString + System.IO.Path.GetExtension(file)));
+
                         //crear ruta del archivo temporal en el directorio principal (ya no hay directorio temporal)
-                        var tmpFileName = System.IO.Path.Combine(destinationDirectory,  System.IO.Path.ChangeExtension(file, nowString + System.IO.Path.GetExtension(file))); ///System.IO.Path.GetFileNameWithoutExtension(destinationDirectory) + "_TMP" + System.IO.Path.GetExtension(destinationDirectory);
+                        var tmpFileName = System.IO.Path.Combine(destinationDirectory, newFileName); ///System.IO.Path.GetFileNameWithoutExtension(destinationDirectory) + "_TMP" + System.IO.Path.GetExtension(destinationDirectory);
 
 
                         //var backupFileName = System.IO.Path.Combine(rutaTemporal, System.IO.Path.GetFileNameWithoutExtension(file) + "_BACKUP_" + DateTime.Now.ToString("yyyyMMddHHmmss") + System.IO.Path.GetExtension(file));
