@@ -10,15 +10,15 @@
       <button id="2"
              size="large"
              label="BooM  Infor-XA"
-             screentip="Exportar a excel las ocurrencias"
-             supertip="Exportar a excel las ocurrencias"
+             screentip="Reporte Infor-XA"
+             supertip="Exporta el reporte de ocurrencias del conjunto actual.&#13;&#13;Por defecto:&#13;&#13;*No incluye hijos de elementos soldados.&#13;*No incluye ocurrencias excluidas.&#13;*Incluye las cantidades necesarias para su fabricación."
              imageId="2"
              enabled="true" />
 		
 		<checkBox id="1"
 			 label="Incluir Hijos"
 			 screentip="Incluir Hijos"
-			 supertip="Incluir Hijos"/>
+			 supertip="Cuando está activado, configura 'BooM Infor-XA' para incluir en el reporte, los hijos de elementos soldados.&#13;&#13;Sólo es válido para el próximo uso. Después se desactivará"/>
 	  
      </group>
 
@@ -28,7 +28,7 @@
 			  size="large"
 			  label="Relacion  de Utillaje"
 			  screentip="Exportar utillaje"
-			  supertip="Exportar utillaje"
+			  supertip="Exporta la RELACION DE UTILLAJE del conjunto actual, en la plantilla seleccionada.&#13;&#13;Por defecto:&#13;&#13;*Incluye hijos de elementos soldados.&#13;*No incluye ocurrencias excluidas.&#13;*Incluye las cantidades necesarias para su fabricación."
 			  imageId="2"
 			  enabled="true" />
 
@@ -50,7 +50,7 @@
               size="large"
               label="Incluir"
               screentip="Incluir ocurrencias"
-              supertip="Incluir ocurrencias"
+              supertip="Incluye las ocurrencias seleccionadas."
               imageId="117"
               enabled="true" />
       
@@ -58,7 +58,7 @@
               size="large"
               label="Excluir"
               screentip="Excluir ocurrencias"
-              supertip="Excluir ocurrencias"
+              supertip="Excluye las ocurrencias seleccionadas."
               imageId="118"
               enabled="true" />
 	</group>
@@ -69,7 +69,7 @@
 			size="large"
 			label="Relacion de Impresiones"
 			screentip="Relacion de Impresiones"
-			supertip="Relacion de Impresiones"
+			supertip="Exporta la RELACION DE IMPRESIONES del conjunto actual, en la plantilla NORMALIZADA.&#13;&#13;Por defecto:&#13;&#13;*Incluye hijos de elementos soldados.&#13;*No incluye ocurrencias excluidas.&#13;*Incluye Subconjuntos."
 			imageId="8"
 			enabled="true" />
 
