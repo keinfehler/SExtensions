@@ -93,6 +93,7 @@ namespace SExtensions
 
         }
         public static string OutputPath { get; set; }
+
         private static void ExportOccurrencesPrint(string filePath, string outputDirectory)
         {
             try
