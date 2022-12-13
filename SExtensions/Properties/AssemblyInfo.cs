@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: NativeResource(2, @"res\excel.png")]
+[assembly: NativeResource(2, @"res\Infor XA.png")]
 [assembly: NativeResource(3, @"res\Help_32x32.png")]
 [assembly: NativeResource(1, @"res\EdgeBar_20x20.png")]
 [assembly: NativeResource(100, @"res\BoundingBox_32.png")]
@@ -25,6 +25,7 @@ using System.Runtime.InteropServices;
 [assembly: NativeResource(117, @"res\include.png")]
 [assembly: NativeResource(118, @"res\exclude.png")]
 [assembly: NativeResource(8, @"res\Imprimir.png")]
+[assembly: NativeResource(7, @"res\excel.png")]
 
 
 // Allgemeine Informationen über eine Assembly werden über die folgenden

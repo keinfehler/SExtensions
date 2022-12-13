@@ -123,13 +123,17 @@
     <Content Include="res\Camera_32x32.png" />
     <Content Include="res\CommandPrompt_32x32.png" />
     <Content Include="res\EdgeBar_20x20.png" />
+    <Content Include="res\excel.png" />
+    <Content Include="res\Aexclude.png" />
     <Content Include="res\exclude.png" />
     <Content Include="res\Favorites_32x32.png" />
     <Content Include="res\Folder_16x16.png" />
     <Content Include="res\GdiPlus_32.png" />
     <Content Include="res\Help_32x32.png" />
     <Content Include="res\Imprimir.png" />
+    <Content Include="res\Ainclude.png" />
     <Content Include="res\include.png" />
+    <Content Include="res\Infor XA.png" />
     <Content Include="res\Monitor_16x16.png" />
     <Content Include="res\Notepad_32x32.png" />
     <Content Include="res\Photograph_32x32.png" />
@@ -138,7 +142,7 @@
     <Content Include="res\Save_16x16.png" />
     <Content Include="res\Search_32x32.png" />
     <Content Include="res\Tools_32x32.png" />
-    <EmbeddedResource Include="res\excel.png" />
+    <EmbeddedResource Include="res\Aexcel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SolidEdge.Community.AddIn.219.0.0\build\net40\SolidEdge.Community.AddIn.targets" Condition="Exists('..\packages\SolidEdge.Community.AddIn.219.0.0\build\net40\SolidEdge.Community.AddIn.targets')" />

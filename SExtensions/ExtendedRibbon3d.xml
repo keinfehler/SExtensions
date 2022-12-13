@@ -29,7 +29,7 @@
 			  label="Relacion  de Utillaje"
 			  screentip="Exportar utillaje"
 			  supertip="Exporta la RELACION DE UTILLAJE del conjunto actual, en la plantilla seleccionada.&#13;&#13;Por defecto:&#13;&#13;*Incluye hijos de elementos soldados.&#13;*No incluye ocurrencias excluidas.&#13;*No incluye Subconjuntos.&#13;*Incluye las cantidades necesarias para su fabricación."
-			  imageId="2"
+			  imageId="7"
 			  enabled="true" />
 
 		  <!--<checkBox id="4"
