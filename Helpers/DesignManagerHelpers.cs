@@ -477,8 +477,8 @@ namespace Helpers
                 var summaryInfo = doc.GetSummaryInfo();
                 if (!revision)
                 {
-                    summaryInfo.DocumentNumber = "0";
-                    summaryInfo.ProjectName = "0";
+                    summaryInfo.DocumentNumber = "Þ";
+                    summaryInfo.ProjectName = "Þ";
                 }
 
 
@@ -494,7 +494,7 @@ namespace Helpers
                     Console.WriteLine($"---Title: {title}");
                     summaryInfo.Title = title;
                     doc.Status = DocumentStatus.igStatusAvailable;
-                    properties.ChangeCustomProperty("x", "Þ");
+                    properties.ChangeCustomProperty("X", "®");
                 }
                 //properties.ChangeCustomProperty("FechaPlano", DateTime.Now.ToString("dd/MM/yyyy"));
                 properties.Save();
@@ -524,14 +524,14 @@ namespace Helpers
                 //object& local = @obj;
                 //property2.Value = (object)local;
 
-                property1.set_Value(propertyValue);
+                
 
             }
             catch (Exception ex)
             {
-                //property1 = properties.Add((object)propertyName, (object)propertyValue);
+                property1 = properties.Add((object)propertyName, "");
             }
-
+            property1.set_Value(propertyValue);
 
         }
     }
