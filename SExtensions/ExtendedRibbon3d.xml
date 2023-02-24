@@ -6,7 +6,19 @@
 -->
 <ribbon xmlns="http://github.com/SolidEdgeCommunity/SolidEdge/Ribbon">
   <tab name="SyN-BooM">
-    <group name="Infor-XA">
+	  <group name="Guardar">
+
+		  <button id="10"
+			  size="large"
+			  label="Guardar"
+			  screentip="Guardar"
+			  supertip="--"
+			  imageId="10"
+			  enabled="true" />
+
+	  </group>
+	  
+	  <group name="Infor-XA">
       <button id="2"
              size="large"
              label="BooM  Infor-XA"
@@ -74,5 +86,18 @@
 			enabled="true" />
 
 	</group>
+
+	  <group name="Traducir">
+
+		  <button id="9"
+			  size="large"
+			  label="Relacion de Traducciones"
+			  screentip="Reporte"
+			  supertip="--"
+			  imageId="9"
+			  enabled="true" />
+
+	  </group>	  
+	  
   </tab>
 </ribbon>

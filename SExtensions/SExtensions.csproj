@@ -141,6 +141,8 @@
     <Content Include="res\Question_32x32.png" />
     <Content Include="res\Save_16x16.png" />
     <Content Include="res\Search_32x32.png" />
+    <Content Include="res\SyN-Guardar.png" />
+    <Content Include="res\SyN-Traducciones.png" />
     <Content Include="res\Tools_32x32.png" />
     <EmbeddedResource Include="res\Aexcel.png" />
   </ItemGroup>

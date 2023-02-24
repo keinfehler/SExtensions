@@ -26,6 +26,8 @@ using System.Runtime.InteropServices;
 [assembly: NativeResource(118, @"res\exclude.png")]
 [assembly: NativeResource(8, @"res\Imprimir.png")]
 [assembly: NativeResource(7, @"res\excel.png")]
+[assembly: NativeResource(9, @"res\SyN-Traducciones.png")]
+[assembly: NativeResource(10, @"res\SyN-Guardar.png")]
 
 
 // Allgemeine Informationen über eine Assembly werden über die folgenden
