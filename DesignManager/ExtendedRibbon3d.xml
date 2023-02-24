@@ -6,6 +6,17 @@
 -->
 <ribbon xmlns="http://github.com/SolidEdgeCommunity/SolidEdge/Ribbon">
 	<tab name="SyN-DesigN">
+		<group name="Guardar">
+
+			<button id="19"
+				 size="large"
+				 label="Guardar"
+				 screentip="Guarda"
+				 supertip="Guarda todos los niveles.&#13;&#13;Oculta todo menos el cuerpo de diseño:&#13;&#13;Posiciona Vista Isometrica."
+				 imageId="19"
+				 enabled="true" />			
+		</group>
+		
 		<group name="Insertar">
 
 			<button id="16"
