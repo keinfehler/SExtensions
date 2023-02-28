@@ -355,6 +355,10 @@ namespace SExtensions
                                     GetTuple(null, 9, o.O.DocumentNumber),
                                     GetTuple(null, 3, o.O.ProjectName),
                                     GetTuple(null, 11, o.O.Material),
+                                    GetTuple(null, 12, o.O.TitleEn),
+                                    GetTuple(null, 13, o.O.TitleFr),
+                                    GetTuple(null, 14, o.O.Title),
+
                                     //GetTuple(null, 1,o.Path),
                                     //columnNamesList.Add(GetTuple(6, rutasCheckbox ? 25 : 10, "Abrir Plano"));
                                     //columnNamesList.Add(GetTuple(7, rutasCheckbox ? 25 : 10, "Abrir 3D"));
@@ -570,7 +574,15 @@ namespace SExtensions
             else
                 InternalUniqueOcurrences[lowerFileName] = Tuple.Create(InternalUniqueOcurrences[lowerFileName].Item1, InternalUniqueOcurrences[lowerFileName].Item2 + 1);
         }
-        static string GetCustomProperty(this AssemblyDocument obj, string propertyName)
+        public static string GetCustomProperty(this SolidEdgeCommunity.Reader.SolidEdgeDocument obj, string propertyName)
+        {
+            return obj?.CustomProperties?.FirstOrDefault(o => o.Name == propertyName)?.Value?.ToString() ?? string.Empty;
+        }
+        public static string GetCustomProperty(this SolidEdgeDocument obj, string propertyName)
+        {
+            return GetCustomProperty(obj as AssemblyDocument,  propertyName);
+        }
+        public static string GetCustomProperty(this AssemblyDocument obj, string propertyName)
         {
 
             SolidEdgeDocument document = null;
@@ -637,6 +649,9 @@ namespace SExtensions
                 Head.Title = assemblyDocument.GetSummaryInfoPropertyValue().Title;
                 Head.Ubicacion = assemblyDocument.Path;
                 Head.IsHeader = true;
+                Head.TitleEn = assemblyDocument.GetCustomProperty("Título_En"); ;
+                Head.TitleFr = assemblyDocument.GetCustomProperty("Título_Fr"); ;
+
             }  
            
 
@@ -804,8 +819,24 @@ namespace SExtensions
                 {
                     var summaryInfo = solidEdgeDocument.SummaryInfo as SummaryInfo;
 
-                    
-                    var d = new DocWrapper(summaryInfo.Category, summaryInfo.DocumentNumber, summaryInfo.RevisionNumber, summaryInfo.Keywords, summaryInfo.Title, summaryInfo.Comments, GetMaterial(solidEdgeDocument), solidEdgeDocument.Path, summaryInfo.ProjectName);
+                    var tituloFr = solidEdgeDocument.GetCustomProperty("Título_Fr");
+                    var tituloEn = solidEdgeDocument.GetCustomProperty("Título_En");
+
+                    var d = new DocWrapper
+                        (
+                            summaryInfo.Category, 
+                            summaryInfo.DocumentNumber,
+                            summaryInfo.RevisionNumber, 
+                            summaryInfo.Keywords, 
+                            summaryInfo.Title, 
+                            summaryInfo.Comments, 
+                            GetMaterial(solidEdgeDocument), 
+                            solidEdgeDocument.Path, 
+                            summaryInfo.ProjectName,
+                            tituloFr,
+                            tituloEn
+                        );
+
                     UpdateDictionary(occurrence.OccurrenceFileName, d, level);
                 }
 
@@ -835,7 +866,25 @@ namespace SExtensions
                     var revisionNumber = projectInformation.Revision;
                     var directory = System.IO.Path.GetDirectoryName(path);
 
-                    d = new DocWrapper(docSummary.Category, docNumber, revisionNumber, summary.Keywords, summary.Title, summary.Comments, material, directory, projectInformation.ProjectName);
+                    
+
+                    var tituloFr = parDocument.GetCustomProperty("Título_Fr");
+                    var tituloEn = parDocument.GetCustomProperty("Título_En");
+
+                    d = new DocWrapper
+                        (
+                            docSummary.Category, 
+                            docNumber, 
+                            revisionNumber,
+                            summary.Keywords,
+                            summary.Title,
+                            summary.Comments, 
+                            material, 
+                            directory, 
+                            projectInformation.ProjectName,
+                            tituloFr,
+                            tituloEn
+                         );
 
                   
                     parDocument.Close();
@@ -853,7 +902,25 @@ namespace SExtensions
 
             return d;
         }
+        public static string GetCustomPropertyValue(this PropertySets propertySets, string propertyName)
+        {
+            Properties properties = null;
+            Property property1 = null;
+            try
+            {
+                properties = propertySets.Item((object)"Custom");
+                property1 = properties.Item((object)propertyName);
 
+                return property1?.get_Value()?.ToString();
+
+
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+
+        }
         static string GetMaterial(object obj)
         {
 

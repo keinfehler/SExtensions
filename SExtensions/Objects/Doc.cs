@@ -8,7 +8,8 @@ namespace SExtensions
         public DocWrapper()
         {
         }
-        public DocWrapper(string cat, string docNumber, string revNumber, string keywords, string title, string comments, string material, string ubicacion, string projectname)
+        public DocWrapper(string cat, string docNumber, string revNumber, string keywords, string title, string comments, string material
+            , string ubicacion, string projectname, string titleFr, string titleEn)
         {
             Category = cat;
             DocumentNumber = docNumber;
@@ -19,6 +20,8 @@ namespace SExtensions
             Material = material;
             Ubicacion = ubicacion;
             ProjectName = projectname;
+            TitleFr = titleFr;
+            TitleEn = titleEn;
 
         }
 
@@ -45,5 +48,9 @@ namespace SExtensions
         public string NombreArchivo { get; set; }
         public string Ruta { get; set; }
         public bool IsHeader { get; set; }
+
+
+        public string TitleFr { get; set; }
+        public string TitleEn { get; set; }
     }
 }
