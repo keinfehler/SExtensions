@@ -79,6 +79,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandHelper.cs" />
     <Compile Include="ExcelWaitingDialog.cs">
       <SubType>Form</SubType>
     </Compile>

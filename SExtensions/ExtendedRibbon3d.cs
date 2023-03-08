@@ -33,6 +33,9 @@ namespace SExtensions
                 case 0:
                     {
                         //ExtendedCommands.AddCopyPlus(_ribbonRadioButton.Checked);
+
+                        //08.03.2023 - RE - llamada para cambiar valor de una propiedad en las ocurrencias seleccionadas
+                        //CommandHelper.SetOcurrenceProperty("Certificados", "Es necesario certificado");
                     }
                     break;
                 case 2:
