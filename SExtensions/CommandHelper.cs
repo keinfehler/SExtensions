@@ -78,29 +78,29 @@ namespace SExtensions
         /// <param name="valor"></param>
         internal static void SetProperty(Occurrence occ, string propiedad, string valor)
         {
-            if (occ != null)
-            {
-                SetPropertyValue(occ, propiedad, valor);
+            //if (occ != null)
+            //{
+            //    SetPropertyValue(occ, propiedad, valor);
 
-                if (occ?.SubOccurrences == null)
-                    return;
+            //    //if (occ?.SubOccurrences == null)
+                //    return;
 
-                if (occ?.SubOccurrences.Count == 0)
-                    return;
+                //if (occ?.SubOccurrences.Count == 0)
+                //    return;
                 
                 
 
-                foreach (var subOccurrence in occ.SubOccurrences)
-                {
-                    var sOcc = subOccurrence as Occurrence;
-                    if (sOcc == null)
-                        continue;
+                //foreach (var subOccurrence in occ.SubOccurrences)
+                //{
+                //    var sOcc = subOccurrence as Occurrence;
+                //    if (sOcc == null)
+                //        continue;
 
-                    SetProperty(sOcc, propiedad, valor);
-                }
+                //    SetProperty(sOcc, propiedad, valor);
+                //}
                     
                 
-            }
+            //}
         }
         
     }
