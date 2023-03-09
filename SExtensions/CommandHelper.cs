@@ -93,6 +93,9 @@ namespace SExtensions
                 foreach (var subOccurrence in occ.SubOccurrences)
                 {
                     var sOcc = subOccurrence as Occurrence;
+                    if (sOcc == null)
+                        continue;
+
                     SetProperty(sOcc, propiedad, valor);
                 }
                     
