@@ -82,10 +82,21 @@ namespace SExtensions
             {
                 SetPropertyValue(occ, propiedad, valor);
 
-                foreach (Occurrence item in occ.SubOccurrences)
+                if (occ?.SubOccurrences == null)
+                    return;
+
+                if (occ?.SubOccurrences.Count == 0)
+                    return;
+                
+                
+
+                foreach (var subOccurrence in occ.SubOccurrences)
                 {
-                    SetProperty(occ, propiedad, valor);
+                    var sOcc = subOccurrence as Occurrence;
+                    SetProperty(sOcc, propiedad, valor);
                 }
+                    
+                
             }
         }
         
