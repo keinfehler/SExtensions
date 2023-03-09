@@ -80,7 +80,7 @@ namespace SExtensions
         {
             //if (occ != null)
             //{
-            //    SetPropertyValue(occ, propiedad, valor);
+            SetPropertyValue(occ, propiedad, valor);
 
             //    //if (occ?.SubOccurrences == null)
                 //    return;
