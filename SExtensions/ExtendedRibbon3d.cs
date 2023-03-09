@@ -46,13 +46,13 @@ namespace SExtensions
 
                 case 13:
                     {
-                        CommandHelper.SetOcurrenceProperty("Certificados", " ");
+                        CommandHelper.SetOcurrenceProperty("Certificados", "");
                     }
                     break;
 
                 case 16:
                     {
-                        CommandHelper.SetOcurrenceProperty("Repuestos", "N");
+                        CommandHelper.SetOcurrenceProperty("Repuestos", "");
                     }
                     break;
 
