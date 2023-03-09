@@ -40,23 +40,11 @@ namespace SExtensions
 
                 case 12:
                     {
-                        CommandHelper.SetOcurrenceProperty("Certificados", "Requiere Certificado de FDA");
+                        CommandHelper.SetOcurrenceProperty("Certificados", "Requiere Certificado : FDA ó EHDG ó 3A");
                     }
                     break;
 
                 case 13:
-                    {
-                        CommandHelper.SetOcurrenceProperty("Certificados", "Requiere Certificado de EHDG");
-                    }
-                    break;
-
-                case 14:
-                    {
-                        CommandHelper.SetOcurrenceProperty("Certificados", "Requiere Certificado de 3A");
-                    }
-                    break;
-
-                case 15:
                     {
                         CommandHelper.SetOcurrenceProperty("Certificados", " ");
                     }
@@ -79,13 +67,6 @@ namespace SExtensions
                         CommandHelper.SetOcurrenceProperty("Repuestos", "1B");
                     }
                     break;
-
-                case 19:
-                    {
-                        CommandHelper.SetOcurrenceProperty("Repuestos", "1C");
-                    }
-                    break;
-
 
                 case 2:
                     {

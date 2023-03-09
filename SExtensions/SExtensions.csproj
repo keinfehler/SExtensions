@@ -122,6 +122,10 @@
     <Content Include="res\Boxes_32.png" />
     <Content Include="res\Box_32x32.png" />
     <Content Include="res\Camera_32x32.png" />
+    <Content Include="res\Cer 1.png" />
+    <Content Include="res\Cer 1A.png" />
+    <Content Include="res\.png" />
+    <Content Include="res\Cer 1B.png" />
     <Content Include="res\CommandPrompt_32x32.png" />
     <Content Include="res\EdgeBar_20x20.png" />
     <Content Include="res\excel.png" />
@@ -140,6 +144,9 @@
     <Content Include="res\Photograph_32x32.png" />
     <Content Include="res\Printer_32x32.png" />
     <Content Include="res\Question_32x32.png" />
+    <Content Include="res\Rep 1.png" />
+    <Content Include="res\Rep 1A.png" />
+    <Content Include="res\Rep 1B.png" />
     <Content Include="res\Save_16x16.png" />
     <Content Include="res\Search_32x32.png" />
     <Content Include="res\SyN-Guardar.png" />

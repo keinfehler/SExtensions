@@ -28,6 +28,12 @@ using System.Runtime.InteropServices;
 [assembly: NativeResource(7, @"res\excel.png")]
 [assembly: NativeResource(9, @"res\SyN-Traducciones.png")]
 [assembly: NativeResource(10, @"res\SyN-Guardar.png")]
+[assembly: NativeResource(13, @"res\Cer 1.png")]
+[assembly: NativeResource(11, @"res\Cer 1A.png")]
+[assembly: NativeResource(12, @"res\Cer 1B.png")]
+[assembly: NativeResource(16, @"res\Rep 1.png")]
+[assembly: NativeResource(17, @"res\Rep 1B.png")]
+[assembly: NativeResource(18, @"res\Rep 1A.png")]
 
 
 // Allgemeine Informationen über eine Assembly werden über die folgenden

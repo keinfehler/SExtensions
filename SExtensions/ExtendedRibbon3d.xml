@@ -101,46 +101,31 @@
 
 	  <group name="Requerimiento de Certificados">
 
-		  <button id="15"
+		  <button id="13"
 				  size="large"
 				  label="No"
 				  screentip="No Requiere"
-				  supertip="Excluye las ocurrencias seleccionadas."
-				  imageId="9"
+				  supertip="Ocurrencias Seleccionadas."
+				  imageId="13"
 				  enabled="true" />
 		  
 		  <button id="11"
 				  size="large"
 				  label="MAT."
-				  screentip="Material"
-				  supertip="Incluye las ocurrencias seleccionadas."
-				  imageId="9"
+				  screentip="Requiere Certificado de Fabricacion y Material"
+				  supertip="Ocurrencias Seleccionadas."
+				  imageId="11"
 				  enabled="true" />
 
 		  <button id="12"
 				  size="large"
-				  label="FDA"
-				  screentip="FDA"
-				  supertip="Excluye las ocurrencias seleccionadas."
-				  imageId="9"
+				  label="COM"
+				  screentip="Requiere Certificado : FDA ó EHDG ó 3A"
+				  supertip="Ocurrencias Seleccionadas."
+				  imageId="12"
 				  enabled="true" />
 
-		  <button id="13"
-				  size="large"
-				  label="EHDG"
-				  screentip="EHDG"
-				  supertip="Incluye las ocurrencias seleccionadas."
-				  imageId="9"
-				  enabled="true" />
-
-		  <button id="14"
-				  size="large"
-				  label="3A"
-				  screentip="3A"
-				  supertip="Excluye las ocurrencias seleccionadas."
-				  imageId="9"
-				  enabled="true" />
-
+		  
 	  </group>
 
 	  <group name="Suceptible de Repuestos">
@@ -149,32 +134,24 @@
 				  size="large"
 				  label="No"
 				  screentip="No Requiere"
-				  supertip="Incluye las ocurrencias seleccionadas."
-				  imageId="9"
+				  supertip="Ocurrencias Seleccionadas."
+				  imageId="16"
 				  enabled="true" />
 
 		  <button id="17"
 				  size="large"
-				  label="CONS."
-				  screentip="Consumible"
-				  supertip="Excluye las ocurrencias seleccionadas."
-				  imageId="9"
+				  label="CON."
+				  screentip="Repuesto Consumible"
+				  supertip="Ocurrencias Seleccionadas."
+				  imageId="17"
 				  enabled="true" />
 
 		  <button id="18"
 				  size="large"
 				  label="REC."
-				  screentip="Recomendado"
-				  supertip="Incluye las ocurrencias seleccionadas."
-				  imageId="9"
-				  enabled="true" />
-
-		  <button id="19"
-				  size="large"
-				  label="Stock"
-				  screentip="Stock Recomendado"
-				  supertip="Excluye las ocurrencias seleccionadas."
-				  imageId="9"
+				  screentip="Repuesto Recomendado"
+				  supertip="Ocurrencias Seleccionadas."
+				  imageId="18"
 				  enabled="true" />
 
 	  </group>
