@@ -64,10 +64,28 @@ namespace SExtensions
                 var o = RuntimeHelpers.GetObjectValue(RuntimeHelpers.GetObjectValue(activeSelect));
 
                 Occurrence occ = o as Occurrence;
+
+                SetProperty(occ, propiedad, valor);
+
+            }
+        }
+        /// <summary>
+        /// Recursion a las correspondientes SubOccurrences
+        /// https://es.wikipedia.org/wiki/Recursi%C3%B3n
+        /// </summary>
+        /// <param name="occ"></param>
+        /// <param name="propiedad"></param>
+        /// <param name="valor"></param>
+        internal static void SetProperty(Occurrence occ, string propiedad, string valor)
+        {
+            if (occ != null)
+            {
                 SetPropertyValue(occ, propiedad, valor);
 
-                
-               
+                foreach (Occurrence item in occ.SubOccurrences)
+                {
+                    SetProperty(occ, propiedad, valor);
+                }
             }
         }
         
