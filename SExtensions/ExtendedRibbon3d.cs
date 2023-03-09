@@ -30,14 +30,63 @@ namespace SExtensions
         {
             switch (control.CommandId)
             {
-                case 0:
+                case 11:
                     {
                         //ExtendedCommands.AddCopyPlus(_ribbonRadioButton.Checked);
-
                         //08.03.2023 - RE - llamada para cambiar valor de una propiedad en las ocurrencias seleccionadas
-                        //CommandHelper.SetOcurrenceProperty("Certificados", "Es necesario certificado");
+                        CommandHelper.SetOcurrenceProperty("Certificados", "Requiere Certificado de Material");
                     }
                     break;
+
+                case 12:
+                    {
+                        CommandHelper.SetOcurrenceProperty("Certificados", "Requiere Certificado de FDA");
+                    }
+                    break;
+
+                case 13:
+                    {
+                        CommandHelper.SetOcurrenceProperty("Certificados", "Requiere Certificado de EHDG");
+                    }
+                    break;
+
+                case 14:
+                    {
+                        CommandHelper.SetOcurrenceProperty("Certificados", "Requiere Certificado de 3A");
+                    }
+                    break;
+
+                case 15:
+                    {
+                        CommandHelper.SetOcurrenceProperty("Certificados", " ");
+                    }
+                    break;
+
+                case 16:
+                    {
+                        CommandHelper.SetOcurrenceProperty("Repuestos", "N");
+                    }
+                    break;
+
+                case 17:
+                    {
+                        CommandHelper.SetOcurrenceProperty("Repuestos", "1A");
+                    }
+                    break;
+
+                case 18:
+                    {
+                        CommandHelper.SetOcurrenceProperty("Repuestos", "1B");
+                    }
+                    break;
+
+                case 19:
+                    {
+                        CommandHelper.SetOcurrenceProperty("Repuestos", "1C");
+                    }
+                    break;
+
+
                 case 2:
                     {
                         var exportarHijos = false;
