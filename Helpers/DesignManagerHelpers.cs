@@ -477,8 +477,8 @@ namespace Helpers
                 var summaryInfo = doc.GetSummaryInfo();
                 if (!revision)
                 {
-                    summaryInfo.DocumentNumber = "Þ";
-                    summaryInfo.ProjectName = "Þ";
+                    summaryInfo.DocumentNumber = "■";
+                    summaryInfo.ProjectName = "■";
                 }
 
 
