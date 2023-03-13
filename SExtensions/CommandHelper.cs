@@ -9,8 +9,24 @@ namespace SExtensions
 {
     internal class CommandHelper
     {
-        public static void SetPropertyValue(Occurrence occ, string propiedad, string valor)
+        public static void SetPropertyValue(object o, string propiedad, string valor)
         {
+
+            Occurrence occ = null;
+           
+            if (o is Occurrence)
+            {
+                occ = o as Occurrence;
+            }else  
+            if (o is Reference)
+            {
+                Reference reference = o as Reference;
+                if (reference != null && reference.Object is Occurrence)
+                {
+                    occ = reference.Object as Occurrence;
+                }
+            }
+
             if (occ != null)
             {
                 var document = occ.OccurrenceDocument as SolidEdgeDocument;
@@ -62,46 +78,9 @@ namespace SExtensions
             foreach (SelectSet activeSelect in app.ActiveSelectSet)
             {
                 var o = RuntimeHelpers.GetObjectValue(RuntimeHelpers.GetObjectValue(activeSelect));
-
-                Occurrence occ = o as Occurrence;
-
-                SetProperty(occ, propiedad, valor);
-
+                SetPropertyValue(o, propiedad, valor);
             }
         }
-        /// <summary>
-        /// Recursion a las correspondientes SubOccurrences
-        /// https://es.wikipedia.org/wiki/Recursi%C3%B3n
-        /// </summary>
-        /// <param name="occ"></param>
-        /// <param name="propiedad"></param>
-        /// <param name="valor"></param>
-        internal static void SetProperty(Occurrence occ, string propiedad, string valor)
-        {
-            //if (occ != null)
-            //{
-            SetPropertyValue(occ, propiedad, valor);
 
-            //    //if (occ?.SubOccurrences == null)
-                //    return;
-
-                //if (occ?.SubOccurrences.Count == 0)
-                //    return;
-                
-                
-
-                //foreach (var subOccurrence in occ.SubOccurrences)
-                //{
-                //    var sOcc = subOccurrence as Occurrence;
-                //    if (sOcc == null)
-                //        continue;
-
-                //    SetProperty(sOcc, propiedad, valor);
-                //}
-                    
-                
-            //}
-        }
-        
     }
 }
