@@ -1,6 +1,7 @@
 ﻿
 
 
+using SExtensions;
 using SolidEdgeCommunity.Extensions; // https://github.com/SolidEdgeCommunity/SolidEdge.Community/wiki/Using-Extension-Methods
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,12 @@ namespace ReportFileProperties
 {
     class Program
     {
+        private static SolidEdgeFramework.Application application => SolidEdgeCommunity.SolidEdgeUtils.Connect(true, true);
+
         [STAThread]
         static void Main(string[] args)
         {
-            SolidEdgeFramework.Application application = null;
+             
 
             try
             {
@@ -22,16 +25,19 @@ namespace ReportFileProperties
                 SolidEdgeCommunity.OleMessageFilter.Register();
 
                 // Connect to or start Solid Edge.
-                application = SolidEdgeCommunity.SolidEdgeUtils.Connect(true, true);
+                
 
                 // Get a reference to the active assembly document.
                 var document = application.GetActiveDocument<SolidEdgeAssembly.AssemblyDocument>(false);
 
                 if (document != null)
                 {
-                    SExtensions.Helpers.FillOccurrence(document, true, 0);
+                    ExecuteAction();
+                    
 
-                    Console.ReadLine();
+                    
+                   
+
                 }
                 else
                 {
@@ -47,5 +53,18 @@ namespace ReportFileProperties
                 SolidEdgeCommunity.OleMessageFilter.Unregister();
             }
         }
+
+        private static void ExecuteAction()
+        {
+            //SExtensions.Helpers.FillOccurrence(document, true, 0);
+            application.SetOcurrenceProperty( "Certificados", "Requiere Certificado de Material");
+
+            var start = Console.ReadLine();
+            if (start == "a")
+            {
+                ExecuteAction();
+            }
+        }
+        
     }
 }

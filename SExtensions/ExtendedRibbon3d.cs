@@ -10,7 +10,7 @@ namespace SExtensions
 
         private RibbonCheckBox _ribbonExportarRutasRadioButton;
         private RibbonCheckBox _ribbonUtillajeRadioButton;
-
+        public SolidEdgeFramework.Application CurrentApp => SolidEdgeAddIn.Instance.Application;
 
         const string _embeddedResourceName = "SExtensions.ExtendedRibbon3d.xml";
         public ExtendedRibbon3d()
@@ -34,37 +34,38 @@ namespace SExtensions
                     {
                         //ExtendedCommands.AddCopyPlus(_ribbonRadioButton.Checked);
                         //08.03.2023 - RE - llamada para cambiar valor de una propiedad en las ocurrencias seleccionadas
-                        CommandHelper.SetOcurrenceProperty("Certificados", "Requiere Certificado de Material");
+                        CurrentApp.SetOcurrenceProperty("Certificados", "Requiere Certificado de Material");
+                        
                     }
                     break;
 
                 case 12:
                     {
-                        CommandHelper.SetOcurrenceProperty("Certificados", "Requiere Certificado : FDA ó EHDG ó 3A");
+                        CurrentApp.SetOcurrenceProperty("Certificados", "Requiere Certificado : FDA ó EHDG ó 3A");
                     }
                     break;
 
                 case 13:
                     {
-                        CommandHelper.SetOcurrenceProperty("Certificados", "");
+                        CurrentApp.SetOcurrenceProperty("Certificados", "");
                     }
                     break;
 
                 case 16:
                     {
-                        CommandHelper.SetOcurrenceProperty("Repuestos", "");
+                        CurrentApp.SetOcurrenceProperty("Repuestos", "");
                     }
                     break;
 
                 case 17:
                     {
-                        CommandHelper.SetOcurrenceProperty("Repuestos", "1A");
+                        CurrentApp.SetOcurrenceProperty("Repuestos", "1A");
                     }
                     break;
 
                 case 18:
                     {
-                        CommandHelper.SetOcurrenceProperty("Repuestos", "1B");
+                        CurrentApp.SetOcurrenceProperty("Repuestos", "1B");
                     }
                     break;
 
