@@ -68,18 +68,72 @@ namespace Helpers
             {
                 List<Occurrence> occs = new List<Occurrence>();
 
-                var selectedItems = ActiveDocument.SelectSet.OfType<Occurrence>().ToList();
-                occs.AddRange(selectedItems);
-
-                foreach (var item in selectedItems)
+              
+                foreach (object item in ActiveDocument.SelectSet)
                 {
-                    var subItems = item?.SubOccurrences?.OfType<Occurrence>();
-                    if (subItems?.Any() ?? false)
-                    {
-                        occs.AddRange(subItems);
-                    }
-                }
+                    //string o = string.Empty;
+                    SolidEdgeAssembly.Occurrence occ = null;
 
+                    try
+                    {
+                       
+
+
+                        if (item is Reference)
+                        {
+                            var r = (Reference)item;
+                            occ = (Occurrence)(r.Object);
+                            //r.Style = "STYLE_ROJO";
+                        }
+                        else
+                        {
+                            occ = (SolidEdgeAssembly.Occurrence)item;
+
+                        }
+                        occs.Add(occ);
+                        //if (occ != null)
+                        //{
+                        //    //occ.Style = "STYLE_ROJO";
+                        //    //o = occ.Name;
+                        //}
+                        //else
+                        //{
+                        //    //o = "EMPTY";
+                        //}
+
+                        // Using the .NET runtime type, get the Type property of the object.
+
+
+                        //if (t == SolidEdgeConstants.ObjectType.seOccurrences)
+                        //{
+                        //    var occurrences = item as Occurrences;
+                        //    foreach (var occ in occurrences)
+                        //    {
+                        //        var occType = GetObjectType(occ);
+                        //        Console.WriteLine((SolidEdgeConstants.ObjectType)occType);
+                        //    }
+                        //}
+
+                        //o = t.ToString();
+
+                    }
+                    catch (Exception e)
+                    {
+                        //o = e.Message;
+
+
+                    }
+                    finally
+                    {
+                        //Console.WriteLine(o);
+                    }
+
+
+                    //var o = RuntimeHelpers.GetObjectValue(RuntimeHelpers.GetObjectValue(activeSelect));
+
+                
+
+                }
                 foreach (var selectedItem in occs)
                 {
 
