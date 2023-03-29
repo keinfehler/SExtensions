@@ -452,6 +452,7 @@ namespace SExtensions
 
             }).ToList();
 
+#region COMERCIAL MECANIZADO implementado 29.03.2023
             originalData = originalData.Concat(originalData.Where(f => f.FileName.StartsWith("!"))
                                                            .Select(o => {
                                                                            o.O.DocumentNumber = GetCode(o.FileName);
@@ -459,7 +460,7 @@ namespace SExtensions
                                                                            return o;
 
                                                                          })).ToList();
-
+#endregion
 
             data = originalData.Select(o => new Tuple<int?, int, string>[]
                                 {
