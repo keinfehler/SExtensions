@@ -443,7 +443,7 @@ namespace SExtensions
 
             Tuple<int?, int, string>[][] data = null;
 
-            var test = filteredData.Select(o => new
+            var originalData = filteredData.Select(o => new
             {
                 FileName = System.IO.Path.GetFileName(o.Key),
                 O = o.Value.Item1,
@@ -452,9 +452,16 @@ namespace SExtensions
 
             }).ToList();
 
+            originalData = originalData.Concat(originalData.Where(f => f.FileName.StartsWith("!"))
+                                                           .Select(o => {
+                                                                           o.O.DocumentNumber = GetCode(o.FileName);
+                                                                           o.O.Title = "COMERCIAL MECANIZADO";
+                                                                           return o;
+
+                                                                         })).ToList();
 
 
-            data = test.Select(o => new Tuple<int?, int, string>[]
+            data = originalData.Select(o => new Tuple<int?, int, string>[]
                                 {
                                     GetTuple(null, 1, o.O.Category),
                                     GetTuple(null, 2, o.Qty.ToString()),
@@ -535,6 +542,15 @@ namespace SExtensions
             }
 
 
+        }
+        private static string GetCode(string fileName)
+        {
+            var splittedData = fileName.Split('!');
+            if (splittedData?.Any() ?? false)
+            {
+                return splittedData[1];
+            }
+            return string.Empty;
         }
         private static string ConvertDocumentName(string documentName)
         {
