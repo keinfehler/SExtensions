@@ -278,7 +278,7 @@ namespace SExtensions
                 throw;
             }
         }
-        private static void ExportOccurrences(string documentName,  string outputPath, string documentPatern = null, string sheetName = null, bool header = true, bool rutas = true)
+        public static void ExportOccurrences(string documentName,  string outputPath, string documentPatern = null, string sheetName = null, bool header = true, bool rutas = true)
         {
             try
             {
@@ -462,6 +462,7 @@ namespace SExtensions
                                                 {
                                                      DocumentNumber = GetCode(o.FileName),
                                                      Title = "COMERCIAL MECANIZADO"
+                                                     
                                                 },
                                             o.Qty,
                                             o.Path
@@ -481,7 +482,7 @@ namespace SExtensions
                                     GetTuple(null, 5, o.O.Keywords),
                                     GetTuple(null, 6, o.O.Title),
                                     GetTuple(null, 7, o.O.Material),
-                                    GetTuple(null, 8, o.O.Comments.Trim()),
+                                    GetTuple(null, 8, o.O.Comments?.Trim()),
                                     GetTuple(null, 9, o.FileName),
 
                                    
