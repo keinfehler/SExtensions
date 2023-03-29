@@ -452,14 +452,24 @@ namespace SExtensions
 
             }).ToList();
 
-#region COMERCIAL MECANIZADO implementado 29.03.2023
-            originalData = originalData.Concat(originalData.Where(f => f.FileName.StartsWith("!"))
-                                                           .Select(o => {
-                                                                           o.O.DocumentNumber = GetCode(o.FileName);
-                                                                           o.O.Title = "COMERCIAL MECANIZADO";
-                                                                           return o;
+            #region COMERCIAL MECANIZADO implementado 29.03.2023
 
-                                                                         })).ToList();
+            var dummydata = originalData.Where(f => f.FileName.StartsWith("!"))
+                            .Select(o => new
+                            {
+                                o.FileName,
+                                O = new DocWrapper()
+                                    {
+                                         DocumentNumber = GetCode(o.FileName),
+                                         Title = "COMERCIAL MECANIZADO"
+                                    },
+                                o.Qty,
+                                o.Path
+                            });
+
+            originalData = originalData.Concat(dummydata).ToList();
+
+            
 #endregion
 
             data = originalData.Select(o => new Tuple<int?, int, string>[]
