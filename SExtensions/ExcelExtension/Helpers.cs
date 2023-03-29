@@ -355,9 +355,9 @@ namespace SExtensions
                                     GetTuple(null, 9, o.O.DocumentNumber),
                                     GetTuple(null, 3, o.O.ProjectName),
                                     GetTuple(null, 11, o.O.Material),
-                                    GetTuple(null, 12, o.O.TitleEn),
-                                    GetTuple(null, 13, o.O.TitleFr),
-                                    GetTuple(null, 14, o.O.Title),
+                                    //GetTuple(null, 12, o.O.TitleEn),
+                                    //GetTuple(null, 13, o.O.TitleFr),
+                                    //GetTuple(null, 14, o.O.Title),
 
                                     //GetTuple(null, 1,o.Path),
                                     //columnNamesList.Add(GetTuple(6, rutasCheckbox ? 25 : 10, "Abrir Plano"));
