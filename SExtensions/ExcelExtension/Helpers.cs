@@ -455,17 +455,17 @@ namespace SExtensions
             #region COMERCIAL MECANIZADO implementado 29.03.2023
 
             var dummydata = originalData.Where(f => f.FileName.StartsWith("!"))
-                            .Select(o => new
-                            {
-                                o.FileName,
-                                O = new DocWrapper()
-                                    {
-                                         DocumentNumber = GetCode(o.FileName),
-                                         Title = "COMERCIAL MECANIZADO"
-                                    },
-                                o.Qty,
-                                o.Path
-                            });
+                                        .Select(o => new
+                                        {
+                                            o.FileName,
+                                            O = new DocWrapper()
+                                                {
+                                                     DocumentNumber = GetCode(o.FileName),
+                                                     Title = "COMERCIAL MECANIZADO"
+                                                },
+                                            o.Qty,
+                                            o.Path
+                                        });
 
             originalData = originalData.Concat(dummydata).ToList();
 
