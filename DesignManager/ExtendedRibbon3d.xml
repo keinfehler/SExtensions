@@ -69,13 +69,13 @@
 				 imageId="5"
 				 enabled="true" />			
 
-			<button id="4"
+			<!--<button id="4"
 				 size="large"
 				 label="Reemplaza  por C-Mec"
 				 screentip="Reemplaza por Comercial Mecanizado"
 				 supertip="Reemplaza por una copia de la ocurrencia COMERCIAL seleccionada.&#13;&#13;Automáticamente:&#13;&#13;Guarda la copia en el directorio de trabajo.&#13;Copia el plano.&#13;Resetea revisiones.&#13;Redefine vínculos que pudiera tener la pieza al conjunto actual.&#13;Actualiza las propiedades.&#13;&#13;Por defecto, sustituye todas las ocurrencias idénticas que haya en el nivel de ensamblaje actual. Para sustituir solo la ocurrencia seleccionada, active el Check ‘Only’."
 				 imageId="4"
-				 enabled="true" />
+				 enabled="true" />-->
 			/>
 
 
@@ -85,7 +85,7 @@
 					  screentip="Only"
 					  supertip="Cuando está activado, configura 'Reemplazar con copia +' para reemplazar solo las ocurrencias seleccionadas. Si existe más de una posición del artículo en el mismo nivel, el resto de ocurrencias no se reeemplazarán.&#13;&#13;Sólo es válido para el próximo uso. Después se desactivará" />
 
-		</group>
+		<!--</group>
 		<group name="Convertir a Serie">
 
 			<button id="14"
@@ -110,7 +110,7 @@
 				 screentip="Convertir a Componente de Serie"
 				 supertip="Convierte la ocurrencia seleccionada por un Componente de SERIE.&#13;&#13;Automáticamente:&#13;&#13;Adjunta plano si existiera.&#13;Codifica según el siguiente nombre de archivo que corresponda en el repositorio.&#13;Actualiza las propiedades."
 				 imageId="13"
-				 enabled="true" />
+				 enabled="true" />-->
 
 
 
