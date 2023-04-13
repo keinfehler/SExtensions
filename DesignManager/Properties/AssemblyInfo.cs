@@ -24,6 +24,8 @@ using System.Runtime.InteropServices;
 [assembly: NativeResource(17, @"res\Agrega Ch.png")]
 [assembly: NativeResource(18, @"res\Define Sold.png")]
 [assembly: NativeResource(19, @"res\SyN-Guardar.png")]
+[assembly: NativeResource(20, @"res\Lectura.png")]
+
 
 // La información general de un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información

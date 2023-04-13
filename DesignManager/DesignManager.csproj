@@ -96,6 +96,8 @@
     <Content Include="res\ComerMec.png" />
     <Content Include="res\Copia.png" />
     <Content Include="res\Define Sold.png" />
+    <Content Include="res\Escritura.png" />
+    <Content Include="res\Lectura.png" />
     <Content Include="res\Renombrar.png" />
     <Content Include="res\Revision.png" />
     <Content Include="res\sub.sol.png" />

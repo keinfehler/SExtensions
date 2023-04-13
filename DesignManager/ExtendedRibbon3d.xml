@@ -191,6 +191,16 @@
 				 imageId="2"
 				 enabled="true" />
 
+		</group>
+		<group name="Estado">
+
+			<button id="20"
+				 size="large"
+				 label="Lectura"
+				 screentip="Lectura .ASM"
+				 supertip="Cambia de estado el documento activo. Escritura a Lectura."
+				 imageId="20"
+				 enabled="true" />
 
 			/>
 		</group>
