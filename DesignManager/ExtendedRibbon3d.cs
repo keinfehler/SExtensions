@@ -16,22 +16,43 @@ namespace DesignManager
 
             _ribbonRadioButton = GetCheckBox(1);
         }
-
+        
+      
         public override void OnControlClick(RibbonControl control)
         {
+           
             switch (control.CommandId)
             {
                 case 0:
-                    ExtendedCommands.AddCopyPlus(_ribbonRadioButton.Checked);
+                    {
+                        //Helpers.DesignManagerHelpers.InitializeRevisionManager();
+                        ExtendedCommands.AddCopyPlus(_ribbonRadioButton.Checked);
+                        Helpers.DesignManagerHelpers.FinishRevisionMananager();
+                    }
+                    
                     break;
                 case 2:
-                    ExtendedCommands.OpenDirectory();
+                    {
+                        ExtendedCommands.OpenDirectory();
+                    }
+                   
                     break;
                 case 3:
-                    ExtendedCommands.RenameSelectedOcurrences();
+                   
+                    {
+                        //Helpers.DesignManagerHelpers.InitializeRevisionManager();
+                        ExtendedCommands.RenameSelectedOcurrences();
+                        Helpers.DesignManagerHelpers.FinishRevisionMananager();
+                    }
+
                     break;
                 case 5:
-                    ExtendedCommands.ReplaceAndCopyWithRevision(_ribbonRadioButton.Checked);
+                    {
+                        //Helpers.DesignManagerHelpers.InitializeRevisionManager();
+                        ExtendedCommands.ReplaceAndCopyWithRevision(_ribbonRadioButton.Checked);
+                        Helpers.DesignManagerHelpers.FinishRevisionMananager();
+                    }
+                    
                     break;
                 case 6:
                     ExtendedCommands.CreateFromSelectedOcurrence();

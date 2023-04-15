@@ -251,7 +251,7 @@ namespace Helpers
                     {
                         replaceFiles.Add(fileName, newPath);
                     }
-
+                  
                 }
 
 
@@ -269,6 +269,9 @@ namespace Helpers
                         Occurrence occurrence = occurrences.AddWithMatrix(val, matrix);
 
                         UpdateProperties(occurrence);
+
+
+                        Helpers.DesignManagerHelpers.RedefinirLinks(val);
 
                     }
 
@@ -379,6 +382,7 @@ namespace Helpers
 
                         UpdateProperties(item);
 
+                        Helpers.DesignManagerHelpers.RedefinirLinks(val);
                     }
 
                 }
@@ -404,6 +408,103 @@ namespace Helpers
                 //Console.WriteLine($"{filePath}  -  {directoryName}  -  {fileName}");
             }
             Console.ReadLine();
+        }
+        public static void InitializeRevisionManager()
+        {
+
+            if (Helpers.DesignManagerHelpers.revisionManager == null)
+            {
+                Helpers.DesignManagerHelpers.revisionManager = new RevisionManager.Application();
+                Helpers.DesignManagerHelpers.revisionManager.Visible = 0;
+                Helpers.DesignManagerHelpers.revisionManager.DisplayAlerts = 0;
+            }
+        }
+        public static void FinishRevisionMananager()
+        {
+            if (Helpers.DesignManagerHelpers.revisionManager != null)
+            {
+                Helpers.DesignManagerHelpers.revisionManager.Quit();
+
+                revisionManager = null;
+
+            }
+        }
+
+        public static RevisionManager.Application revisionManager;
+        public static void RedefinirLinks(string documentPath)
+        {
+           
+            var draftDocument = Path.ChangeExtension(documentPath, ".DFT");
+            if (!File.Exists(draftDocument))
+                return;
+
+           InitializeRevisionManager();
+
+            if (revisionManager == null)
+                return;
+
+            documentPath = draftDocument;
+            try
+            {
+
+                Console.WriteLine("PADRE -->" + documentPath);
+                // Start Revision Manager.
+
+                RevisionManager.Document assemblyDocument = null;
+                try
+                {
+                    assemblyDocument = (RevisionManager.Document)revisionManager.OpenFileInRevisionManager(documentPath);
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                // Open the assembly.
+                
+
+
+                // Get the linked documents.
+                var linkedDocuments = (RevisionManager.LinkedDocuments)assemblyDocument.get_LinkedDocuments(System.Type.Missing);
+
+                if (linkedDocuments != null)
+                {
+                    foreach (RevisionManager.Document linkedDocument in linkedDocuments)
+                    {
+
+
+                        var linkedPath = linkedDocument.FullName;
+
+                        var linkedPathExtension = Path.GetExtension(linkedPath);
+
+
+                        var newLinkPath = Path.ChangeExtension(documentPath, linkedPathExtension);
+
+                        Console.WriteLine("--- NEW LINK -->  -- " + newLinkPath);
+
+                        Console.WriteLine("---");
+
+                        linkedDocument.Replace(newLinkPath, System.Type.Missing);
+                    }
+
+                    Console.WriteLine("-SAVE--");
+                    assemblyDocument.SaveAllLinks();
+
+                }
+
+                Console.WriteLine("-CLOSE--");
+                // Close the assembly.
+                assemblyDocument.Close();
+            }
+            catch (Exception ex)
+            {
+
+            
+                throw ex;
+            }
+
+
+
         }
         public static void ReplaceAndCopy(SolidEdgeDocument document, bool allOccurrences, bool revision = false)
         {
@@ -508,8 +609,10 @@ namespace Helpers
                         item.Replace(val, allOccurrences);
 
                         UpdateProperties(item, revision, revisionNumber);
-                    }
 
+                        Helpers.DesignManagerHelpers.RedefinirLinks(val);
+                    }
+                  
                 }
                 catch (Exception ex)
                 {
