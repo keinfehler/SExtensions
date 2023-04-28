@@ -41,7 +41,7 @@ namespace SExtensions
 
                 case 12:
                     {
-                        CurrentApp.SetOcurrenceProperty("Certificados", "Requiere Certificado : FDA ó EHDG ó 3A");
+                        CurrentApp.SetOcurrenceProperty("Certificados", "Requiere Certificado : FDA ó EHEDG ó 3A");
                     }
                     break;
 
