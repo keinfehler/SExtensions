@@ -31,10 +31,10 @@ using System.Runtime.InteropServices;
 [assembly: NativeResource(13, @"res\Cer 1.png")]
 [assembly: NativeResource(11, @"res\Cer 1A.png")]
 [assembly: NativeResource(12, @"res\Cer 1B.png")]
-[assembly: NativeResource(16, @"res\Rep 1.png")]
-[assembly: NativeResource(17, @"res\Rep 1B.png")]
-[assembly: NativeResource(18, @"res\Rep 1A.png")]
-
+[assembly: NativeResource(16, @"res\SyN-R0.png")]
+[assembly: NativeResource(17, @"res\SyN-R1.png")]
+[assembly: NativeResource(18, @"res\SyN-R2.png")]
+[assembly: NativeResource(19, @"res\SyN-R3.png")]
 
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,

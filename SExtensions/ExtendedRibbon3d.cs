@@ -59,13 +59,19 @@ namespace SExtensions
 
                 case 17:
                     {
-                        CurrentApp.SetOcurrenceProperty("Repuestos", "1A");
+                        CurrentApp.SetOcurrenceProperty("Repuestos", "R1");
                     }
                     break;
 
                 case 18:
                     {
-                        CurrentApp.SetOcurrenceProperty("Repuestos", "1B");
+                        CurrentApp.SetOcurrenceProperty("Repuestos", "R2");
+                    }
+                    break;
+
+                case 19:
+                    {
+                        CurrentApp.SetOcurrenceProperty("Repuestos", "R3");
                     }
                     break;
 

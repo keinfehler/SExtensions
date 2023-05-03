@@ -140,18 +140,26 @@
 
 		  <button id="17"
 				  size="large"
-				  label="CON."
+				  label="R1."
 				  screentip="Repuesto Consumible"
-				  supertip="Ocurrencias Seleccionadas."
+				  supertip="Incluye la categoria R1 en las ocurrencias seleccionadas.&#13;&#13;Ejemplos:&#13;&#13;*Membranas.&#13;*Juntas.&#13;*Muelles.&#13;*Elementos expuestos a fatiga."
 				  imageId="17"
 				  enabled="true" />
 
 		  <button id="18"
 				  size="large"
-				  label="REC."
-				  screentip="Repuesto Recomendado"
-				  supertip="Ocurrencias Seleccionadas."
+				  label="R2."
+				  screentip="Repuesto Critico"
+				  supertip="Incluye la categoria R2 en las ocurrencias seleccionadas.&#13;&#13;Ejemplos:&#13;&#13;*Retenes.&#13;*Reductoras.&#13;*Resistencias Electricas.&#13;*Elementos Criticos de desgaste."
 				  imageId="18"
+				  enabled="true" />
+
+		  <button id="19"
+				  size="large"
+				  label="R3."
+				  screentip="Repuesto Desgaste"
+				  supertip="Incluye la categoria R3 en las ocurrencias seleccionadas.&#13;&#13;Ejemplos:&#13;&#13;*Rodamientos.&#13;*Cilindros Neumaticos.&#13;*Piñones.&#13;*Elementos expuestos a desgaste."
+				  imageId="19"
 				  enabled="true" />
 
 	  </group>

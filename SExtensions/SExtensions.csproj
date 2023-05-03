@@ -150,6 +150,10 @@
     <Content Include="res\Save_16x16.png" />
     <Content Include="res\Search_32x32.png" />
     <Content Include="res\SyN-Guardar.png" />
+    <Content Include="res\SyN-R0.png" />
+    <Content Include="res\SyN-R1.png" />
+    <Content Include="res\SyN-R2.png" />
+    <Content Include="res\SyN-R3.png" />
     <Content Include="res\SyN-Traducciones.png" />
     <Content Include="res\Tools_32x32.png" />
     <EmbeddedResource Include="res\Aexcel.png" />
