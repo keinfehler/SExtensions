@@ -36,6 +36,7 @@ using System.Runtime.InteropServices;
 [assembly: NativeResource(18, @"res\SyN-R2.png")]
 [assembly: NativeResource(19, @"res\SyN-R3.png")]
 
+
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
