@@ -34,14 +34,14 @@ namespace SExtensions
                     {
                         //ExtendedCommands.AddCopyPlus(_ribbonRadioButton.Checked);
                         //08.03.2023 - RE - llamada para cambiar valor de una propiedad en las ocurrencias seleccionadas
-                        CurrentApp.SetOcurrenceProperty("Certificados", "Requiere Certificado de Material");
+                        CurrentApp.SetOcurrenceProperty("Certificados", "- Requiere Certificado de Material");
                         
                     }
                     break;
 
                 case 12:
                     {
-                        CurrentApp.SetOcurrenceProperty("Certificados", "Requiere Certificado : FDA ó EHEDG ó 3A");
+                        CurrentApp.SetOcurrenceProperty("Certificados", "- Requiere Certificado : FDA ó EHEDG ó 3A");
                     }
                     break;
 
