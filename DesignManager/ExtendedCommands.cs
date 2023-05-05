@@ -52,6 +52,18 @@ namespace DesignManager
 
         }
 
+        internal static void Readonly()
+        {
+            //var activeDocument = SolidEdgeAddIn.Instance.Application.ActiveDocument as SolidEdgeDocument;
+
+            //var activeDocumentFullName = activeDocument.FullName;
+            //var activeDocumentDirectoryName = System.IO.Path.GetDirectoryName(activeDocumentFullName);
+
+            //Process.Start(activeDocumentDirectoryName);
+
+
+        }
+
         internal static void OpenDraftFiles()
         {
             DesignManagerHelpers.OpenDraftFiles();

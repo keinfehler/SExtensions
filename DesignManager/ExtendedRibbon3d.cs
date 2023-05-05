@@ -60,6 +60,11 @@ namespace DesignManager
                 case 7:
                     ExtendedCommands.OpenDraftFiles();
                     break;
+
+                case 20:
+                    ExtendedCommands.Readonly();
+                    break;
+
                 default:
                     break;
             }
