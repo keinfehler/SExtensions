@@ -1,4 +1,5 @@
-﻿using SolidEdgeAssembly;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using SolidEdgeAssembly;
 using SolidEdgeCommunity.AddIn;
 using SolidEdgeFramework;
 using System;
@@ -33,7 +34,9 @@ namespace SExtensions
         }
         internal static void Readonly()
         {
-            
+            var activeDocument = SolidEdgeAddIn.Instance.Application.ActiveDocument as SolidEdgeDocument;
+            activeDocument.ReadOnly= true;
+
         }
         private static void UpdateProperties(Occurrence occurrence)
         {
