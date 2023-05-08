@@ -196,7 +196,7 @@
 
 			<button id="20"
 				 size="large"
-				 label="Estado"
+				 label="Solo Lectura"
 				 screentip="Solo Lectura"
 				 supertip="Marca como SOLO LECTURA el documento activo.&#13;&#13;No es necesario cerrar el documento.&#13;&#13;Para solicitar ESCRITURA, ejecute la desproteccion desde el asistente de solo lectura."
 				 imageId="20"
