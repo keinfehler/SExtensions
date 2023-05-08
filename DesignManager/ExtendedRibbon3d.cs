@@ -65,6 +65,10 @@ namespace DesignManager
                     ExtendedCommands.Readonly();
                     break;
 
+                case 19:
+                    ExtendedCommands.SaveASM();
+                    break;
+
                 default:
                     break;
             }

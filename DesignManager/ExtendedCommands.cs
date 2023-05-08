@@ -1,12 +1,14 @@
 ﻿using Helpers;
 using SolidEdgeAssembly;
 using SolidEdgeCommunity.AddIn;
+using SolidEdgeConstants;
 using SolidEdgeFramework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace DesignManager
@@ -57,6 +59,20 @@ namespace DesignManager
             var activeDocument = SolidEdgeAddIn.Instance.Application.ActiveDocument as SolidEdgeDocument;
          
             activeDocument.ReadOnly = true;
+
+
+        }
+
+        internal static void SaveASM()
+        {
+            SolidEdgeFramework.Application seApp = (SolidEdgeFramework.Application)Marshal.GetActiveObject("SolidEdge.Application");
+            SolidEdgeAssembly.AssemblyDocument seADoc = (SolidEdgeAssembly.AssemblyDocument)seApp.ActiveDocument;
+            seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyAssemblyToolsHideAllReferencePlanes);
+            //seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyReferencePlanesCoordinateSystem);
+            seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyViewISOView);
+            seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyViewZoom);
+            seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyFileSave);
+
 
 
         }
