@@ -31,6 +31,10 @@ namespace SExtensions
             UpdateProperties(occurrenceToReplace);
             occurrenceToReplace.PutStyleNone();
         }
+        internal static void Readonly()
+        {
+            
+        }
         private static void UpdateProperties(Occurrence occurrence)
         {
             try

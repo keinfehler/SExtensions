@@ -164,6 +164,20 @@
 
 	  </group>
 
+	  <group name="Estado">
+
+		  <button id="20"
+			  size="large"
+			  label="Solo Lectura"
+			  screentip="Reporte"
+			  supertip="--"
+			  imageId="20"
+			  enabled="true" />
+
+	  </group>
+
+
+
 
   </tab>
 </ribbon>

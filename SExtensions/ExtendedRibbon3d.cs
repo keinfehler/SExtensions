@@ -113,6 +113,12 @@ namespace SExtensions
                             frm.ShowDialog();
                         }
                         break;
+                    }
+                case 20:
+                    {
+                        ExtendedCommands.Readonly();
+                        break;
+
 
                     }
                 case 8:
