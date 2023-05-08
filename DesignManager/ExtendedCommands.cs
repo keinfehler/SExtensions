@@ -54,8 +54,9 @@ namespace DesignManager
 
         internal static void Readonly()
         {
-
-            //    doc.ReadOnly = True
+            var activeDocument = SolidEdgeAddIn.Instance.Application.ActiveDocument as SolidEdgeDocument;
+         
+            activeDocument.ReadOnly = true;
 
 
         }
