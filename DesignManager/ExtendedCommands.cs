@@ -73,7 +73,7 @@ namespace DesignManager
             //Objapp.SetGlobalParameter(SolidEdgeFramework.ApplicationGlobalConstants.seApplicationGlobalStartEnvironmentSyncOrOrdered, 1);
             SolidEdgeAssembly.AssemblyDocument seADoc = (SolidEdgeAssembly.AssemblyDocument)seApp.ActiveDocument;
             seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyAssemblyToolsHideAllReferencePlanes);
-            //objApp.StartCommand (32820)
+            //objApp.StartCommand(32820)
             seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyViewISOView);
             seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyViewZoom);
             seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyFileSave);
