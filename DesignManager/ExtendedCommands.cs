@@ -65,15 +65,14 @@ namespace DesignManager
 
         }
 
-        internal static void SaveASM(SolidEdgeFramework.Application application, int theCommandID)
+        internal static void SaveASM()
         {
  
             SolidEdgeFramework.Application seApp = (SolidEdgeFramework.Application)Marshal.GetActiveObject("SolidEdge.Application");
             SolidEdgeFramework.Application objApp = (SolidEdgeFramework.Application)Marshal.GetActiveObject("SolidEdge.Application");
-            //Objapp.SetGlobalParameter(SolidEdgeFramework.ApplicationGlobalConstants.seApplicationGlobalStartEnvironmentSyncOrOrdered, 1);
-            SolidEdgeAssembly.AssemblyDocument seADoc = (SolidEdgeAssembly.AssemblyDocument)seApp.ActiveDocument;
             seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyAssemblyToolsHideAllReferencePlanes);
-            //objApp.StartCommand(32820)
+            objApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)40081);
+            objApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)40080);
             seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyViewISOView);
             seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyViewZoom);
             seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyFileSave);
