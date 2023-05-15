@@ -118,7 +118,11 @@ namespace SExtensions
                     {
                         ExtendedCommands.Readonly();
                         break;
-
+                    }
+                case 10:
+                    {
+                        ExtendedCommands.SaveASM();
+                        break;
 
                     }
                 case 8:

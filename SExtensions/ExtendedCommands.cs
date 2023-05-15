@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace SExtensions
@@ -38,6 +39,23 @@ namespace SExtensions
             activeDocument.ReadOnly= true;
 
         }
+
+        internal static void SaveASM()
+        {
+
+            SolidEdgeFramework.Application seApp = (SolidEdgeFramework.Application)Marshal.GetActiveObject("SolidEdge.Application");
+            SolidEdgeFramework.Application objApp = (SolidEdgeFramework.Application)Marshal.GetActiveObject("SolidEdge.Application");
+            seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyAssemblyToolsHideAllReferencePlanes);
+            objApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)40080);
+            objApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)40081);
+            objApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)40082);
+            objApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)40083);
+            seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyViewISOView);
+            seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyViewZoom);
+            seApp.StartCommand((SolidEdgeFramework.SolidEdgeCommandConstants)SolidEdgeConstants.AssemblyCommandConstants.AssemblyFileSave);
+
+        }
+
         private static void UpdateProperties(Occurrence occurrence)
         {
             try
