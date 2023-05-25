@@ -150,6 +150,8 @@
     <Content Include="res\Rep 1B.png" />
     <Content Include="res\Save_16x16.png" />
     <Content Include="res\Search_32x32.png" />
+    <Content Include="res\SyN - Cad Read.png" />
+    <Content Include="res\SyN - Cad Write.png" />
     <Content Include="res\SyN-Guardar.png" />
     <Content Include="res\SyN-R0.png" />
     <Content Include="res\SyN-R1.png" />

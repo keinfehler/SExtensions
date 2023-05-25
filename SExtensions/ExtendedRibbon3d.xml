@@ -33,6 +33,24 @@
 			 supertip="Cuando está activado, configura 'BooM Infor-XA' para incluir en el reporte, los hijos de elementos soldados.&#13;&#13;Sólo es válido para el próximo uso. Después se desactivará"/>
 	  
      </group>
+	  
+	  <group name="Cad Link">
+      <button id="21"
+             size="large"
+             label="Cad Export"
+             screentip="Exportar - Cad Read"
+             supertip="Exporta el reporte de ocurrencias del conjunto actual.&#13;&#13;Por defecto:&#13;&#13;*No incluye hijos de elementos soldados.&#13;*No incluye ocurrencias excluidas.&#13;*No incluye Subconjuntos.&#13;*Incluye las cantidades necesarias para su fabricación.&#13;*Incluye comerciales Dummy, necesarios para la fabricación de componentes.( !CXXX! )"
+             imageId="21"
+             enabled="true" />
+	  
+      <button id="22"
+             size="large"
+             label="Cad Import"
+             screentip="Importar - Cad Write"
+             supertip="Exporta el reporte de ocurrencias del conjunto actual.&#13;&#13;Por defecto:&#13;&#13;*No incluye hijos de elementos soldados.&#13;*No incluye ocurrencias excluidas.&#13;*No incluye Subconjuntos.&#13;*Incluye las cantidades necesarias para su fabricación.&#13;*Incluye comerciales Dummy, necesarios para la fabricación de componentes.( !CXXX! )"
+             imageId="22"
+             enabled="true" />	  
+     </group>
 
 	  <group name="Utillaje">
 		  
@@ -110,7 +128,7 @@
 				  enabled="true" />
 		  
 		  <button id="11"
-				  size="large"
+				  size="little"
 				  label="MAT."
 				  screentip="Requiere Certificado de Fabricacion y Material"
 				  supertip="Ocurrencias Seleccionadas."
@@ -118,9 +136,33 @@
 				  enabled="true" />
 
 		  <button id="12"
-				  size="large"
+				  size="little"
 				  label="COM"
 				  screentip="Requiere Certificado : FDA ó EHDG ó 3A"
+				  supertip="Ocurrencias Seleccionadas."
+				  imageId="12"
+				  enabled="true" />
+
+		  <button id="23"
+				  size="little"
+				  label="COM"
+				  screentip="Requiere Certificado : EN 1822"
+				  supertip="Ocurrencias Seleccionadas."
+				  imageId="12"
+				  enabled="true" />
+
+		  <button id="24"
+				  size="little"
+				  label="COM"
+				  screentip="Requiere Certificado : IP"
+				  supertip="Ocurrencias Seleccionadas."
+				  imageId="12"
+				  enabled="true" />
+
+		  <button id="25"
+				  size="little"
+				  label="COM"
+				  screentip="Requiere Certificado : HACCP"
 				  supertip="Ocurrencias Seleccionadas."
 				  imageId="12"
 				  enabled="true" />
@@ -139,7 +181,7 @@
 				  enabled="true" />
 
 		  <button id="17"
-				  size="large"
+				  size="little"
 				  label="R1."
 				  screentip="Repuesto Consumible"
 				  supertip="Incluye la categoria R1 en las ocurrencias seleccionadas.&#13;&#13;Ejemplos:&#13;&#13;*Membranas.&#13;*Juntas.&#13;*Muelles.&#13;*Elementos expuestos a fatiga."
@@ -147,7 +189,7 @@
 				  enabled="true" />
 
 		  <button id="18"
-				  size="large"
+				  size="little"
 				  label="R2."
 				  screentip="Repuesto Critico"
 				  supertip="Incluye la categoria R2 en las ocurrencias seleccionadas.&#13;&#13;Ejemplos:&#13;&#13;*Retenes.&#13;*Reductoras.&#13;*Resistencias Electricas.&#13;*Elementos Criticos de desgaste."
@@ -155,7 +197,7 @@
 				  enabled="true" />
 
 		  <button id="19"
-				  size="large"
+				  size="little"
 				  label="R3."
 				  screentip="Repuesto Desgaste"
 				  supertip="Incluye la categoria R3 en las ocurrencias seleccionadas.&#13;&#13;Ejemplos:&#13;&#13;*Rodamientos.&#13;*Cilindros Neumaticos.&#13;*Piñones.&#13;*Elementos expuestos a desgaste."
