@@ -49,7 +49,15 @@
              screentip="Importar - Cad Write"
              supertip="Exporta el reporte de ocurrencias del conjunto actual.&#13;&#13;Por defecto:&#13;&#13;*No incluye hijos de elementos soldados.&#13;*No incluye ocurrencias excluidas.&#13;*No incluye Subconjuntos.&#13;*Incluye las cantidades necesarias para su fabricación.&#13;*Incluye comerciales Dummy, necesarios para la fabricación de componentes.( !CXXX! )"
              imageId="22"
-             enabled="true" />	  
+             enabled="true" />
+
+		  <button id="23"
+				 size="large"
+				 label="Bill of Materials"
+				 screentip="Exportar - Estructura"
+				 supertip="Exporta el reporte de ocurrencias del conjunto actual.&#13;&#13;Por defecto:&#13;&#13;*No incluye hijos de elementos soldados.&#13;*No incluye ocurrencias excluidas.&#13;*No incluye Subconjuntos.&#13;*Incluye las cantidades necesarias para su fabricación.&#13;*Incluye comerciales Dummy, necesarios para la fabricación de componentes.( !CXXX! )"
+				 imageId="23"
+				 enabled="true" />
      </group>
 
 	  <group name="Utillaje">
