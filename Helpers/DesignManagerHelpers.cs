@@ -636,6 +636,9 @@ namespace Helpers
                 {
                     summaryInfo.DocumentNumber = "Þ";
                     summaryInfo.ProjectName = "♦";
+                    summaryInfo.Keywords = " ";
+                    summaryInfo.Comments = " ";
+                    summaryInfo.Subject = " ";
                 }
 
 
