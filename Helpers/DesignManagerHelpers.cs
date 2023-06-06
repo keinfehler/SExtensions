@@ -639,6 +639,8 @@ namespace Helpers
                     summaryInfo.Keywords = " ";
                     summaryInfo.Comments = " ";
                     summaryInfo.Subject = " ";
+                    summaryInfo.Author = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split('\\')[1];
+                    ;
                 }
 
 
