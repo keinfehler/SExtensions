@@ -634,7 +634,7 @@ namespace Helpers
                 var summaryInfo = doc.GetSummaryInfo();
                 if (!revision)
                 {
-                    summaryInfo.DocumentNumber = "Þ";
+                    summaryInfo.DocumentNumber = "♦";
                     summaryInfo.ProjectName = "♦";
                     summaryInfo.Keywords = " ";
                     summaryInfo.Comments = " ";
@@ -656,7 +656,7 @@ namespace Helpers
                     Console.WriteLine($"---Title: {title}");
                     summaryInfo.Title = title;
                     doc.Status = DocumentStatus.igStatusAvailable;
-                    properties.ChangeCustomProperty("X", "®");
+                    properties.ChangeCustomProperty("X", "Þ");
                 }
                 //properties.ChangeCustomProperty("FechaPlano", DateTime.Now.ToString("dd/MM/yyyy"));
                 properties.Save();
