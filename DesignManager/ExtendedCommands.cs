@@ -85,5 +85,10 @@ namespace DesignManager
         {
             DesignManagerHelpers.OpenDraftFiles();
         }
+
+        internal static void ReplacePWD()
+        {
+            DesignManagerHelpers.ReplacePWD();
+        }
     }
 }

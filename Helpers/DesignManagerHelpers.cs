@@ -155,7 +155,7 @@ namespace Helpers
 
            
         }
-        public static void OtroMetodo()
+        public static void ReplacePWD()
         {
 
         }
@@ -696,5 +696,6 @@ namespace Helpers
             property1.set_Value(propertyValue);
 
         }
+
     }
 }

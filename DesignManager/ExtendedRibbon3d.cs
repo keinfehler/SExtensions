@@ -69,6 +69,10 @@ namespace DesignManager
                     ExtendedCommands.SaveASM();
                     break;
 
+                case 18:
+                    ExtendedCommands.ReplacePWD();
+                    break;
+
                 default:
                     break;
             }
