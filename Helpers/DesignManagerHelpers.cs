@@ -537,8 +537,13 @@ namespace Helpers
 
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
 
+                //extraer la extension del elemento seleccionado
+                
+
                 var relatedItems = Directory.GetFiles(directoryName, $"{fileNameWithoutExtension}*");
 
+
+          
 
                 var replaceFiles = new Dictionary<string, string>();
                 int revisionNumber = 0;
@@ -551,17 +556,33 @@ namespace Helpers
 
                 
 
-                foreach (var relatedItem in relatedItems)
+                foreach (var t in relatedItems)
                 {
+                    var relatedItem = t;
+                    var fileExtension = Path.GetExtension(relatedItem);
+                   
 
-
-                    var relatedItemDirectoryName = Path.GetDirectoryName(relatedItem);
-                    var relatedItemfileName = Path.GetFileName(relatedItem);
+                    //var relatedItemDirectoryName = Path.GetDirectoryName(relatedItem);
+                    //var relatedItemfileName = Path.GetFileName(relatedItem);
                     var relatedItemfileNameWithoutExtension = Path.GetFileNameWithoutExtension(relatedItem);
                     var relatedItemExtension = Path.GetExtension(relatedItem);
 
                     var newPath = relatedItem;
+                    
+
+
                     var newName = relatedItemfileNameWithoutExtension;
+
+
+                    if (fileExtension == ".pwd")
+                    {
+                        //busca el primer archivo relacionado (se llama igual) que acabe en .asm
+                        var assemblyPath = relatedItems.FirstOrDefault(o => o.EndsWith(".asm"));
+                        if (assemblyPath != null)
+                        {
+                            relatedItemExtension = ".asm";
+                        }
+                    }
 
                     newName = GetNewName(relatedItemfileNameWithoutExtension, revisionNumberString);
 
@@ -571,20 +592,12 @@ namespace Helpers
                     Console.WriteLine($"----OLDPATH: {relatedItem}");
                     Console.WriteLine($"----NEWPATH: {newPath}");
 
-                    try
-                    {
-                        if (File.Exists(newPath))
-                            continue;
-                    }
-                    catch (Exception ex)
-                    {
-
-                        throw ex;
-                    }
+                    
 
                     try
                     {
-                        File.Copy(relatedItem, newPath);
+                        if (!File.Exists(newPath))
+                            File.Copy(relatedItem, newPath);
                     }
                     catch (Exception ex)
                     {
@@ -619,7 +632,7 @@ namespace Helpers
 
                     throw ex;
                 }
-                //Console.WriteLine($"{filePath}  -  {directoryName}  -  {fileName}");
+                Console.WriteLine($"{filePath}  -  {directoryName}  -  {fileName}");
             }
             Console.ReadLine();
         }
