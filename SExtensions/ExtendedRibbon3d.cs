@@ -1,5 +1,9 @@
 ﻿using DesignManager;
+using DocumentFormat.OpenXml.Spreadsheet;
+using SolidEdgeAssembly;
 using SolidEdgeCommunity.AddIn;
+using SolidEdgeCommunity.Extensions;
+using SolidEdgeFramework;
 
 namespace SExtensions
 {
@@ -79,8 +83,14 @@ namespace SExtensions
                 case 27:
                     {
                         CurrentApp.SetOcurrenceProperty("X", "®");
-                      
-                        //CurrentApp.SetOcurrenceProperty("DocumentNumber", "®");
+
+                        //var doc = System.Reflection.Assembly.GetExecutingAssembly();
+                        //var summaryInfo = doc.GetSummaryInfo();
+                        
+                        //{
+                        //    summaryInfo.DocumentNumber = "♦";
+                        //    summaryInfo.ProjectName = "♦";
+                        //}
                     }
                     break;
 
