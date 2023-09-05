@@ -34,7 +34,7 @@
 	  
      </group>
 	  
-	  <group name="Cad Link">
+	  <!--<group name="Cad Link">
       <button id="21"
              size="large"
              label="Cad Export"
@@ -57,8 +57,8 @@
 				 screentip="Exportar - Estructura"
 				 supertip="Exporta el reporte de ocurrencias del conjunto actual.&#13;&#13;Por defecto:&#13;&#13;*Crea un arbol con todas las ocurrencias.&#13;*Asigna ID familiar, para la creacion de arbol en ERP.&#13;*No incluye ocurrencias excluidas.&#13;*Suma ocurrencias por familia.&#13;*Incluye comerciales Dummy, necesarios para la fabricación de componentes .( !CXXX! )"
 				 imageId="26"
-				 enabled="true" />
-     </group>
+				 enabled="true" />--><!--
+     </group>-->
 
 	  <group name="Utillaje">
 		  
