@@ -1,4 +1,5 @@
-﻿using SolidEdgeCommunity.AddIn;
+﻿using DesignManager;
+using SolidEdgeCommunity.AddIn;
 
 namespace SExtensions
 {
@@ -78,7 +79,7 @@ namespace SExtensions
                 case 27:
                     {
                         CurrentApp.SetOcurrenceProperty("X", "®");
-                        //CurrentApp.SetOcurrenceProperty("ProjectName", "®");
+                      
                         //CurrentApp.SetOcurrenceProperty("DocumentNumber", "®");
                     }
                     break;
