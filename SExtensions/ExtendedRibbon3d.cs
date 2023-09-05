@@ -78,16 +78,16 @@ namespace SExtensions
                 case 27:
                     {
                         CurrentApp.SetOcurrenceProperty("X", "®");
-                        CurrentApp.SetOcurrenceProperty("ProjectName", "®");
-                        CurrentApp.SetOcurrenceProperty("DocumentNumber", "®");
+                        //CurrentApp.SetOcurrenceProperty("ProjectName", "®");
+                        //CurrentApp.SetOcurrenceProperty("DocumentNumber", "®");
                     }
                     break;
 
                 case 28:
                     {
                         CurrentApp.SetOcurrenceProperty("X", "Þ");
-                        CurrentApp.SetOcurrenceProperty("ProjectName", "♦");
-                        CurrentApp.SetOcurrenceProperty("DocumentNumber", "♦");
+                        //CurrentApp.SetOcurrenceProperty("summaryInfo.DocumentNumber", "♦");
+                        //CurrentApp.SetOcurrenceProperty("summaryInfo.ProjectName", "♦");
                     }
                     break;
 
