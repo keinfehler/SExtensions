@@ -212,6 +212,27 @@
 				  imageId="19"
 				  enabled="true" />
 
+
+	  </group>
+
+	  <group name="Codificacion">
+
+		  <button id="27"
+				  size="large"
+				  label="No"
+				  screentip="No Requiere"
+				  supertip="Ocurrencias Seleccionadas."
+				  imageId="27"
+				  enabled="true" />
+
+		  <button id="28"
+				  size="large"
+				  label="Si."
+				  screentip="Si Requiere"
+				  supertip="Incluye la categoria R1 en las ocurrencias seleccionadas.&#13;&#13;Ejemplos:&#13;&#13;*Membranas.&#13;*Juntas.&#13;*Muelles.&#13;*Elementos expuestos a fatiga."
+				  imageId="28"
+				  enabled="true" />
+
 	  </group>
 
 	  <group name="Estado">

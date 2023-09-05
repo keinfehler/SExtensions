@@ -75,6 +75,18 @@ namespace SExtensions
                     }
                     break;
 
+                case 27:
+                    {
+                        CurrentApp.SetOcurrenceProperty("Repuestos", "R2");
+                    }
+                    break;
+
+                case 28:
+                    {
+                        CurrentApp.SetOcurrenceProperty("Repuestos", "R3");
+                    }
+                    break;
+
                 case 2:
                     {
                         var exportarHijos = false;
