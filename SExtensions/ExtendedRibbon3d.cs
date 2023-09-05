@@ -77,13 +77,17 @@ namespace SExtensions
 
                 case 27:
                     {
-                        CurrentApp.SetOcurrenceProperty("Repuestos", "R2");
+                        CurrentApp.SetOcurrenceProperty("X", "®");
+                        CurrentApp.SetOcurrenceProperty("ProjectName", "®");
+                        CurrentApp.SetOcurrenceProperty("DocumentNumber", "®");
                     }
                     break;
 
                 case 28:
                     {
-                        CurrentApp.SetOcurrenceProperty("Repuestos", "R3");
+                        CurrentApp.SetOcurrenceProperty("X", "Þ");
+                        CurrentApp.SetOcurrenceProperty("ProjectName", "♦");
+                        CurrentApp.SetOcurrenceProperty("DocumentNumber", "♦");
                     }
                     break;
 
