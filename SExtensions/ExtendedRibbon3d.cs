@@ -50,6 +50,25 @@ namespace SExtensions
                     }
                     break;
 
+                case 23:
+                    {
+                        CurrentApp.SetOcurrenceProperty("Certificados", "- Requiere Certificado : EN 1822");
+                    }
+                    break;
+
+
+                case 24:
+                    {
+                        CurrentApp.SetOcurrenceProperty("Certificados", "- Requiere Certificado : IP");
+                    }
+                    break;
+
+                case 25:
+                    {
+                        CurrentApp.SetOcurrenceProperty("Certificados", "- Requiere Certificado : HACCP");
+                    }
+                    break;
+
                 case 13:
                     {
                         CurrentApp.SetOcurrenceProperty("Certificados", "");
@@ -84,21 +103,29 @@ namespace SExtensions
                     {
                         CurrentApp.SetOcurrenceProperty("X", "®");
 
-                        //var doc = System.Reflection.Assembly.GetExecutingAssembly();
-                        //var summaryInfo = doc.GetSummaryInfo();
-                        
-                        //{
-                        //    summaryInfo.DocumentNumber = "♦";
-                        //    summaryInfo.ProjectName = "♦";
-                        //}
+                        var assembly = CurrentApp.GetActiveDocument<AssemblyDocument>();
+                        if (assembly != null)
+
+                        {
+                            var summaryInfo = assembly.GetSummaryInfo();
+                            summaryInfo.DocumentNumber = "-";
+                            summaryInfo.ProjectName = "-";
+                        }
                     }
                     break;
 
                 case 28:
                     {
                         CurrentApp.SetOcurrenceProperty("X", "Þ");
-                        //CurrentApp.SetOcurrenceProperty("summaryInfo.DocumentNumber", "♦");
-                        //CurrentApp.SetOcurrenceProperty("summaryInfo.ProjectName", "♦");
+
+                        var assembly = CurrentApp.GetActiveDocument<AssemblyDocument>();
+                        if (assembly != null)
+
+                        {
+                            var summaryInfo = assembly.GetSummaryInfo();
+                            summaryInfo.DocumentNumber = "♦";
+                            summaryInfo.ProjectName = "♦";
+                        }
                     }
                     break;
 
