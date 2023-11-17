@@ -123,8 +123,8 @@ namespace SExtensions
 
                         {
                             var summaryInfo = assembly.GetSummaryInfo();
-                            summaryInfo.DocumentNumber = "♦";
-                            summaryInfo.ProjectName = "♦";
+                            summaryInfo.DocumentNumber = "♦ ♦ ♦";
+                            summaryInfo.ProjectName = "-";
                         }
                     }
                     break;
