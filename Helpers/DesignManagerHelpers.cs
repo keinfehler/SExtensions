@@ -647,8 +647,8 @@ namespace Helpers
                 var summaryInfo = doc.GetSummaryInfo();
                 if (!revision)
                 {
-                    summaryInfo.DocumentNumber = "♦";
-                    summaryInfo.ProjectName = "♦";
+                    summaryInfo.DocumentNumber = "♦ ♦";
+                    summaryInfo.ProjectName = "-";
                     summaryInfo.Keywords = " ";
                     summaryInfo.Comments = " ";
                     summaryInfo.Subject = " ";
