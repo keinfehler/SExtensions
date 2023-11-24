@@ -25,6 +25,7 @@ using System.Runtime.InteropServices;
 [assembly: NativeResource(18, @"res\Define Sold.png")]
 [assembly: NativeResource(19, @"res\SyN-Guardar.png")]
 [assembly: NativeResource(20, @"res\SyN-SoloLectura.png")]
+[assembly: NativeResource(21, @"res\CMD62007.png")]
 
 
 // La información general de un ensamblado se controla mediante el siguiente 

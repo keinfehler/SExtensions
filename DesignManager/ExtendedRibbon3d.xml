@@ -61,6 +61,14 @@
 				 imageId="6"
 				 enabled="true" />
 
+			<button id="21"
+				 size="large"
+				 label="Reemplaza  New Copia"
+				 screentip="Reemplaza  New Copia"
+				 supertip="Sustituye la ocurrencia seleccionada por una nueva copia con el nuevo nombre asignado.&#13;&#13;Automáticamente:&#13;&#13;Guarda la copia en el directorio de trabajo.&#13;Copia el plano.&#13;Resetea revisiones.&#13;Redefine vínculos que pudiera tener la pieza al conjunto actual.&#13;Actualiza las propiedades. &#13;Se debe definir el nuevo nombre de la copia."
+				 imageId="21"
+				 enabled="true" />
+
 			<button id="5"
 				 size="large"
 				 label="Reemplaza  por Rev"
@@ -70,13 +78,13 @@
 				 enabled="true" />
 
 
-			<button id="18"
+			<!--<button id="18"
 				 size="large"
 				 label="Reemplaza PWD"
 				 screentip="Reemplaza PWD por ASM constructivo"
 				 supertip="Sustituye la ocurrencia seleccionada PWD por el ASM constructivo.&#13;&#13;Automáticamente:&#13;&#13;Redefine vínculos que pudiera tener la pieza al conjunto actual.&#13;Actualiza las propiedades.&#13;Copia el plano y redefine vinculos.&#13;Elimina PWD obsoleto."
 				 imageId="18"
-				 enabled="true" />
+				 enabled="true" />-->
 
 			<!--<button id="4"
 				 size="large"
@@ -156,13 +164,13 @@
 		</group>-->
 		<group name="Redefinir">
 
-			<button id="8"
+			<!--<button id="8"
 				 size="large"
 				 label="Redefine  por Sub.Sol"
 				 screentip="Redefine  por Sub.Sol"
 				 supertip="Sustituye la ocurrencia seleccionada PWD por el ASM constructivo.&#13;&#13;Automáticamente:&#13;&#13;Redefine vínculos que pudiera tener la pieza al conjunto actual.&#13;Actualiza las propiedades."
 				 imageId="8"
-				 enabled="true" />		
+				 enabled="true" />-->		
 			
 			<button id="3"
 				 size="large"
