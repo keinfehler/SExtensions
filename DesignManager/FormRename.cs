@@ -16,6 +16,7 @@ namespace DesignManager
             InitializeComponent();
         }
         public bool CreateCopy { get; set; }
+        public bool CreateAndReplace { get; set; }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -23,7 +24,15 @@ namespace DesignManager
             {
                 if (CreateCopy)
                 {
-                    Helpers.DesignManagerHelpers.CreateCopy(textBox1.Text);
+                    string copyPath = null;
+                    Helpers.DesignManagerHelpers.CreateCopy(textBox1.Text, out copyPath);
+                }
+                else if (CreateAndReplace)
+                {
+                    string copyPath = null;
+                    Helpers.DesignManagerHelpers.CreateCopy(textBox1.Text, out copyPath, addToOcurrences: false);
+                    Helpers.DesignManagerHelpers.ReplaceUsingNew(copyPath);
+
                 }
                 else
                 {

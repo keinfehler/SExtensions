@@ -20,7 +20,7 @@ namespace DesignManagerConsoleApp
 
             // Get a reference to the active assembly document.
             var document = application.GetActiveDocument<SolidEdgeDocument>(false);
-
+            
             Helpers.DesignManagerHelpers.ReplaceAndCopy(document, true);
 
         }

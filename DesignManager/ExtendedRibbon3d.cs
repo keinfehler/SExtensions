@@ -72,6 +72,9 @@ namespace DesignManager
                 case 18:
                     ExtendedCommands.ReplacePWD();
                     break;
+                case 21:
+                    ExtendedCommands.ReplaceUsingNewCopy();
+                    break;
 
                 default:
                     break;

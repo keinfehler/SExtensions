@@ -48,6 +48,121 @@ namespace Helpers
             return result;
         }
 
+        public static void ReplaceUsingNew(string copyPath)
+        {
+            var document = ActiveDocument;
+            var asseDocument = ActiveDocument as SolidEdgeAssembly.AssemblyDocument;
+            if (asseDocument != null)
+            {
+                //Occurrences currenOcurrences = asseDocument.Occurrences;
+                if (true/*currenOcurrences != null*/)
+                {
+                    //var n = currenOcurrences.OfType<AssemblyDocument>().FirstOrDefault(o => o.FullName == copyPath);
+
+                    if (true/*n != null*/)
+                    {
+                        var activeDocumentFullName = document.FullName;
+                        var activeDocumentDirectoryName = Path.GetDirectoryName(activeDocumentFullName);
+
+                        foreach (var item in GetSelectedOccurrences(document, true))
+                        {
+                            //var revision = true;
+                            var filePath = item.OccurrenceFileName;
+                            var fileName = Path.GetFileName(filePath);
+                            var directoryName = Path.GetDirectoryName(filePath);
+                            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+                            //extraer la extension del elemento seleccionado
+                            var relatedItems = Directory.GetFiles(directoryName, $"{fileNameWithoutExtension}*");
+
+
+
+
+                            var replaceFiles = new Dictionary<string, string>();
+                            int revisionNumber = 0;
+                            var revisionNumberString = "00";
+                            //if (revision)
+                            //{
+                            //    revisionNumber = GetRevisionNumber(fileNameWithoutExtension);
+                            //    revisionNumberString = revisionNumber.ToString("00");
+                            //}
+
+                            foreach (var t in relatedItems)
+                            {
+                                var relatedItem = t;
+                                var fileExtension = Path.GetExtension(relatedItem);
+
+                                var relatedItemfileNameWithoutExtension = Path.GetFileNameWithoutExtension(relatedItem);
+                                var relatedItemExtension = Path.GetExtension(relatedItem);
+
+                                var newPath = relatedItem;
+                                var newName = relatedItemfileNameWithoutExtension;
+                                newName = GetNewName(relatedItemfileNameWithoutExtension, revisionNumberString);
+
+                                newPath = Path.Combine(activeDocumentDirectoryName, newName + relatedItemExtension);
+
+                                try
+                                {
+                                    if (!File.Exists(newPath))
+                                        File.Copy(relatedItem, newPath);
+                                }
+                                catch (Exception ex)
+                                {
+
+                                    throw ex;
+                                }
+
+                                if (relatedItem.EndsWith(fileName))
+                                {
+                                    replaceFiles.Add(fileName, newPath);
+                                }
+                            }
+                            try
+                            {
+                                //string val = null;
+                                //var replacement = replaceFiles.TryGetValue(fileName, out val);
+                                if (true/*val != null*/)
+                                {
+                                    var newPath = copyPath;
+                                    //pwd to asm
+                                    item.Replace(newPath, true);
+
+                                    //var assemblyDocument = item?.OccurrenceDocument as AssemblyDocument;
+                                    //if (assemblyDocument != null)
+                                    //    assemblyDocument.WeldmentAssembly = true;
+
+                                    UpdateProperties(item, false, revisionNumber);
+
+
+                                    Helpers.DesignManagerHelpers.RedefinirLinks(newPath, false);
+
+                                    try
+                                    {
+                                        //File.Delete(newPath);
+                                    }
+                                    catch (Exception)
+                                    {
+
+                                        throw;
+                                    }
+
+                                }
+
+                            }
+                            catch (Exception ex)
+                            {
+
+                                throw ex;
+                            }
+
+                        }
+                    }
+                }
+            }
+
+         
+            
+        }
+
         public static List<Occurrence> GetSelectedOccurrences(SolidEdgeDocument doc, bool all)
         {
 
@@ -160,8 +275,9 @@ namespace Helpers
 
         }
 
-        public static void CreateCopy(string newReName)
+        public static void CreateCopy(string newReName, out string copyPath, bool addToOcurrences = true)
         {
+            copyPath = null;
             SolidEdgeDocument document = ActiveDocument;
             
             var activeDocumentFullName = document.FullName;
@@ -240,6 +356,8 @@ namespace Helpers
                     try
                     {
                         File.Copy(relatedItem, newPath);
+
+                        
                     }
                     catch (Exception ex)
                     {
@@ -254,7 +372,7 @@ namespace Helpers
                   
                 }
 
-
+                
                 try
                 {
                     string val = null;
@@ -262,16 +380,20 @@ namespace Helpers
                     if (val != null)
                     {
 
-                        
-                        double[] matrix = item.GetMatrix();
-                        Occurrences occurrences = ((AssemblyDocument)SolidEdgeAddIn.Instance.Application.ActiveDocument).Occurrences;
-                        
-                        Occurrence occurrence = occurrences.AddWithMatrix(val, matrix);
+                        if (addToOcurrences)
+                        {
+                            double[] matrix = item.GetMatrix();
+                            Occurrences occurrences = ((AssemblyDocument)SolidEdgeAddIn.Instance.Application.ActiveDocument).Occurrences;
+                            Occurrence occurrence = occurrences.AddWithMatrix(val, matrix);
 
-                        UpdateProperties(occurrence);
-
+                            UpdateProperties(occurrence);
+                            
+                        }
 
                         Helpers.DesignManagerHelpers.RedefinirLinks(val);
+
+
+                        copyPath = val;
 
                     }
 
@@ -281,6 +403,8 @@ namespace Helpers
 
                     throw ex;
                 }
+
+                
             }
             Console.ReadLine();
         }
@@ -431,7 +555,7 @@ namespace Helpers
         }
 
         public static RevisionManager.Application revisionManager;
-        public static void RedefinirLinks(string documentPath)
+        public static void RedefinirLinks(string documentPath, bool pwdToAsm = false)
         {
            
             var draftDocument = Path.ChangeExtension(documentPath, ".DFT");
@@ -475,7 +599,7 @@ namespace Helpers
 
                         var linkedPath = linkedDocument.FullName;
 
-                        var linkedPathExtension = Path.GetExtension(linkedPath);
+                        var linkedPathExtension = pwdToAsm ? ".asm" : Path.GetExtension(linkedPath);
 
 
                         var newLinkPath = Path.ChangeExtension(documentPath, linkedPathExtension);
@@ -508,7 +632,7 @@ namespace Helpers
         }
         public static void ReplaceAndCopy(SolidEdgeDocument document, bool allOccurrences, bool revision = false)
         {
-
+            
             var activeDocumentFullName = document.FullName;
             var activeDocumentDirectoryName = Path.GetDirectoryName(activeDocumentFullName);
             Console.WriteLine($"ACTIVEDOCUMENT:{activeDocumentFullName}");
@@ -554,8 +678,8 @@ namespace Helpers
                     revisionNumberString = revisionNumber.ToString("00");
                 }
 
-                
 
+                bool pwdToAsm = false;
                 foreach (var t in relatedItems)
                 {
                     var relatedItem = t;
@@ -581,6 +705,11 @@ namespace Helpers
                         if (assemblyPath != null)
                         {
                             relatedItemExtension = ".asm";
+
+                          
+                            
+
+                            pwdToAsm = true;
                         }
                     }
 
@@ -619,11 +748,17 @@ namespace Helpers
                     var replacement = replaceFiles.TryGetValue(fileName, out val);
                     if (val != null)
                     {
+                        //pwd to asm
                         item.Replace(val, allOccurrences);
 
-                        UpdateProperties(item, revision, revisionNumber);
+                        var assemblyDocument = item?.OccurrenceDocument as AssemblyDocument;
+                        if (assemblyDocument != null)
+                            assemblyDocument.WeldmentAssembly = true;
 
-                        Helpers.DesignManagerHelpers.RedefinirLinks(val);
+                        UpdateProperties(item, revision, revisionNumber);
+                        
+
+                        Helpers.DesignManagerHelpers.RedefinirLinks(val, pwdToAsm);
                     }
                   
                 }
@@ -642,6 +777,7 @@ namespace Helpers
             try
             {
                 var doc = (SolidEdgeDocument)occurrence.OccurrenceDocument;
+                
                 SolidEdgeFramework.PropertySets properties = (SolidEdgeFramework.PropertySets)(doc.Properties);
 
                 var summaryInfo = doc.GetSummaryInfo();
