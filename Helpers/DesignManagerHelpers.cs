@@ -751,9 +751,9 @@ namespace Helpers
                         //pwd to asm
                         item.Replace(val, allOccurrences);
 
-                        var assemblyDocument = item?.OccurrenceDocument as AssemblyDocument;
-                        if (assemblyDocument != null)
-                            assemblyDocument.WeldmentAssembly = true;
+                        //var assemblyDocument = item?.OccurrenceDocument as AssemblyDocument;
+                        //if (assemblyDocument != null)
+                        //    assemblyDocument.WeldmentAssembly = true;
 
                         UpdateProperties(item, revision, revisionNumber);
                         
