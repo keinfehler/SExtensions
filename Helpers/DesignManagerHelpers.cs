@@ -630,7 +630,7 @@ namespace Helpers
 
 
         }
-        public static void ReplaceAndCopy(SolidEdgeDocument document, bool allOccurrences, bool revision = false)
+        public static void ReplaceAndCopy(SolidEdgeDocument document, bool allOccurrences, bool revision = false, bool toParent = false)
         {
             
             var activeDocumentFullName = document.FullName;
@@ -715,11 +715,17 @@ namespace Helpers
 
                     newName = GetNewName(relatedItemfileNameWithoutExtension, revisionNumberString);
 
-                    //directorio padre de la ASSEMBLY
-                    //activeDocumentDirectoryName
+                    //directorio hijo
+                    var targetDirectoryName = occDirectoryName;
+                    if (toParent)
+                    {
+                        //directorio padre
+                        targetDirectoryName = activeDocumentDirectoryName;
+                    }
+                  
 
                     //ahora toma el directorio padre de la OCURRENCIA selecionada => occDirectoryName
-                    newPath = Path.Combine(occDirectoryName, newName + relatedItemExtension);
+                    newPath = Path.Combine(targetDirectoryName, newName + relatedItemExtension);
 
                     Console.WriteLine($"--SUBITEM: {relatedItem}");
                     Console.WriteLine($"----OLDPATH: {relatedItem}");

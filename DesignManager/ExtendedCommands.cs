@@ -24,7 +24,7 @@ namespace DesignManager
         }
         private static void ReplaceAndCopy(bool allOccurrences)
         {
-            Helpers.DesignManagerHelpers.ReplaceAndCopy(Helpers.DesignManagerHelpers.ActiveDocument, allOccurrences);
+            Helpers.DesignManagerHelpers.ReplaceAndCopy(Helpers.DesignManagerHelpers.ActiveDocument, allOccurrences, toParent:true);
         }
         public static void ReplaceAndCopyWithRevision(bool allOccurrences)
         {
