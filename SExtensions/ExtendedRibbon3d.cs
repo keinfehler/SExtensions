@@ -111,8 +111,8 @@ namespace SExtensions
                 case 28:
                     {
                         CurrentApp.SetOcurrenceProperty("X", "Þ");
-                        CurrentApp.SetOcurrenceProperty(nameof(SummaryInfo.DocumentNumber), "♦", true);
-                        CurrentApp.SetOcurrenceProperty(nameof(SummaryInfo.ProjectName), "♦", true);
+                        CurrentApp.SetOcurrenceProperty(nameof(SummaryInfo.DocumentNumber), "♦ ♦ ♦", true);
+                        CurrentApp.SetOcurrenceProperty(nameof(SummaryInfo.ProjectName), "-", true);
                     }
                     break;
 
