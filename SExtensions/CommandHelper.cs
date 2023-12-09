@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using SolidEdgeAssembly;
 using SolidEdgeCommunity.AddIn;
+using SolidEdgeCommunity.Extensions;
 using SolidEdgeFramework;
 using System;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace SExtensions
 {
     public static class CommandHelper
     {
-        private static void SetPropertyValue(object o, string propiedad, string valor)
+        private static void SetPropertyValue(object o, string propiedad, string valor, bool summaryInfo)
         {
 
             Occurrence occ = null;
@@ -38,37 +39,61 @@ namespace SExtensions
 
                 if (document != null)
                 {
-                    var properties = document.Properties as PropertySets;
-                    try
+                    if (summaryInfo && !string.IsNullOrWhiteSpace(propiedad))
                     {
-                        var p = document.Properties;
-                        var propertySets = (SolidEdgeFramework.PropertySets)p;
+                        var summaryInfoProperties = document.GetSummaryInfo();
 
-                        var customProperties = propertySets.Item(4);
-
-                        var items = customProperties.OfType<SolidEdgeFramework.Property>();
-
-                        var property = items.FirstOrDefault(t => t.Name == propiedad);
-
-                        if (property != null)
+                        try
                         {
-                            property.set_Value(valor);
+                            typeof(SummaryInfo).GetProperty(propiedad).SetValue(summaryInfoProperties, valor);
 
-                            //return property.get_Value()?.ToString() ?? string.Empty;
-                        }
-                        else
-                        {
-                            customProperties.Add(propiedad, valor);
-                            customProperties.Save();
+                            
 
                         }
+                        catch (Exception)
+                        {
 
+                            return;
+                        }
                     }
-                    catch (Exception)
+                    else
                     {
-                        //return string.Empty;
-                        //MessageBox.Show(ex.Message);
+                        var properties = document.Properties as PropertySets;
+                        try
+                        {
+                            var p = document.Properties;
+
+                            var propertySets = (SolidEdgeFramework.PropertySets)p;
+
+
+                            var customProperties = propertySets.Item(4);
+
+                            var items = customProperties.OfType<SolidEdgeFramework.Property>();
+
+                            var property = items.FirstOrDefault(t => t.Name == propiedad);
+
+                            if (property != null)
+                            {
+                                property.set_Value(valor);
+
+                                //return property.get_Value()?.ToString() ?? string.Empty;
+                            }
+                            else
+                            {
+                                customProperties.Add(propiedad, valor);
+                                customProperties.Save();
+
+                            }
+
+                        }
+                        catch (Exception)
+                        {
+                            //return string.Empty;
+                            //MessageBox.Show(ex.Message);
+                        }
                     }
+                    
+                
                 }
             }
         }
@@ -82,7 +107,7 @@ namespace SExtensions
         /// </summary>
         /// <param name="propiedad"></param>
         /// <param name="valor"></param>
-        public static void SetOcurrenceProperty(this SolidEdgeFramework.Application app, string propiedad, string valor)
+        public static void SetOcurrenceProperty(this SolidEdgeFramework.Application app, string propiedad, string valor, bool useSumaryInfo = false)
         {
             foreach (object item in app.ActiveSelectSet)
             {
@@ -147,7 +172,7 @@ namespace SExtensions
 
                 if (occ != null)
                 {
-                    SetPropertyValue(occ, propiedad, valor);
+                    SetPropertyValue(occ, propiedad, valor, useSumaryInfo);
                 }
                 
             }

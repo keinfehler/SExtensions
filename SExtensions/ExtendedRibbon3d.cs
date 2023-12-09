@@ -102,30 +102,17 @@ namespace SExtensions
                 case 27:
                     {
                         CurrentApp.SetOcurrenceProperty("X", "®");
-
-                        var assembly = CurrentApp.GetActiveDocument<AssemblyDocument>();
-                        if (assembly != null)
-
-                        {
-                            var summaryInfo = assembly.GetSummaryInfo();
-                            summaryInfo.DocumentNumber = "-";
-                            summaryInfo.ProjectName = "-";
-                        }
+                        CurrentApp.SetOcurrenceProperty(nameof(SummaryInfo.DocumentNumber), "-", true);
+                        CurrentApp.SetOcurrenceProperty(nameof(SummaryInfo.ProjectName), "-", true);
+                        
                     }
                     break;
 
                 case 28:
                     {
                         CurrentApp.SetOcurrenceProperty("X", "Þ");
-
-                        var assembly = CurrentApp.GetActiveDocument<AssemblyDocument>();
-                        if (assembly != null)
-
-                        {
-                            var summaryInfo = assembly.GetSummaryInfo();
-                            summaryInfo.DocumentNumber = "♦ ♦ ♦";
-                            summaryInfo.ProjectName = "-";
-                        }
+                        CurrentApp.SetOcurrenceProperty(nameof(SummaryInfo.DocumentNumber), "♦", true);
+                        CurrentApp.SetOcurrenceProperty(nameof(SummaryInfo.ProjectName), "♦", true);
                     }
                     break;
 
