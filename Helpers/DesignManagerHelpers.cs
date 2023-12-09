@@ -124,7 +124,7 @@ namespace Helpers
                                 {
                                     var newPath = copyPath;
                                     //pwd to asm
-                                    item.Replace(newPath, true);
+                                    item.Replace(newPath, false);
 
                                     //var assemblyDocument = item?.OccurrenceDocument as AssemblyDocument;
                                     //if (assemblyDocument != null)
@@ -655,8 +655,8 @@ namespace Helpers
                 Console.WriteLine($"-OCCURRENCE-FILE: {fileName}");
 
 
-                var directoryName = Path.GetDirectoryName(filePath);
-                Console.WriteLine($"-DIRECTORY: {directoryName}");
+                var occDirectoryName = Path.GetDirectoryName(filePath);
+                Console.WriteLine($"-DIRECTORY: {occDirectoryName}");
 
 
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
@@ -664,7 +664,7 @@ namespace Helpers
                 //extraer la extension del elemento seleccionado
                 
 
-                var relatedItems = Directory.GetFiles(directoryName, $"{fileNameWithoutExtension}*");
+                var relatedItems = Directory.GetFiles(occDirectoryName, $"{fileNameWithoutExtension}*");
 
 
           
@@ -715,7 +715,11 @@ namespace Helpers
 
                     newName = GetNewName(relatedItemfileNameWithoutExtension, revisionNumberString);
 
-                    newPath = Path.Combine(activeDocumentDirectoryName, newName + relatedItemExtension);
+                    //directorio padre de la ASSEMBLY
+                    //activeDocumentDirectoryName
+
+                    //ahora toma el directorio padre de la OCURRENCIA selecionada => occDirectoryName
+                    newPath = Path.Combine(occDirectoryName, newName + relatedItemExtension);
 
                     Console.WriteLine($"--SUBITEM: {relatedItem}");
                     Console.WriteLine($"----OLDPATH: {relatedItem}");
@@ -767,7 +771,7 @@ namespace Helpers
 
                     throw ex;
                 }
-                Console.WriteLine($"{filePath}  -  {directoryName}  -  {fileName}");
+                Console.WriteLine($"{filePath}  -  {occDirectoryName}  -  {fileName}");
             }
             Console.ReadLine();
         }
