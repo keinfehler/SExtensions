@@ -48,7 +48,7 @@
 			<button id="0"
 				   size="large"
 				   label="Reemplaza  por Copia"
-				   screentip="Reeplazar con Copia +"
+				   screentip="Reeplazar por Copia"
 				   supertip="Reemplaza por una copia de la ocurrencia seleccionada.&#13;&#13;Automáticamente:&#13;&#13;♦ Guarda la copia en el directorio de trabajo padre.&#13;♦ Copia plano y redefine vinculos.&#13;♦ Resetea revisiones.&#13;♦ Redefine vínculos que pudiera tener la pieza al conjunto actual.&#13;♦ Si es PWD lo sustituyte por el ASM constructivo.&#13;♦ Actualiza las propiedades.&#13;&#13;Por defecto, sustituye todas las ocurrencias idénticas que haya en el nivel de ensamblaje actual. Para sustituir solo la ocurrencia seleccionada, active el Check ‘Only’."
 				   imageId="0"
 				   enabled="true" />
@@ -61,20 +61,20 @@
 				 imageId="6"
 				 enabled="true" />
 
-			<button id="21"
-				 size="large"
-				 label="Sustituye  por Copia +"
-				 screentip="Reemplaza  usando Copia"
-				 supertip="Sustituye la ocurrencia seleccionada por una nueva copia con el nuevo nombre asignado.&#13;&#13;Automáticamente:&#13;&#13;Guarda la copia en el directorio de trabajo.&#13;Copia el plano.&#13;Resetea revisiones.&#13;Redefine vínculos que pudiera tener la pieza al conjunto actual.&#13;Actualiza las propiedades. &#13;Se debe definir el nuevo nombre de la copia."
-				 imageId="21"
-				 enabled="true" />
-
 			<button id="5"
 				 size="large"
 				 label="Sustituye  por Rev"
 				 screentip="Reemplaza por Revision"
 				 supertip="Reemplaza por una copia de la ocurrencia seleccionada.&#13;&#13;Automáticamente:&#13;&#13;Genera la siguiente revisión.&#13;Guarda la copia en el directorio de trabajo.&#13;Copia el plano.&#13;Actualiza revisiones.&#13;Redefine vínculos que pudiera tener la pieza al conjunto actual.&#13;&#13;Por defecto, sustituye todas las ocurrencias idénticas que haya en el nivel de ensamblaje actual. Para sustituir solo la ocurrencia seleccionada, active el Check ‘Only’."
 				 imageId="5"
+				 enabled="true" />
+
+			<button id="21"
+				 size="large"
+				 label="Sustituye  Nueva Copia"
+				 screentip="Sustituye  por Copia con Nuevo Nombre"
+				 supertip="Sustituye la ocurrencia seleccionada por una nueva copia con el NUEVO NOMBRE asignado.&#13;&#13;Automáticamente:&#13;&#13;Guarda la copia en el directorio de trabajo.&#13;Copia el plano.&#13;Resetea revisiones.&#13;Redefine vínculos que pudiera tener la pieza al conjunto actual.&#13;Actualiza las propiedades. &#13;Se debe definir el nuevo nombre de la copia."
+				 imageId="21"
 				 enabled="true" />
 
 
