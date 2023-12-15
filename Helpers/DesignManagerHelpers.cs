@@ -48,8 +48,12 @@ namespace Helpers
             return result;
         }
 
+        
         public static void ReplaceUsingNew(string copyPath)
         {
+
+            //directorio de la copia nueva
+
             var document = ActiveDocument;
             var asseDocument = ActiveDocument as SolidEdgeAssembly.AssemblyDocument;
             if (asseDocument != null)
@@ -275,7 +279,7 @@ namespace Helpers
 
         }
 
-        public static void CreateCopy(string newReName, out string copyPath, bool addToOcurrences = true)
+        public static void CreateCopy(string newReName, out string copyPath, bool addToOcurrences = true, bool deleteAfterRename = false)
         {
             copyPath = null;
             SolidEdgeDocument document = ActiveDocument;
@@ -332,7 +336,7 @@ namespace Helpers
                     var newPath = relatedItem;
                     var newName = relatedItemfileNameWithoutExtension;
 
-                    filesToDelete.Add(relatedItem);
+                    
 
                     newName = newReName + "-00";//GetNewName(relatedItemfileNameWithoutExtension);
 
@@ -352,10 +356,13 @@ namespace Helpers
 
                         throw ex;
                     }
-
+                    filesToDelete.Add(relatedItem);
                     try
                     {
+
                         File.Copy(relatedItem, newPath);
+                        
+                        
 
                         
                     }
@@ -403,8 +410,22 @@ namespace Helpers
 
                     throw ex;
                 }
+                if (deleteAfterRename)
+                {
+                    try
+                    {
+                        foreach (var fileToDelete in filesToDelete)
+                        {
+                            File.Delete(fileToDelete);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
 
-                
+                        throw ex;
+                    }
+                }
+               
             }
             Console.ReadLine();
         }

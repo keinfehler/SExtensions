@@ -29,8 +29,8 @@ namespace DesignManager
                 }
                 else if (CreateAndReplace)
                 {
-                    string copyPath = null;
-                    Helpers.DesignManagerHelpers.CreateCopy(textBox1.Text, out copyPath, addToOcurrences: false);
+                    string copyPath;
+                    Helpers.DesignManagerHelpers.CreateCopy(textBox1.Text, out copyPath, addToOcurrences: false, deleteAfterRename:false);
                     Helpers.DesignManagerHelpers.ReplaceUsingNew(copyPath);
 
                 }
