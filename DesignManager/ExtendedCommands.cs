@@ -86,6 +86,8 @@ namespace DesignManager
             var newNameForm = new FormRename();
             newNameForm.CreateAndReplace = true;
             newNameForm.ShowDialog();
+            
+            
         }
 
         internal static void OpenDraftFiles()

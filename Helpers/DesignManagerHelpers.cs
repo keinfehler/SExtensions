@@ -279,9 +279,9 @@ namespace Helpers
 
         }
 
-        public static void CreateCopy(string newReName, out string copyPath, bool addToOcurrences = true, bool deleteAfterRename = false)
+        public static void CreateCopy(string newReName, bool addToOcurrences = true, bool deleteAfterRename = false)
         {
-            copyPath = null;
+            
             SolidEdgeDocument document = ActiveDocument;
             
             var activeDocumentFullName = document.FullName;
@@ -340,7 +340,18 @@ namespace Helpers
 
                     newName = newReName + "-00";//GetNewName(relatedItemfileNameWithoutExtension);
 
-                    newPath = Path.Combine(relatedItemDirectoryName, newName + relatedItemExtension);
+                    ///va al padre a piñon fijo!!!! porq esta la bandera toParent = true!!
+                    var toParent = true;
+                    //directorio hijo
+                    var targetDirectoryName = relatedItemDirectoryName;
+                    if (toParent)
+                    {
+                        //directorio padre
+                        targetDirectoryName = activeDocumentDirectoryName;
+                    }
+
+
+                    newPath = Path.Combine(targetDirectoryName, newName + relatedItemExtension);
 
                     Console.WriteLine($"--SUBITEM: {relatedItem}");
                     Console.WriteLine($"----OLDPATH: {relatedItem}");
@@ -376,7 +387,9 @@ namespace Helpers
                     {
                         replaceFiles.Add(fileName, newPath);
                     }
-                  
+
+                    //Helpers.DesignManagerHelpers.ReplaceUsingNew(newPath);
+
                 }
 
                 
@@ -400,7 +413,7 @@ namespace Helpers
                         Helpers.DesignManagerHelpers.RedefinirLinks(val);
 
 
-                        copyPath = val;
+                        //copyPath = val;
 
                     }
 
@@ -648,10 +661,8 @@ namespace Helpers
                 throw ex;
             }
 
-
-
         }
-        public static void ReplaceAndCopy(SolidEdgeDocument document, bool allOccurrences, bool revision = false, bool toParent = false)
+        public static void ReplaceAndCopy(SolidEdgeDocument document, bool allOccurrences, bool revision = false, bool toParent = false, string customName = null)
         {
             
             var activeDocumentFullName = document.FullName;
@@ -701,6 +712,7 @@ namespace Helpers
 
 
                 bool pwdToAsm = false;
+
                 foreach (var t in relatedItems)
                 {
                     var relatedItem = t;
@@ -710,6 +722,8 @@ namespace Helpers
                     //var relatedItemDirectoryName = Path.GetDirectoryName(relatedItem);
                     //var relatedItemfileName = Path.GetFileName(relatedItem);
                     var relatedItemfileNameWithoutExtension = Path.GetFileNameWithoutExtension(relatedItem);
+         
+
                     var relatedItemExtension = Path.GetExtension(relatedItem);
 
                     var newPath = relatedItem;
@@ -717,6 +731,12 @@ namespace Helpers
 
 
                     var newName = relatedItemfileNameWithoutExtension;
+
+                    if (!string.IsNullOrWhiteSpace(customName))
+                    {
+                        newName = customName;
+                    }
+
 
 
                     if (fileExtension == ".pwd")
@@ -726,15 +746,11 @@ namespace Helpers
                         if (assemblyPath != null)
                         {
                             relatedItemExtension = ".asm";
-
-                          
-                            
-
                             pwdToAsm = true;
                         }
                     }
 
-                    newName = GetNewName(relatedItemfileNameWithoutExtension, revisionNumberString);
+                    newName = GetNewName(newName, revisionNumberString);
 
                     //directorio hijo
                     var targetDirectoryName = occDirectoryName;
@@ -782,9 +798,13 @@ namespace Helpers
                         //pwd to asm
                         item.Replace(val, allOccurrences);
 
-                        //var assemblyDocument = item?.OccurrenceDocument as AssemblyDocument;
-                        //if (assemblyDocument != null)
-                        //    assemblyDocument.WeldmentAssembly = true;
+                        if (pwdToAsm)
+                        {
+                            var assemblyDocument = item?.OccurrenceDocument as AssemblyDocument;
+                            if (assemblyDocument != null)
+                                assemblyDocument.WeldmentAssembly = true;
+                        }
+
 
                         UpdateProperties(item, revision, revisionNumber);
                         
