@@ -153,6 +153,9 @@
     <Content Include="res\SyN - Cad Arbol.png" />
     <Content Include="res\SyN - Cad Read.png" />
     <Content Include="res\SyN - Cad Write.png" />
+    <Content Include="res\SyN-Batch.png" />
+    <Content Include="res\SyN-BatchA.png" />
+    <Content Include="res\SyN-BatchB.png" />
     <Content Include="res\SyN-Guardar.png" />
     <Content Include="res\SyN-R0.png" />
     <Content Include="res\SyN-R1.png" />

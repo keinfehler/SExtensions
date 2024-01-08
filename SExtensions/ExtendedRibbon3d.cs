@@ -116,6 +116,20 @@ namespace SExtensions
                     }
                     break;
 
+                case 29:
+                    {
+                        System.Diagnostics.Process.Start("X:/CAD/CONFIGURACIONES/SOLID/macros/08-SyN-CambioFondos/08 - FormatoPieza/08 - FormatoPieza.exe"); //ubicacion donde esta el ejecutable)
+
+                    }
+                    break;
+
+                case 30:
+                    {
+                        System.Diagnostics.Process.Start("X:/CAD/CONFIGURACIONES/SOLID/macros/08-SyN-CambioFondos/08 - FormatoConjunto/08 - FormatoConjunto.exe"); //ubicacion donde esta el ejecutable)
+
+                    }
+                    break;
+
                 case 2:
                     {
                         var exportarHijos = false;

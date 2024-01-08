@@ -41,6 +41,8 @@ using System.Runtime.InteropServices;
 [assembly: NativeResource(26, @"res\SyN - Cad Arbol.png")]
 [assembly: NativeResource(27, @"res\SyN - Cad Write.png")]
 [assembly: NativeResource(28, @"res\SyN - Cad Arbol.png")]
+[assembly: NativeResource(29, @"res\SyN-BatchA.png")]
+[assembly: NativeResource(30, @"res\SyN-BatchB.png")]
 
 
 // Allgemeine Informationen über eine Assembly werden über die folgenden
