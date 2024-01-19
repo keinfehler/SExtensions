@@ -104,7 +104,8 @@ namespace SExtensions
                         CurrentApp.SetOcurrenceProperty("X", "®");
                         CurrentApp.SetOcurrenceProperty(nameof(SummaryInfo.DocumentNumber), "-", true);
                         CurrentApp.SetOcurrenceProperty(nameof(SummaryInfo.ProjectName), "-", true);
-                        
+                        CurrentApp.SetOcurrenceProperty(nameof(SummaryInfo.RevisionNumber), "-", true);
+
                     }
                     break;
 
@@ -112,7 +113,8 @@ namespace SExtensions
                     {
                         CurrentApp.SetOcurrenceProperty("X", "Þ");
                         CurrentApp.SetOcurrenceProperty(nameof(SummaryInfo.DocumentNumber), "♦ ♦ ♦", true);
-                        CurrentApp.SetOcurrenceProperty(nameof(SummaryInfo.ProjectName), "-", true);
+                        CurrentApp.SetOcurrenceProperty(nameof(SummaryInfo.ProjectName), "♦ ♦ ♦", true);
+                        CurrentApp.SetOcurrenceProperty(nameof(SummaryInfo.RevisionNumber), "0", true);
                     }
                     break;
 
