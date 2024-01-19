@@ -835,7 +835,8 @@ namespace Helpers
                 if (!revision)
                 {
                     summaryInfo.DocumentNumber = "♦ ♦ ♦";
-                    summaryInfo.ProjectName = "-";
+                    summaryInfo.ProjectName = "♦ ♦ ♦";
+                    summaryInfo.RevisionNumber = "0";
                     summaryInfo.Keywords = " ";
                     summaryInfo.Comments = " ";
                     summaryInfo.Subject = " ";
